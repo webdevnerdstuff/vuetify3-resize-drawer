@@ -1,0 +1,119 @@
+{
+	"name": "vuetify3-resize-drawer",
+	"version": "1.0.1",
+	"description": "The vuetify-resize-drawer component extends the functionality of the v-navigation-drawer so that it is resizable by the user.",
+	"private": false,
+	"main": "dist/vuetify3-resize-drawer.js",
+	"module": "dist/vuetify3-resize-drawer.es.js",
+	"types": "dist/plugin/VuetifyResizeDrawer.d.ts",
+	"scripts": {
+		"dev": "vite",
+		"watch": "pnpm dev",
+		"bundle": "rollup -c --bundleConfigAsCjs",
+		"build": "vite build",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d docs",
+		"prepublishOnly": "npm run bundle",
+		"lint": "eslint src/**/*.{ts,vue} --max-warnings 4"
+	},
+	"lint-staged": {
+		"src/**/*.{js,ts,vue}": [
+			"npm run lint"
+		]
+	},
+	"author": "WebDevNerdStuff & Bunnies... lots and lots of bunnies! <webdevnerdstuff@gmail.com> (https://webdevnerdstuff.com)",
+	"funding": [
+		{
+			"type": "patreon",
+			"url": "https://www.patreon.com/WebDevNerdStuff"
+		},
+		{
+			"type": "individual",
+			"url": "https://bit.ly/wdns-paypal-veet-plugin"
+		}
+	],
+	"license": "MIT",
+	"files": [
+		"dist/*",
+		"LICENSE.md",
+		"README.md"
+	],
+	"repository": "https://github.com/webdevnerdstuff/vuetify3-resize-drawer",
+	"bugs": {
+		"url": "https://github.com/webdevnerdstuff/vuetify3-resize-drawer/issues"
+	},
+	"homepage": "https://github.com/webdevnerdstuff/vuetify3-resize-drawer",
+	"keywords": [
+		"vuetify-resize-drawer",
+		"vuetifyResizeDrawer",
+		"v-resize-drawer",
+		"vResizeDrawer",
+		"vuetify",
+		"vuetify3",
+		"navigation drawer",
+		"v-navigation-drawer",
+		"vNavigationDrawer",
+		"api",
+		"drawer",
+		"resize",
+		"resizable",
+		"vue",
+		"vue3",
+		"component",
+		"javascript",
+		"webdevnerdstuff",
+		"wdns"
+	],
+	"peerDependencies": {
+		"vue": "^3.2.47",
+		"vuetify": "3.1.2"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.20.5",
+		"@babel/eslint-parser": "^7.19.1",
+		"@mdi/font": "^7.1.96",
+		"@rollup/plugin-alias": "^4.0.3",
+		"@rollup/plugin-commonjs": "^24.0.1",
+		"@rollup/plugin-json": "^6.0.0",
+		"@rollup/plugin-node-resolve": "^15.0.1",
+		"@types/lodash": "^4.14.191",
+		"@types/node": "^18.11.18",
+		"@typescript-eslint/eslint-plugin": "^5.48.2",
+		"@typescript-eslint/parser": "^5.48.2",
+		"@vitejs/plugin-vue": "^4.0.0",
+		"@vue/cli-plugin-babel": "^5.0.8",
+		"@vue/cli-plugin-eslint": "^5.0.8",
+		"@vue/cli-service": "^5.0.8",
+		"@vue/compiler-sfc": "^3.2.45",
+		"@vue/eslint-config-typescript": "^11.0.2",
+		"autoprefixer": "^10.4.12",
+		"eslint": "^8.34.0",
+		"eslint-config-prettier": "^8.6.0",
+		"eslint-plugin-import": "^2.27.5",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-vue": "^9.9.0",
+		"gh-pages": "^5.0.0",
+		"husky": "^8.0.0",
+		"lint-staged": "^13.1.0",
+		"postcss": "^8.1.14",
+		"postcss-html": "^1.5.0",
+		"postcss-scss": "^4.0.6",
+		"prettier": "^2.8.3",
+		"rollup": "^3.10.1",
+		"rollup-plugin-polyfill-node": "^0.12.0",
+		"rollup-plugin-typescript2": "^0.34.1",
+		"sass": "^1.56.2",
+		"stylelint": "^15.0.0",
+		"stylelint-config-standard": "^30.0.1",
+		"stylelint-order": "^6.0.2",
+		"stylelint-scss": "^4.3.0",
+		"typescript": "^4.9.3",
+		"vite": "^4.1.1",
+		"vite-plugin-babel": "^1.1.2",
+		"vite-plugin-eslint": "^1.8.1",
+		"vite-plugin-stylelint": "^4.2.0",
+		"vite-plugin-vuetify": "^1.0.2",
+		"vue": "^3.2.47",
+		"vuetify": "3.1.2"
+	}
+}
