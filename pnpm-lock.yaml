@@ -31,6 +31,7 @@ specifiers:
   postcss-html: ^1.5.0
   postcss-scss: ^4.0.6
   prettier: ^2.8.3
+  roboto-fontface: ^0.10.0
   rollup: ^3.10.1
   rollup-plugin-polyfill-node: ^0.12.0
   rollup-plugin-typescript2: ^0.34.1
@@ -47,6 +48,7 @@ specifiers:
   vite-plugin-vuetify: ^1.0.2
   vue: ^3.2.47
   vuetify: 3.1.2
+  webfontloader: ^1.6.28
 
 devDependencies:
   '@babel/core': 7.20.12
@@ -79,6 +81,7 @@ devDependencies:
   postcss-html: 1.5.0
   postcss-scss: 4.0.6_postcss@8.4.21
   prettier: 2.8.4
+  roboto-fontface: 0.10.0
   rollup: 3.15.0
   rollup-plugin-polyfill-node: 0.12.0_rollup@3.15.0
   rollup-plugin-typescript2: 0.34.1_xswiuafr57fmdlvfpvse52fe3e
@@ -95,6 +98,7 @@ devDependencies:
   vite-plugin-vuetify: 1.0.2_d244u4kgmj6vuhcwfo56xynpqy
   vue: 3.2.47
   vuetify: 3.1.2_zhdigtlnoj4qfl4bi7c6fb2bly
+  webfontloader: 1.6.28
 
 packages:
 
@@ -7435,6 +7439,10 @@ packages:
       glob: 7.2.3
     dev: true
 
+  /roboto-fontface/0.10.0:
+    resolution: {integrity: sha512-OlwfYEgA2RdboZohpldlvJ1xngOins5d7ejqnIBWr9KaMxsnBqotpptRXTyfNRLnFpqzX6sTDt+X+a+6udnU8g==}
+    dev: true
+
   /rollup-plugin-polyfill-node/0.12.0_rollup@3.15.0:
     resolution: {integrity: sha512-PWEVfDxLEKt8JX1nZ0NkUAgXpkZMTb85rO/Ru9AQ69wYW8VUCfDgP4CGRXXWYni5wDF0vIeR1UoF3Jmw/Lt3Ug==}
     peerDependencies:
@@ -8707,6 +8715,10 @@ packages:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
     dependencies:
       defaults: 1.0.4
+    dev: true
+
+  /webfontloader/1.6.28:
+    resolution: {integrity: sha512-Egb0oFEga6f+nSgasH3E0M405Pzn6y3/9tOVanv/DLfa1YBIgcv90L18YyWnvXkRbIM17v5Kv6IT2N6g1x5tvQ==}
     dev: true
 
   /webidl-conversions/3.0.1:

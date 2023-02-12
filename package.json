@@ -99,6 +99,7 @@
 		"postcss-html": "^1.5.0",
 		"postcss-scss": "^4.0.6",
 		"prettier": "^2.8.3",
+		"roboto-fontface": "^0.10.0",
 		"rollup": "^3.10.1",
 		"rollup-plugin-polyfill-node": "^0.12.0",
 		"rollup-plugin-typescript2": "^0.34.1",
@@ -114,6 +115,7 @@
 		"vite-plugin-stylelint": "^4.2.0",
 		"vite-plugin-vuetify": "^1.0.2",
 		"vue": "^3.2.47",
-		"vuetify": "3.1.2"
+		"vuetify": "3.1.2",
+		"webfontloader": "^1.6.28"
 	}
 }
