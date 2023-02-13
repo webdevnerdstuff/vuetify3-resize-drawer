@@ -6,10 +6,14 @@ import * as directives from 'vuetify/directives';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import { createVuetify } from 'vuetify';
 
+// ! This is Labs workaround, need to update later //
+import * as labs from 'vuetify/labs/components';
+
 
 export default createVuetify({
 	components: {
 		components,
+		...labs,
 	},
 	directives,
 	icons: {
