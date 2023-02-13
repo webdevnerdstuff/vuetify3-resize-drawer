@@ -16,7 +16,7 @@ export default defineConfig({
 		preprocessorOptions: {
 			scss: {
 				additionalData: `
-					@import "./resources/scss/app.scss";
+					@import "./src/scss/app.scss";
 				`,
 			},
 		},
@@ -28,7 +28,7 @@ export default defineConfig({
 		babel(),
 		StylelintPlugin({
 			fix: true,
-			include: ['resources/**/*.{css,scss,sass,vue}'],
+			include: ['src/**/*.{css,scss,sass,vue}'],
 		}),
 		vue({
 			template: { transformAssetUrls }
