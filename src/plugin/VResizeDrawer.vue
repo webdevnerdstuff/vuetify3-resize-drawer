@@ -4,15 +4,21 @@
 		ref="resizeDrawer"
 		class="v-resize-drawer"
 		:class="drawerClasses"
+		:color="drawerOptions.color"
 		:location="drawerOptions.location"
 		:model-value="modelValue"
 		:style="drawerStyles"
-		tag="nav"
+		:tag="drawerOptions.tag"
+		:theme="drawerOptions.theme"
 		:width="drawerWidth"
 	>
 		<!-- Resize handle -->
 		<div
-			v-if="isResizable"
+			v-if="
+				drawerOptions.resizable &&
+				!drawerOptions.rail &&
+				!drawerOptions.expandOnHover
+			"
 			class="handle-container d-flex"
 			:class="{ [handleClasses]: drawerOptions.handlePosition }"
 			:style="handleStyles"
@@ -39,12 +45,15 @@
 						drawerOptions.handlePosition,
 				}"
 			>
-				<slot v-if="slots.handle" name="handle"></slot>
-				<div v-else :class="{ 'handle-container-handle-flip': isRightSide }">
-					&raquo;
+				<slot v-if="slots.handle" name="handle">dddd</slot>
+				<div
+					v-else
+					:class="{
+						'handle-container-handle-flip': drawerOptions.location === 'right',
+					}"
+				>
+					&raquo; {{ slots.handle }}
 				</div>
-
-				<!-- <div :class="{ 'handle-container-handle-flip': false }">&raquo;</div> -->
 			</div>
 
 			<!-- Top Icon -->
@@ -99,7 +108,7 @@
 
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, useSlots } from 'vue';
+import { computed, defineComponent, onMounted, reactive, ref, useSlots, watch } from 'vue';
 import { Entry } from '@/types';
 import { VNavigationDrawer } from 'vuetify/components';
 
@@ -161,49 +170,74 @@ export default defineComponent({
 	},
 	setup(props, { emit }) {
 		// Options //
-		const drawerOptions = filterObject(props, ([key]) => {
-			const value = props[key];
-			return typeof value !== 'undefined' && value !== null;
-		});
-
-		console.log({ VNavigationDrawer });
-		console.log({ drawerOptions });
+		let drawerOptions = reactive(props);
+		// console.log({ drawerOptions });
 
 		const defaultWidth: number = ref(256);
+		const drawerClasses: object[] = ref({});
 		const events: object[] = {
 			handle: {
 				mouseUp: true as boolean,
 				mouseDown: false as boolean,
 			},
 		};
+		const handleClasses: string = ref('');
 		const isDark: boolean = ref(false);
 		const isMouseover: boolean = ref(false);
 		const resizeDrawer: object = ref(null);
 		const resizedWidth: [number | string] = ref(256);
 		const slots = useSlots();
 
-		// -------------------------------------------------- Computed //
-		const drawerClasses: string = computed(() => {
-			return {
-				'v-navigation-drawer--absolute': drawerOptions.absolute,
-				'v-navigation-drawer--bottom': drawerOptions.bottom,
-				'v-navigation-drawer--clipped': drawerOptions.clipped,
-				'v-navigation-drawer--close': !drawerOptions.isActive,
-				'v-navigation-drawer--fixed': !drawerOptions.absolute && (drawerOptions.app || drawerOptions.fixed),
-				'v-navigation-drawer--floating': drawerOptions.floating,
-				'v-navigation-drawer--is-mobile': drawerOptions.isMobile,
-				'v-navigation-drawer--is-mouseover': isMouseover.value,
-				'v-navigation-drawer--rail': drawerOptions.rail,
-				'v-navigation-drawer--custom-rail': Number(drawerOptions.railWidth) !== 56,
-				'v-navigation-drawer--open-on-hover': drawerOptions.expandOnHover,
-				'v-navigation-drawer--right': isRightSide,
-				'v-navigation-drawer--temporary': drawerOptions.temporary,
-				'v-navigation-drawer--overflow': drawerOptions.overflow,
-			};
+
+		// -------------------------------------------------- Mounted //
+		onMounted(() => {
+			updateDrawerOptions();
+			init();
 		});
 
-		const drawerStyles: string = computed(() => {
-			const translate = drawerOptions.location === 'bottom' ? 'translateY' : 'translateX';
+		function init(): boolean {
+			const width = convertToUnit(drawerOptions.width);
+			resizedWidth.value = width;
+
+			// Disable resize if mini-variant is set //
+			if (drawerOptions.rail) {
+				resizedWidth.value = drawerOptions.railWidth || undefined;
+				return false;
+			}
+
+			const storageWidth = getLocalStorage();
+
+			defaultWidth.value = resizedWidth.value;
+
+			if (drawerOptions.saveWidth && storageWidth && !drawerOptions.rail) {
+				resizedWidth.value = getLocalStorage();
+			}
+
+			genListeners();
+			setLocalStorage('set');
+
+			return false;
+		}
+
+
+		// -------------------------------------------------- Watch for props if updated //
+		watch(props, () => {
+			// console.log('props', { value, oldValue });
+
+			updateDrawerOptions();
+		});
+
+		function updateDrawerOptions(): void {
+			drawerOptions = { ...props };
+
+			buildDrawerClasses();
+			buildHandleClasses();
+		}
+
+
+		// -------------------------------------------------- Computed //
+		const drawerStyles = computed(() => {
+			// const translate = drawerOptions.location === 'bottom' ? 'translateY' : 'translateX';
 
 			const styles = {
 				height: convertToUnit(drawerOptions.height),
@@ -215,7 +249,6 @@ export default defineComponent({
 				width: convertToUnit(drawerOptions.rail ? drawerOptions.railWidth : resizedWidth.value),
 			};
 
-			// const styles = '';
 			return styles;
 		});
 
@@ -223,25 +256,7 @@ export default defineComponent({
 			return convertToUnit(resizedWidth.value);
 		});
 
-		const handleClasses: string = computed(() => {
-			let className = `handle-container-${drawerOptions.handlePosition}`;
-
-			if (slots.handle && drawerOptions.handlePosition === 'top-icon') {
-				className += '-slot';
-			}
-
-			if (drawerOptions.handlePosition === 'border' || drawerOptions.handlePosition === 'left' || drawerOptions.handlePosition === 'right' || drawerOptions.handlePosition === 'center') {
-				className += ' align-center justify-center';
-			}
-
-			// Parent //
-			const parentPosition = isRightSide.value ? 'right' : 'left';
-			className += ` handle-container-parent-${parentPosition}`;
-
-			return className;
-		});
-
-		const handleStyles: string = computed(() => {
+		const handleStyles = computed(() => {
 			const color = isDark.value ? drawerOptions.handleColor.dark : drawerOptions.handleColor.light;
 			let styles = `border-${drawerOptions.handlePosition}-color: ${color};`;
 
@@ -262,48 +277,52 @@ export default defineComponent({
 			return styles;
 		});
 
-		const isRightSide: boolean = computed(() => {
-			return drawerOptions.location === 'right';
-		});
 
-		const isResizable: boolean = computed(() => {
-			return drawerOptions.resizable && !drawerOptions.rail && !drawerOptions.expandOnHover;
-		});
-
-		// -------------------------------------------------- Mounted //
-		onMounted(() => {
-			init();
-			genListeners();
-			setLocalStorage('set');
-		});
-
-		function init() {
-			const width = convertToUnit(drawerOptions.width);
-			resizedWidth.value = width;
-
-			// Disable resize if mini-variant is set //
-			if (drawerOptions.rail) {
-				resizedWidth.value = drawerOptions.railWidth || undefined;
-				return false;
-			}
-
-			const storageWidth = getLocalStorage();
-
-			defaultWidth.value = resizedWidth.value;
-
-			if (drawerOptions.saveWidth && storageWidth && !drawerOptions.rail) {
-				resizedWidth.value = getLocalStorage();
-			}
-
-			return false;
+		// -------------------------------------------------- Classes & Styles //
+		function buildDrawerClasses(): void {
+			drawerClasses.value = {
+				'v-navigation-drawer--absolute': drawerOptions.absolute,
+				'v-navigation-drawer--bottom': drawerOptions.bottom,
+				'v-navigation-drawer--clipped': drawerOptions.clipped,
+				// 'v-navigation-drawer--close': !drawerOptions.isActive,
+				'v-navigation-drawer--fixed': !drawerOptions.absolute && (drawerOptions.app || drawerOptions.fixed),
+				'v-navigation-drawer--floating': drawerOptions.floating,
+				'v-navigation-drawer--is-mobile': drawerOptions.isMobile,
+				'v-navigation-drawer--is-mouseover': isMouseover.value,
+				'v-navigation-drawer--rail': drawerOptions.rail,
+				'v-navigation-drawer--custom-rail': Number(drawerOptions.railWidth) !== 56,
+				'v-navigation-drawer--open-on-hover': drawerOptions.expandOnHover,
+				'v-navigation-drawer--right': drawerOptions.location === 'right',
+				'v-navigation-drawer--temporary': drawerOptions.temporary,
+				'v-navigation-drawer--overflow': drawerOptions.overflow,
+			};
 		}
 
+		function buildHandleClasses(): void {
+			let className = `handle-container-${drawerOptions.handlePosition}`;
+
+			if (slots.handle && drawerOptions.handlePosition === 'top-icon') {
+				className += '-slot';
+			}
+
+			if (drawerOptions.handlePosition === 'border' || drawerOptions.handlePosition === 'left' || drawerOptions.handlePosition === 'right' || drawerOptions.handlePosition === 'center') {
+				className += ' align-center justify-center';
+			}
+
+			// Parent //
+			const parentPosition = drawerOptions.location === 'right' ? 'right' : 'left';
+			className += ` handle-container-parent-${parentPosition}`;
+
+			handleClasses.value = className;
+		}
+
+
 		// -------------------------------------------------- Drawer Events //
-		function drawerClose(evt: Event) {
+		function drawerClose(evt: Event): void {
 			emitEvent('close', evt);
 		}
 
-		function drawerDrag(e: Event) {
+		function drawerDrag(e: Event): void {
 			e.preventDefault();
 			e.stopPropagation();
 
@@ -330,7 +349,7 @@ export default defineComponent({
 		function drawerResize(el: object): void {
 			let width = el.clientX;
 
-			if (isRightSide.value) {
+			if (drawerOptions.location === 'right') {
 				width = document.body.scrollWidth - width;
 			}
 
@@ -340,6 +359,7 @@ export default defineComponent({
 
 			emitEvent('handle:drag', el);
 		}
+
 
 		// -------------------------------------------------- Handle Events //
 		function handleClick(evt: Event): void {
@@ -445,29 +465,6 @@ export default defineComponent({
 			drawer.addEventListener('mouseleave', drawerMouseleave, false);
 		}
 
-		// function updateApplication() {
-		// 	if (
-		// 		!this.isActive ||
-		// 		this.isMobile ||
-		// 		this.temporary ||
-		// 		!this.$el
-		// 	) return 0;
-
-		// 	let newWidth = this.drawerWidth;
-
-		// 	if (!this.miniVariant && this.expandOnHover) {
-		// 		newWidth = this.width;
-		// 	}
-
-		// 	if (this.miniVariant && this.expandOnHover) {
-		// 		newWidth = this.miniVariantWidth;
-		// 	}
-
-		// 	const intWidth = typeof newWidth === 'number' ? newWidth : newWidth.replace('px', '');
-
-		// 	return intWidth;
-		// }
-
 		// Filter Typescript Object //
 		function filterObject<T extends object>(
 			obj: T,
@@ -480,11 +477,23 @@ export default defineComponent({
 		}
 
 		return {
+			// Handle //
+			handleClasses,
+			handleStyles,
+
+			// Handle Events //
 			handleClick,
 			handleDoubleClick,
 			handleMouseDown,
 			handleMouseUp,
 
+			// Drawer //
+			drawerClasses,
+			drawerOptions,
+			drawerStyles,
+			drawerWidth,
+
+			// Drawer Events //
 			drawerClose,
 			drawerDrag,
 			drawerInput,
@@ -492,18 +501,9 @@ export default defineComponent({
 			drawerMouseleave,
 			drawerResize,
 
-			drawerOptions,
-			drawerClasses,
-			drawerStyles,
-			drawerWidth,
-
-			handleClasses,
-			handleStyles,
-			isResizable,
-
-			slots,
-			isRightSide,
+			// Other //
 			resizeDrawer,
+			slots,
 		};
 	}
 });
