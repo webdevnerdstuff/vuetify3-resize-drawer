@@ -11,6 +11,8 @@
 			:location="drawerOptions.location === 'left' ? 'right' : 'left'"
 			:rail="drawerOptions.rail"
 			:rail-width="drawerOptions.railWidth"
+			:tag="drawerOptions.tag"
+			:theme="drawerOptions.theme"
 			:touchless="drawerOptions.touchless"
 			:width="drawerOptions.width"
 		>
@@ -39,6 +41,8 @@
 			:resizable="drawerOptions.resizable"
 			:save-width="drawerOptions.saveWidth"
 			:storage-name="drawerOptions.storageName"
+			:tag="drawerOptions.tag"
+			:theme="drawerOptions.theme"
 			:touchless="drawerOptions.touchless"
 			:width="drawerOptions.width"
 			@close="drawerClose"
@@ -72,7 +76,7 @@
 		>
 			<v-responsive>
 				<v-container class="px-10">
-					<DocsComponent />
+					<DocsComponent @updateOptions="updateOptions($event)" />
 				</v-container>
 			</v-responsive>
 		</v-main>
@@ -102,11 +106,11 @@ const links: string[] = reactive({
 });
 const drawerOffset: string = ref('256px');
 
-const drawerOptions: DrawerOptions = reactive({
+let drawerOptions: DrawerOptions = reactive({
 	color: '',
 	dark: 'false',
 	expandOnHover: false,
-	handlePosition: 'center',
+	handlePosition: 'center', // Passed
 	light: false,
 	location: 'left',
 	overflow: false,
@@ -115,6 +119,8 @@ const drawerOptions: DrawerOptions = reactive({
 	railWidth: 56,
 	saveWidth: true,
 	storageName: 'v-resize-drawer-width',
+	theme: 'dark',
+	tag: 'section',
 	touchless: false,
 	width: undefined,
 });
@@ -133,6 +139,12 @@ const mainStyles = computed(() => {
 
 	return styles;
 });
+
+
+function updateOptions(options) {
+	drawerOptions = options;
+	console.log('updateOptions', { options });
+}
 
 function drawerClose(val) {
 	console.log('drawerClose', val);
