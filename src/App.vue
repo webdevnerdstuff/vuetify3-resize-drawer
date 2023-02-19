@@ -1,27 +1,34 @@
 <template>
 	<v-app id="home">
 		<!-- ====================================================== App Bar -->
-		<AppBar @updatedDrawer="toggleDrawer" />
+		<AppBar @changedTheme="updateTheme" @updatedDrawer="toggleDrawer" />
 
 		<!-- ====================================================== Navigation Drawer -->
 		<v-navigation-drawer
 			v-model="drawer"
+			:absolute="drawerOptions.absolute"
 			:color="drawerOptions.color"
+			:elevation="drawerOptions.elevation"
 			:expand-on-hover="drawerOptions.expandOnHover"
+			:floating="drawerOptions.floating"
+			:image="drawerOptions.image"
 			:location="drawerOptions.location === 'left' ? 'right' : 'left'"
 			:rail="drawerOptions.rail"
 			:rail-width="drawerOptions.railWidth"
+			:sticky="drawerOptions.sticky"
 			:tag="drawerOptions.tag"
 			:theme="drawerOptions.theme"
 			:touchless="drawerOptions.touchless"
 			:width="drawerOptions.width"
 		>
-			<v-list-item>
-				<v-list-item-title class="text-h6">
-					Navigation Drawer
-				</v-list-item-title>
-				<v-list-item-subtitle>Stuck With You</v-list-item-subtitle>
-			</v-list-item>
+			<v-list>
+				<v-list-item>
+					<v-list-item-title class="text-h6">
+						Navigation Drawer
+					</v-list-item-title>
+					<v-list-item-subtitle>Stuck With You</v-list-item-subtitle>
+				</v-list-item>
+			</v-list>
 
 			<v-divider></v-divider>
 
@@ -30,18 +37,25 @@
 
 		<VResizeDrawer
 			v-model="drawer"
+			:absolute="drawerOptions.absolute"
 			:color="drawerOptions.color"
 			:dark="drawerOptions.dark"
+			:elevation="drawerOptions.elevation"
 			:expand-on-hover="drawerOptions.expandOnHover"
+			:floating="drawerOptions.floating"
+			:handle-border-width="drawerOptions.handleBorderWidth"
+			:handle-color="drawerOptions.handleColor"
 			:handle-position="drawerOptions.handlePosition"
-			left
+			:image="drawerOptions.image"
 			:location="drawerOptions.location === 'left' ? 'left' : 'right'"
 			:rail="drawerOptions.rail"
 			:rail-width="drawerOptions.railWidth"
 			:resizable="drawerOptions.resizable"
 			:save-width="drawerOptions.saveWidth"
+			:sticky="drawerOptions.sticky"
 			:storage-name="drawerOptions.storageName"
 			:tag="drawerOptions.tag"
+			:temporary="drawerOptions.temporary"
 			:theme="drawerOptions.theme"
 			:touchless="drawerOptions.touchless"
 			:width="drawerOptions.width"
@@ -54,10 +68,12 @@
 			@input="drawerInput"
 			@transitionend="drawerTransitionend"
 		>
-			<v-list-item>
-				<v-list-item-title class="text-h6">Resize Drawer</v-list-item-title>
-				<v-list-item-subtitle>I'm as free as a bird now</v-list-item-subtitle>
-			</v-list-item>
+			<v-list>
+				<v-list-item>
+					<v-list-item-title class="text-h6"> Resize Drawer </v-list-item-title>
+					<v-list-item-subtitle>I'm as free as a bird now</v-list-item-subtitle>
+				</v-list-item>
+			</v-list>
 
 			<v-divider></v-divider>
 
@@ -105,22 +121,30 @@ const links: string[] = reactive({
 	vuetify: 'https://vuetifyjs.com/en',
 });
 const drawerOffset: string = ref('256px');
-
-let drawerOptions: DrawerOptions = reactive({
+const drawerOptions: DrawerOptions = ref({
+	absolute: false,
 	color: '',
-	dark: 'false',
-	expandOnHover: false,
-	handlePosition: 'center', // Passed
-	light: false,
+	dark: true,
+	elevation: 10,
+	floating: false,
+	expandOnHover: true,
+	handleBorderWidth: 20,
+	handleColor: {
+		dark: 'primary',
+		light: 'primary',
+	},
+	handlePosition: 'center',
+	// image: 'https://media.newyorker.com/photos/59096937019dfc3494ea1169/master/w_2560%2Cc_limit/Frazier-Bunny-Rabbits.jpg',
 	location: 'left',
-	overflow: false,
 	resizable: true,
 	rail: false,
 	railWidth: 56,
 	saveWidth: true,
+	sticky: false,
 	storageName: 'v-resize-drawer-width',
 	theme: 'dark',
-	tag: 'section',
+	tag: 'nav',
+	temporary: false,
 	touchless: false,
 	width: undefined,
 });
@@ -139,12 +163,6 @@ const mainStyles = computed(() => {
 
 	return styles;
 });
-
-
-function updateOptions(options) {
-	drawerOptions = options;
-	console.log('updateOptions', { options });
-}
 
 function drawerClose(val) {
 	console.log('drawerClose', val);
@@ -168,6 +186,10 @@ function drawerTransitionend(evt) {
 	console.log('drawerTransitionend', evt);
 }
 
+function getLocalStorage() {
+	updateDrawerOffset(localStorage.getItem(drawerOptions.value.storageName) || drawerOffset.value);
+}
+
 function handleClick(evt) {
 	console.log('handleClick', evt);
 }
@@ -175,6 +197,10 @@ function handleClick(evt) {
 function handleDoubleClick(evt) {
 	console.log('handleDoubleClick', evt);
 
+	updateDrawerOffset(evt.offsetWidth);
+}
+
+function handleDrag(evt) {
 	updateDrawerOffset(evt.offsetWidth);
 }
 
@@ -188,21 +214,21 @@ function handleMouseup(evt) {
 	updateDrawerOffset(evt.offsetWidth);
 }
 
-function handleDrag(evt) {
-	updateDrawerOffset(evt.offsetWidth);
-}
-
-function getLocalStorage() {
-	updateDrawerOffset(localStorage.getItem(drawerOptions.storageName) || drawerOffset.value);
+function toggleDrawer() {
+	drawer.value = !drawer.value;
 }
 
 function updateDrawerOffset(val) {
 	drawerOffset.value = val;
 }
 
-function toggleDrawer() {
-	drawer.value = !drawer.value;
-	console.log(drawer.value);
+function updateOptions(options) {
+	drawerOptions.value = options;
+}
+
+function updateTheme(val) {
+	drawerOptions.value.theme = val;
+	drawerOptions.value.dark = val === 'dark';
 }
 </script>
 
