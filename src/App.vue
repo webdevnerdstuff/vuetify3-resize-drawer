@@ -46,6 +46,7 @@
 			:handle-border-width="drawerOptions.handleBorderWidth"
 			:handle-color="drawerOptions.handleColor"
 			:handle-position="drawerOptions.handlePosition"
+			height="50vh"
 			:image="drawerOptions.image"
 			:location="drawerOptions.location === 'left' ? 'left' : 'right'"
 			:rail="drawerOptions.rail"
@@ -54,6 +55,7 @@
 			:save-width="drawerOptions.saveWidth"
 			:sticky="drawerOptions.sticky"
 			:storage-name="drawerOptions.storageName"
+			:storage-type="drawerOptions.storageType"
 			:tag="drawerOptions.tag"
 			:temporary="drawerOptions.temporary"
 			:theme="drawerOptions.theme"
@@ -68,6 +70,10 @@
 			@input="drawerInput"
 			@transitionend="drawerTransitionend"
 		>
+			<template #handle>
+				<v-icon>mdi mdi-cog</v-icon>
+			</template>
+
 			<v-list>
 				<v-list-item>
 					<v-list-item-title class="text-h6"> Resize Drawer </v-list-item-title>
@@ -83,11 +89,7 @@
 		<!-- ====================================================== Main Container -->
 		<v-main
 			class="main-container pb-10"
-			:class="[
-				{
-					'drawer-open': drawer,
-				},
-			]"
+			:class="[{ 'drawer-open': drawer }]"
 			:style="mainStyles"
 		>
 			<v-responsive>
@@ -128,7 +130,7 @@ const drawerOptions: DrawerOptions = ref({
 	elevation: 10,
 	floating: false,
 	expandOnHover: true,
-	handleBorderWidth: 20,
+	handleBorderWidth: 8,
 	handleColor: {
 		dark: 'primary',
 		light: 'primary',
@@ -142,6 +144,7 @@ const drawerOptions: DrawerOptions = ref({
 	saveWidth: true,
 	sticky: false,
 	storageName: 'v-resize-drawer-width',
+	storageType: 'local',
 	theme: 'dark',
 	tag: 'nav',
 	temporary: false,
