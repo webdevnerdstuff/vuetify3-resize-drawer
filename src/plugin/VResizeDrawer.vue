@@ -2,23 +2,29 @@
 	<v-navigation-drawer
 		v-bind="$attrs"
 		ref="resizeDrawer"
+		:absolute="drawerOptions.absolute"
 		class="v-resize-drawer"
 		:class="drawerClasses"
 		:color="drawerOptions.color"
+		:elevation="drawerOptions.elevation"
+		:expand-on-hover="drawerOptions.expandOnHover"
+		:floating="drawerOptions.floating"
+		:image="drawerOptions.image"
 		:location="drawerOptions.location"
 		:model-value="modelValue"
+		:name="drawerOptions.name"
+		:rail="drawerOptions.rail"
+		:rail-width="drawerOptions.railWidth"
+		:sticky="drawerOptions.sticky"
 		:style="drawerStyles"
 		:tag="drawerOptions.tag"
+		:temporary="drawerOptions.temporary"
 		:theme="drawerOptions.theme"
 		:width="drawerWidth"
 	>
 		<!-- Resize handle -->
 		<div
-			v-if="
-				drawerOptions.resizable &&
-				!drawerOptions.rail &&
-				!drawerOptions.expandOnHover
-			"
+			v-if="drawerOptions.resizable && !drawerOptions.rail"
 			class="handle-container d-flex"
 			:class="{ [handleClasses]: drawerOptions.handlePosition }"
 			:style="handleStyles"
@@ -29,11 +35,7 @@
 		>
 			<!-- Icon -->
 			<div
-				v-if="
-					drawerOptions.handlePosition === 'left' ||
-					drawerOptions.handlePosition === 'right' ||
-					drawerOptions.handlePosition === 'center'
-				"
+				v-if="drawerOptions.handlePosition === 'center'"
 				class="
 					handle-container-icon
 					d-flex
@@ -45,7 +47,7 @@
 						drawerOptions.handlePosition,
 				}"
 			>
-				<slot v-if="slots.handle" name="handle">dddd</slot>
+				<slot v-if="slots.handle" name="handle"></slot>
 				<div
 					v-else
 					:class="{
@@ -75,10 +77,10 @@
 			<v-icon
 				v-else-if="drawerOptions.handlePosition === 'top-icon'"
 				:class="{
-					'theme--dark': dark,
-					'theme--light': !dark,
-					'float-end': right,
-					'float-start': !right,
+					'theme--dark': drawerOptions.dark,
+					'theme--light': !drawerOptions.dark,
+					'float-end': drawerOptions.location === 'right',
+					'float-start': drawerOptions.location !== 'right',
 				}"
 			>
 				mdi-resize-bottom-right
@@ -109,7 +111,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, reactive, ref, useSlots, watch } from 'vue';
-import { Entry } from '@/types';
 import { VNavigationDrawer } from 'vuetify/components';
 
 
@@ -126,13 +127,43 @@ export default defineComponent({
 		'input',
 	],
 	props: {
+		absolute: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
+		dark: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
+		elevation: {
+			type: [Number, String],
+			default: 16,
+			required: false,
+		},
+		expandOnHover: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
+		floating: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
+		handleBorderWidth: {
+			type: [Number, String],
+			default: 8,
+			required: false,
+		},
 		handleColor: {
 			type: Object,
 			required: false,
 			default() {
 				return {
-					dark: '#555',
-					light: '#ccc',
+					dark: 'default',
+					light: 'default',
 				};
 			},
 		},
@@ -141,7 +172,21 @@ export default defineComponent({
 			default: 'center',
 			required: false,
 		},
-		overflow: Boolean,
+		image: {
+			type: String,
+			default: '',
+			required: false,
+		},
+		name: {
+			type: String,
+			default: 'vue-resize-drawer',
+			required: false,
+		},
+		rail: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
 		resizable: {
 			type: Boolean,
 			default: true,
@@ -152,9 +197,19 @@ export default defineComponent({
 			default: true,
 			required: false,
 		},
+		sticky: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
 		storageName: {
 			type: String,
 			default: 'v-resize-drawer-width',
+			required: false,
+		},
+		temporary: {
+			type: Boolean,
+			default: false,
 			required: false,
 		},
 		width: {
@@ -171,7 +226,6 @@ export default defineComponent({
 	setup(props, { emit }) {
 		// Options //
 		let drawerOptions = reactive(props);
-		// console.log({ drawerOptions });
 
 		const defaultWidth: number = ref(256);
 		const drawerClasses: object[] = ref({});
@@ -182,28 +236,29 @@ export default defineComponent({
 			},
 		};
 		const handleClasses: string = ref('');
-		const isDark: boolean = ref(false);
+		const handleStyles: string = ref('');
 		const isMouseover: boolean = ref(false);
 		const resizeDrawer: object = ref(null);
 		const resizedWidth: [number | string] = ref(256);
 		const slots = useSlots();
 
-
 		// -------------------------------------------------- Mounted //
 		onMounted(() => {
-			updateDrawerOptions();
 			init();
 		});
 
 		function init(): boolean {
-			const width = convertToUnit(drawerOptions.width);
-			resizedWidth.value = width;
-
 			// Disable resize if mini-variant is set //
 			if (drawerOptions.rail) {
 				resizedWidth.value = drawerOptions.railWidth || undefined;
 				return false;
 			}
+
+			updateDrawerOptions();
+
+			const width = convertToUnit(drawerOptions.width);
+			resizedWidth.value = width;
+
 
 			const storageWidth = getLocalStorage();
 
@@ -222,8 +277,6 @@ export default defineComponent({
 
 		// -------------------------------------------------- Watch for props if updated //
 		watch(props, () => {
-			// console.log('props', { value, oldValue });
-
 			updateDrawerOptions();
 		});
 
@@ -231,21 +284,21 @@ export default defineComponent({
 			drawerOptions = { ...props };
 
 			buildDrawerClasses();
+
 			buildHandleClasses();
+			buildHandleStyles();
 		}
 
 
 		// -------------------------------------------------- Computed //
-		const drawerStyles = computed(() => {
-			// const translate = drawerOptions.location === 'bottom' ? 'translateY' : 'translateX';
+		// ! This needs to be computed for the width to update, stop changing it! //
+		const drawerStyles: object = computed(() => {
+			if (drawerOptions.rail) {
+				return {};
+			}
 
 			const styles = {
-				height: convertToUnit(drawerOptions.height),
-				// top: drawerOptions.location !== 'bottom' ? convertToUnit(this.computedTop) : 'auto',
-				// maxHeight: this.computedMaxHeight != null ?
-				// 	`calc(100% - ${convertToUnit(this.computedMaxHeight)})` :
-				// 	undefined,
-				// transform: `${translate}(${convertToUnit(this.computedTransform, '%')})`,
+				// height: convertToUnit(drawerOptions.height),
 				width: convertToUnit(drawerOptions.rail ? drawerOptions.railWidth : resizedWidth.value),
 			};
 
@@ -253,28 +306,11 @@ export default defineComponent({
 		});
 
 		const drawerWidth: string = computed(() => {
+			if (drawerOptions.rail) {
+				return;
+			}
+
 			return convertToUnit(resizedWidth.value);
-		});
-
-		const handleStyles = computed(() => {
-			const color = isDark.value ? drawerOptions.handleColor.dark : drawerOptions.handleColor.light;
-			let styles = `border-${drawerOptions.handlePosition}-color: ${color};`;
-
-			if (drawerOptions.handlePosition === 'left' || drawerOptions.handlePosition === 'right' || drawerOptions.handlePosition === 'border') {
-				styles = `
-					background-color: ${color};
-					color: ${color};
-				`;
-			}
-
-			if (drawerOptions.handlePosition === 'center') {
-				styles = `
-					background-color: transparent;
-					color: ${color};
-				`;
-			}
-
-			return styles;
 		});
 
 
@@ -284,7 +320,6 @@ export default defineComponent({
 				'v-navigation-drawer--absolute': drawerOptions.absolute,
 				'v-navigation-drawer--bottom': drawerOptions.bottom,
 				'v-navigation-drawer--clipped': drawerOptions.clipped,
-				// 'v-navigation-drawer--close': !drawerOptions.isActive,
 				'v-navigation-drawer--fixed': !drawerOptions.absolute && (drawerOptions.app || drawerOptions.fixed),
 				'v-navigation-drawer--floating': drawerOptions.floating,
 				'v-navigation-drawer--is-mobile': drawerOptions.isMobile,
@@ -294,44 +329,60 @@ export default defineComponent({
 				'v-navigation-drawer--open-on-hover': drawerOptions.expandOnHover,
 				'v-navigation-drawer--right': drawerOptions.location === 'right',
 				'v-navigation-drawer--temporary': drawerOptions.temporary,
-				'v-navigation-drawer--overflow': drawerOptions.overflow,
 			};
 		}
 
 		function buildHandleClasses(): void {
 			let className = `handle-container-${drawerOptions.handlePosition}`;
+			const handleColor = drawerOptions.dark ? drawerOptions.handleColor.dark : drawerOptions.handleColor.light;
 
 			if (slots.handle && drawerOptions.handlePosition === 'top-icon') {
 				className += '-slot';
 			}
 
-			if (drawerOptions.handlePosition === 'border' || drawerOptions.handlePosition === 'left' || drawerOptions.handlePosition === 'right' || drawerOptions.handlePosition === 'center') {
+			if (drawerOptions.handlePosition === 'border' || drawerOptions.handlePosition === 'center') {
 				className += ' align-center justify-center';
+			}
+
+			if (drawerOptions.handlePosition === 'border') {
+				const borderHandleColor = drawerOptions.dark ? drawerOptions.handleColor.dark : drawerOptions.handleColor.light;
+
+
+				className += ` handle-container-border-${borderHandleColor}`;
 			}
 
 			// Parent //
 			const parentPosition = drawerOptions.location === 'right' ? 'right' : 'left';
 			className += ` handle-container-parent-${parentPosition}`;
 
+			className += ` text-${handleColor}`;
+
 			handleClasses.value = className;
+		}
+
+		function buildHandleStyles(): void {
+			const color = drawerOptions.dark ? drawerOptions.handleColor.dark : drawerOptions.handleColor.light;
+			const styles = {};
+
+			if (drawerOptions.handlePosition === 'border') {
+				styles.width = convertToUnit(drawerOptions.handleBorderWidth);
+			}
+
+			if (drawerOptions.handlePosition === 'border') {
+				styles.backgroundColor = color;
+			}
+
+			if (drawerOptions.handlePosition === 'center') {
+				styles.backgroundColor = 'transparent';
+			}
+
+			handleStyles.value = styles;
 		}
 
 
 		// -------------------------------------------------- Drawer Events //
 		function drawerClose(evt: Event): void {
 			emitEvent('close', evt);
-		}
-
-		function drawerDrag(e: Event): void {
-			e.preventDefault();
-			e.stopPropagation();
-
-			const el = resizeDrawer.value;
-
-			if (e.offsetX < 25) {
-				el.style.transition = 'initial';
-				document.addEventListener('mousemove', this.drawerResize, false);
-			}
 		}
 
 		function drawerInput(val): void {
@@ -376,10 +427,15 @@ export default defineComponent({
 		function handleMouseDown(evt: Event): void {
 			evt.preventDefault();
 			evt.stopPropagation();
+			let offsetX = 25;
+
+			if (drawerOptions.handlePosition === 'border') {
+				offsetX = drawerOptions.handleBorderWidth;
+			}
 
 			events.handle.mouseUp = false;
 
-			if (evt.offsetX < 25) {
+			if (evt.offsetX < offsetX) {
 				document.addEventListener('mousemove', drawerResize, false);
 			}
 
@@ -418,7 +474,7 @@ export default defineComponent({
 		}
 
 		function setLocalStorage(action = 'update'): [number | string] {
-			if (!drawerOptions.saveWidth || drawerOptions.rail || drawerOptions.expandOnHover) {
+			if (!drawerOptions.saveWidth || drawerOptions.rail) {
 				return false;
 			}
 
@@ -465,16 +521,6 @@ export default defineComponent({
 			drawer.addEventListener('mouseleave', drawerMouseleave, false);
 		}
 
-		// Filter Typescript Object //
-		function filterObject<T extends object>(
-			obj: T,
-			// eslint-disable-next-line no-unused-vars
-			fn: (entry: Entry<T>, i: number, arr: Entry<T>[]) => boolean
-		) {
-			return Object.fromEntries(
-				(Object.entries(obj) as Entry<T>[]).filter(fn)
-			) as Partial<T>;
-		}
 
 		return {
 			// Handle //
@@ -495,7 +541,6 @@ export default defineComponent({
 
 			// Drawer Events //
 			drawerClose,
-			drawerDrag,
 			drawerInput,
 			drawerMouseenter,
 			drawerMouseleave,
@@ -511,14 +556,6 @@ export default defineComponent({
 
 <style lang="scss">
 .v-resize-drawer {
-	&.v-navigation-drawer--overflow {
-		overflow: visible;
-
-		:deep(.v-navigation-drawer__content) {
-			overflow: visible;
-		}
-	}
-
 	.close-drawer {
 		cursor: pointer;
 	}
@@ -625,6 +662,30 @@ export default defineComponent({
 			height: 100%;
 			top: 0;
 			width: 8px;
+
+			&-primary {
+				background-color: rgb(var(--v-theme-primary)) !important;
+			}
+
+			&-secondary {
+				background-color: rgb(var(--v-theme-secondary)) !important;
+			}
+
+			&-success {
+				background-color: rgb(var(--v-theme-success)) !important;
+			}
+
+			&-info {
+				background-color: rgb(var(--v-theme-info)) !important;
+			}
+
+			&-warning {
+				background-color: rgb(var(--v-theme-warning)) !important;
+			}
+
+			&-error {
+				background-color: rgb(var(--v-theme-error)) !important;
+			}
 		}
 
 		&-left,
