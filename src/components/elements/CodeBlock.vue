@@ -74,13 +74,7 @@ export default {
 	computed: {
 		renderCode() {
 			this.convertCode();
-			const lang = this.lang;
-			// console.log({ lang });
-			// console.log(this.convertedCode);
-			// console.log(Prism.languages);
 			const html = Prism.highlight(this.convertedCode, Prism.languages[this.lang], this.lang);
-
-			// console.log(html);
 
 			return html;
 		},

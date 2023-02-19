@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, onMounted, reactive, ref, watch } from 'vue';
+import { inject, onMounted, reactive, ref } from 'vue';
 
 const drawerOptions = inject('drawerOptions');
 

@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <template>
 	<v-app id="home">
 		<!-- ====================================================== App Bar -->
