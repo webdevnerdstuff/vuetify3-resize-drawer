@@ -2,18 +2,30 @@
 	<v-navigation-drawer
 		v-bind="$attrs"
 		ref="resizeDrawer"
+		:absolute="drawerOptions.absolute"
 		class="v-resize-drawer"
 		:class="drawerClasses"
+		:color="drawerOptions.color"
+		:elevation="drawerOptions.elevation"
+		:expand-on-hover="drawerOptions.expandOnHover"
+		:floating="drawerOptions.floating"
+		:image="drawerOptions.image"
 		:location="drawerOptions.location"
 		:model-value="modelValue"
+		:name="drawerOptions.name"
+		:rail="drawerOptions.rail"
+		:rail-width="drawerOptions.railWidth"
+		:sticky="drawerOptions.sticky"
 		:style="drawerStyles"
-		tag="nav"
+		:tag="drawerOptions.tag"
+		:temporary="drawerOptions.temporary"
+		:theme="drawerOptions.theme"
 		:width="drawerWidth"
 	>
-		<!-- Resize handle -->
+		<!-- ============================== Resize handle -->
 		<div
-			v-if="isResizable"
-			class="handle-container d-flex"
+			v-if="drawerOptions.resizable && !drawerOptions.rail"
+			class="v-resize-drawer--handle d-flex"
 			:class="{ [handleClasses]: drawerOptions.handlePosition }"
 			:style="handleStyles"
 			@click="handleClick"
@@ -21,43 +33,43 @@
 			@mousedown="handleMouseDown"
 			@mouseup="handleMouseUp"
 		>
-			<!-- Icon -->
+			<!-- ========== Center Icon -->
 			<div
-				v-if="
-					drawerOptions.handlePosition === 'left' ||
-					drawerOptions.handlePosition === 'right' ||
-					drawerOptions.handlePosition === 'center'
-				"
+				v-if="drawerOptions.handlePosition === 'center'"
 				class="
-					handle-container-icon
+					v-resize-drawer--handle-icon
 					d-flex
 					align-items-center
 					justify-content-center
 				"
 				:class="{
-					[`handle-container-${drawerOptions.handlePosition}-icon`]:
+					[`v-resize-drawer--handle-${drawerOptions.handlePosition}-icon`]:
 						drawerOptions.handlePosition,
 				}"
 			>
 				<slot v-if="slots.handle" name="handle"></slot>
-				<div v-else :class="{ 'handle-container-handle-flip': isRightSide }">
-					&raquo;
+				<div
+					v-else
+					:class="{
+						'v-resize-drawer--handle-handle-flip':
+							drawerOptions.location === 'right',
+					}"
+				>
+					&raquo; {{ slots.handle }}
 				</div>
-
-				<!-- <div :class="{ 'handle-container-handle-flip': false }">&raquo;</div> -->
 			</div>
 
-			<!-- Top Icon -->
+			<!-- ========== Top Icon -->
 			<template
 				v-if="slots.handle && drawerOptions.handlePosition === 'top-icon'"
 			>
 				<slot
 					v-if="slots.handle"
 					:class="{
-						'theme--dark': dark,
-						'theme--light': !dark,
+						'theme--dark': drawerOptions.dark,
+						'theme--light': !drawerOptions.dark,
 						'float-end': false,
-						'float-start': !right,
+						'float-start': drawerOptions.location !== 'right',
 					}"
 					name="handle"
 				></slot>
@@ -66,22 +78,26 @@
 			<v-icon
 				v-else-if="drawerOptions.handlePosition === 'top-icon'"
 				:class="{
-					'theme--dark': dark,
-					'theme--light': !dark,
-					'float-end': right,
-					'float-start': !right,
+					'theme--dark': drawerOptions.dark,
+					'theme--light': !drawerOptions.dark,
+					'float-end': drawerOptions.location === 'right',
+					'float-start': drawerOptions.location !== 'right',
 				}"
 			>
 				mdi-resize-bottom-right
 			</v-icon>
 
-			<!-- Top -->
+			<!-- ========== Top -->
 			<div
 				v-else-if="drawerOptions.handlePosition === 'top'"
-				class="handle-container-lines"
+				class="v-resize-drawer--handle-lines"
+				:class="[
+					`v-resize-drawer--handle-parent-${drawerOptions.handlePosition}-${drawerOptions.location}-lines`,
+				]"
 			></div>
 		</div>
 
+		<!-- ============================== Slots  -->
 		<!-- Prepend Slot -->
 		<template v-if="slots.prepend">
 			<slot name="prepend"></slot>
@@ -99,9 +115,9 @@
 
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, useSlots } from 'vue';
-import { Entry } from '@/types';
+import { computed, defineComponent, onMounted, reactive, ref, useSlots, watch } from 'vue';
 import { VNavigationDrawer } from 'vuetify/components';
+import { DrawerOptions } from './types';
 
 
 export default defineComponent({
@@ -117,13 +133,43 @@ export default defineComponent({
 		'input',
 	],
 	props: {
+		absolute: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
+		dark: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
+		elevation: {
+			type: [Number, String],
+			default: 16,
+			required: false,
+		},
+		expandOnHover: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
+		floating: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
+		handleBorderWidth: {
+			type: [Number, String],
+			default: 8,
+			required: false,
+		},
 		handleColor: {
 			type: Object,
 			required: false,
 			default() {
 				return {
-					dark: '#555',
-					light: '#ccc',
+					dark: 'default',
+					light: 'default',
 				};
 			},
 		},
@@ -132,7 +178,21 @@ export default defineComponent({
 			default: 'center',
 			required: false,
 		},
-		overflow: Boolean,
+		image: {
+			type: String,
+			default: '',
+			required: false,
+		},
+		name: {
+			type: String,
+			default: 'v-resize-drawer',
+			required: false,
+		},
+		rail: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
 		resizable: {
 			type: Boolean,
 			default: true,
@@ -143,9 +203,24 @@ export default defineComponent({
 			default: true,
 			required: false,
 		},
+		sticky: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
 		storageName: {
 			type: String,
 			default: 'v-resize-drawer-width',
+			required: false,
+		},
+		storageType: {
+			type: String,
+			default: 'local',
+			required: false,
+		},
+		temporary: {
+			type: Boolean,
+			default: false,
 			required: false,
 		},
 		width: {
@@ -160,35 +235,96 @@ export default defineComponent({
 		},
 	},
 	setup(props, { emit }) {
-		// Options //
-		const drawerOptions = filterObject(props, ([key]) => {
-			const value = props[key];
-			return typeof value !== 'undefined' && value !== null;
-		});
-
-		console.log({ VNavigationDrawer });
-		console.log({ drawerOptions });
+		// Drawer Options //
+		let drawerOptions: DrawerOptions = reactive(props);
 
 		const defaultWidth: number = ref(256);
+		const drawerClasses: object[] = ref({});
 		const events: object[] = {
 			handle: {
 				mouseUp: true as boolean,
 				mouseDown: false as boolean,
 			},
 		};
-		const isDark: boolean = ref(false);
+		const handleClasses: string = ref('');
+		const handleStyles: string = ref('');
 		const isMouseover: boolean = ref(false);
 		const resizeDrawer: object = ref(null);
 		const resizedWidth: [number | string] = ref(256);
 		const slots = useSlots();
 
+		// -------------------------------------------------- Mounted //
+		onMounted(() => {
+			init();
+		});
+
+		function init(): boolean {
+			// Disable resize if mini-variant is set //
+			if (drawerOptions.rail) {
+				resizedWidth.value = drawerOptions.railWidth || undefined;
+				return false;
+			}
+
+			updateDrawerOptions();
+
+			const storageWidth = getStorage();
+			const width = convertToUnit(drawerOptions.width);
+			resizedWidth.value = width;
+			defaultWidth.value = resizedWidth.value;
+
+			if (drawerOptions.saveWidth && storageWidth && !drawerOptions.rail) {
+				resizedWidth.value = getStorage();
+			}
+
+			genListeners();
+			setStorage('set');
+
+			return false;
+		}
+
+
+		// -------------------------------------------------- Watch for props if updated //
+		watch(props, () => {
+			updateDrawerOptions();
+		});
+
+		function updateDrawerOptions(): void {
+			drawerOptions = { ...props };
+
+			buildDrawerClasses();
+			buildHandleClasses();
+			buildHandleStyles();
+		}
+
+
 		// -------------------------------------------------- Computed //
-		const drawerClasses: string = computed(() => {
-			return {
+		const drawerStyles: object = computed(() => {
+			if (drawerOptions.rail) {
+				return {};
+			}
+
+			const styles = {
+				width: convertToUnit(drawerOptions.rail ? drawerOptions.railWidth : resizedWidth.value),
+			};
+
+			return styles;
+		});
+
+		const drawerWidth: string = computed(() => {
+			if (drawerOptions.rail) {
+				return;
+			}
+
+			return convertToUnit(resizedWidth.value);
+		});
+
+
+		// -------------------------------------------------- Classes & Styles //
+		function buildDrawerClasses(): void {
+			drawerClasses.value = {
 				'v-navigation-drawer--absolute': drawerOptions.absolute,
 				'v-navigation-drawer--bottom': drawerOptions.bottom,
 				'v-navigation-drawer--clipped': drawerOptions.clipped,
-				'v-navigation-drawer--close': !drawerOptions.isActive,
 				'v-navigation-drawer--fixed': !drawerOptions.absolute && (drawerOptions.app || drawerOptions.fixed),
 				'v-navigation-drawer--floating': drawerOptions.floating,
 				'v-navigation-drawer--is-mobile': drawerOptions.isMobile,
@@ -196,126 +332,70 @@ export default defineComponent({
 				'v-navigation-drawer--rail': drawerOptions.rail,
 				'v-navigation-drawer--custom-rail': Number(drawerOptions.railWidth) !== 56,
 				'v-navigation-drawer--open-on-hover': drawerOptions.expandOnHover,
-				'v-navigation-drawer--right': isRightSide,
+				'v-navigation-drawer--right': drawerOptions.location === 'right',
 				'v-navigation-drawer--temporary': drawerOptions.temporary,
-				'v-navigation-drawer--overflow': drawerOptions.overflow,
 			};
-		});
+		}
 
-		const drawerStyles: string = computed(() => {
-			const translate = drawerOptions.location === 'bottom' ? 'translateY' : 'translateX';
+		function buildHandleClasses(): void {
+			const handlePosition = drawerOptions.handlePosition;
+			const darkColor = drawerOptions.handleColor.dark;
+			const lightColor = drawerOptions.handleColor.light;
 
-			const styles = {
-				height: convertToUnit(drawerOptions.height),
-				// top: drawerOptions.location !== 'bottom' ? convertToUnit(this.computedTop) : 'auto',
-				// maxHeight: this.computedMaxHeight != null ?
-				// 	`calc(100% - ${convertToUnit(this.computedMaxHeight)})` :
-				// 	undefined,
-				// transform: `${translate}(${convertToUnit(this.computedTransform, '%')})`,
-				width: convertToUnit(drawerOptions.rail ? drawerOptions.railWidth : resizedWidth.value),
-			};
+			let className = `v-resize-drawer--handle-${handlePosition}`;
+			const handleColor = drawerOptions.dark ? darkColor : lightColor;
 
-			// const styles = '';
-			return styles;
-		});
-
-		const drawerWidth: string = computed(() => {
-			return convertToUnit(resizedWidth.value);
-		});
-
-		const handleClasses: string = computed(() => {
-			let className = `handle-container-${drawerOptions.handlePosition}`;
-
-			if (slots.handle && drawerOptions.handlePosition === 'top-icon') {
+			if (slots.handle && handlePosition === 'top-icon') {
 				className += '-slot';
 			}
 
-			if (drawerOptions.handlePosition === 'border' || drawerOptions.handlePosition === 'left' || drawerOptions.handlePosition === 'right' || drawerOptions.handlePosition === 'center') {
+			if (handlePosition === 'border' || handlePosition === 'center') {
 				className += ' align-center justify-center';
 			}
 
+			if (handlePosition === 'border') {
+				const borderHandleColor = drawerOptions.dark ? darkColor : lightColor;
+
+				className += ` v-resize-drawer--handle-parent-border-${borderHandleColor}`;
+			}
+
 			// Parent //
-			const parentPosition = isRightSide.value ? 'right' : 'left';
-			className += ` handle-container-parent-${parentPosition}`;
+			const parentPosition = drawerOptions.location === 'right' ? 'right' : 'left';
+			className += ` v-resize-drawer--handle-parent-${handlePosition}`;
+			className += ` v-resize-drawer--handle-parent-${handlePosition}-${parentPosition}`;
 
-			return className;
-		});
+			className += ` text-${handleColor}`;
 
-		const handleStyles: string = computed(() => {
-			const color = isDark.value ? drawerOptions.handleColor.dark : drawerOptions.handleColor.light;
-			let styles = `border-${drawerOptions.handlePosition}-color: ${color};`;
-
-			if (drawerOptions.handlePosition === 'left' || drawerOptions.handlePosition === 'right' || drawerOptions.handlePosition === 'border') {
-				styles = `
-					background-color: ${color};
-					color: ${color};
-				`;
-			}
-
-			if (drawerOptions.handlePosition === 'center') {
-				styles = `
-					background-color: transparent;
-					color: ${color};
-				`;
-			}
-
-			return styles;
-		});
-
-		const isRightSide: boolean = computed(() => {
-			return drawerOptions.location === 'right';
-		});
-
-		const isResizable: boolean = computed(() => {
-			return drawerOptions.resizable && !drawerOptions.rail && !drawerOptions.expandOnHover;
-		});
-
-		// -------------------------------------------------- Mounted //
-		onMounted(() => {
-			init();
-			genListeners();
-			setLocalStorage('set');
-		});
-
-		function init() {
-			const width = convertToUnit(drawerOptions.width);
-			resizedWidth.value = width;
-
-			// Disable resize if mini-variant is set //
-			if (drawerOptions.rail) {
-				resizedWidth.value = drawerOptions.railWidth || undefined;
-				return false;
-			}
-
-			const storageWidth = getLocalStorage();
-
-			defaultWidth.value = resizedWidth.value;
-
-			if (drawerOptions.saveWidth && storageWidth && !drawerOptions.rail) {
-				resizedWidth.value = getLocalStorage();
-			}
-
-			return false;
+			handleClasses.value = className;
 		}
+
+		function buildHandleStyles(): void {
+			const handlePosition = drawerOptions.handlePosition;
+			const color = drawerOptions.dark ? drawerOptions.handleColor.dark : drawerOptions.handleColor.light;
+			const styles = {};
+
+			if (handlePosition === 'border') {
+				styles.width = convertToUnit(drawerOptions.handleBorderWidth);
+			}
+
+			if (handlePosition === 'border') {
+				styles.backgroundColor = color;
+			}
+
+			if (handlePosition === 'center') {
+				styles.backgroundColor = 'transparent';
+			}
+
+			handleStyles.value = styles;
+		}
+
 
 		// -------------------------------------------------- Drawer Events //
-		function drawerClose(evt: Event) {
-			emitEvent('close', evt);
+		function drawerClose(e: Event): void {
+			emitEvent('close', e);
 		}
 
-		function drawerDrag(e: Event) {
-			e.preventDefault();
-			e.stopPropagation();
-
-			const el = resizeDrawer.value;
-
-			if (e.offsetX < 25) {
-				el.style.transition = 'initial';
-				document.addEventListener('mousemove', this.drawerResize, false);
-			}
-		}
-
-		function drawerInput(val): void {
+		function drawerInput(val: boolean): void {
 			emitEvent('input', val);
 		}
 
@@ -330,7 +410,7 @@ export default defineComponent({
 		function drawerResize(el: object): void {
 			let width = el.clientX;
 
-			if (isRightSide.value) {
+			if (drawerOptions.location === 'right') {
 				width = document.body.scrollWidth - width;
 			}
 
@@ -341,38 +421,44 @@ export default defineComponent({
 			emitEvent('handle:drag', el);
 		}
 
+
 		// -------------------------------------------------- Handle Events //
-		function handleClick(evt: Event): void {
-			emitEvent('handle:click', evt);
+		function handleClick(e: Event): void {
+			emitEvent('handle:click', e);
 		}
 
-		function handleDoubleClick(evt: Event): void {
+		function handleDoubleClick(e: Event): void {
 			resizedWidth.value = defaultWidth.value;
-			setLocalStorage();
+			setStorage();
 
-			emitEvent('handle:dblclick', evt);
+			emitEvent('handle:dblclick', e);
 		}
 
-		function handleMouseDown(evt: Event): void {
-			evt.preventDefault();
-			evt.stopPropagation();
+		function handleMouseDown(e: Event): void {
+			e.preventDefault();
+			e.stopPropagation();
+			let offsetX = 25;
+
+			if (drawerOptions.handlePosition === 'border') {
+				offsetX = drawerOptions.handleBorderWidth;
+			}
 
 			events.handle.mouseUp = false;
 
-			if (evt.offsetX < 25) {
+			if (e.offsetX < offsetX) {
 				document.addEventListener('mousemove', drawerResize, false);
 			}
 
 			if (!events.handle.mouseDown) {
 				events.handle.mouseDown = true;
 				document.addEventListener('mouseup', handleMouseUp, false);
-				emitEvent('handle:mousedown', evt);
+				emitEvent('handle:mousedown', e);
 			}
 		}
 
-		function handleMouseUp(evt: Event): void {
-			evt.preventDefault();
-			evt.stopPropagation();
+		function handleMouseUp(e: Event): void {
+			e.preventDefault();
+			e.stopPropagation();
 
 			const drawer = resizeDrawer.value;
 
@@ -381,24 +467,32 @@ export default defineComponent({
 
 			document.body.style.cursor = '';
 
-			setLocalStorage();
+			setStorage();
 
 			if (!events.handle.mouseUp) {
 				events.handle.mouseUp = true;
 
 				document.removeEventListener('mouseup', handleMouseUp, false);
 				document.removeEventListener('mousemove', drawerResize, false);
-				emitEvent('handle:mouseup', evt);
+				emitEvent('handle:mouseup', e);
 			}
 		}
 
 		// -------------------------------------------------- Storage Events //
-		function getLocalStorage(): string {
-			return localStorage.getItem(drawerOptions.storageName);
+		function getStorage(): string {
+			if (drawerOptions.storageType === 'local') {
+				return localStorage.getItem(drawerOptions.storageName);
+			}
+
+			if (drawerOptions.storageType === 'session') {
+				return sessionStorage.getItem(drawerOptions.storageName);
+			}
+
+			return '';
 		}
 
-		function setLocalStorage(action = 'update'): [number | string] {
-			if (!drawerOptions.saveWidth || drawerOptions.rail || drawerOptions.expandOnHover) {
+		function setStorage(action = 'update'): [number | string] {
+			if (!drawerOptions.saveWidth || drawerOptions.rail) {
 				return false;
 			}
 
@@ -406,11 +500,17 @@ export default defineComponent({
 			width = width ?? undefined;
 
 			if (action === 'set') {
-				width = getLocalStorage();
+				width = getStorage();
 				width = width || resizedWidth.value;
 			}
 
-			localStorage.setItem(drawerOptions.storageName, width);
+			if (drawerOptions.storageType === 'local') {
+				localStorage.setItem(drawerOptions.storageName, width);
+			}
+
+			if (drawerOptions.storageType === 'session') {
+				sessionStorage.setItem(drawerOptions.storageName, width);
+			}
 
 			return width;
 		}
@@ -428,10 +528,10 @@ export default defineComponent({
 			return `${Number(str)}${unit}`;
 		}
 
-		function emitEvent(name: string, evt): void {
+		function emitEvent(name: string, e): void {
 			const drawerData = {
+				e,
 				eventName: name,
-				evt,
 				resizedWidth: resizedWidth.value,
 				width: resizedWidth.value,
 			};
@@ -445,65 +545,35 @@ export default defineComponent({
 			drawer.addEventListener('mouseleave', drawerMouseleave, false);
 		}
 
-		// function updateApplication() {
-		// 	if (
-		// 		!this.isActive ||
-		// 		this.isMobile ||
-		// 		this.temporary ||
-		// 		!this.$el
-		// 	) return 0;
 
-		// 	let newWidth = this.drawerWidth;
-
-		// 	if (!this.miniVariant && this.expandOnHover) {
-		// 		newWidth = this.width;
-		// 	}
-
-		// 	if (this.miniVariant && this.expandOnHover) {
-		// 		newWidth = this.miniVariantWidth;
-		// 	}
-
-		// 	const intWidth = typeof newWidth === 'number' ? newWidth : newWidth.replace('px', '');
-
-		// 	return intWidth;
-		// }
-
-		// Filter Typescript Object //
-		function filterObject<T extends object>(
-			obj: T,
-			// eslint-disable-next-line no-unused-vars
-			fn: (entry: Entry<T>, i: number, arr: Entry<T>[]) => boolean
-		) {
-			return Object.fromEntries(
-				(Object.entries(obj) as Entry<T>[]).filter(fn)
-			) as Partial<T>;
-		}
-
+		// -------------------------------------------------- Return //
 		return {
+			// Handle //
+			handleClasses,
+			handleStyles,
+
+			// Handle Events //
 			handleClick,
 			handleDoubleClick,
 			handleMouseDown,
 			handleMouseUp,
 
+			// Drawer //
+			drawerClasses,
+			drawerOptions,
+			drawerStyles,
+			drawerWidth,
+
+			// Drawer Events //
 			drawerClose,
-			drawerDrag,
 			drawerInput,
 			drawerMouseenter,
 			drawerMouseleave,
 			drawerResize,
 
-			drawerOptions,
-			drawerClasses,
-			drawerStyles,
-			drawerWidth,
-
-			handleClasses,
-			handleStyles,
-			isResizable,
-
-			slots,
-			isRightSide,
+			// Other //
 			resizeDrawer,
+			slots,
 		};
 	}
 });
@@ -511,23 +581,7 @@ export default defineComponent({
 
 <style lang="scss">
 .v-resize-drawer {
-	&.v-navigation-drawer--overflow {
-		overflow: visible;
-
-		:deep(.v-navigation-drawer__content) {
-			overflow: visible;
-		}
-	}
-
-	.close-drawer {
-		cursor: pointer;
-	}
-
-	.v-navigation-drawer__content {
-		position: relative;
-	}
-
-	.handle-container {
+	&--handle {
 		cursor: grab;
 		position: absolute;
 		width: 24px;
@@ -535,109 +589,6 @@ export default defineComponent({
 
 		&:active {
 			cursor: grabbing;
-		}
-
-		&-parent {
-			&-left {
-				left: initial;
-				right: 0;
-			}
-		}
-
-		&-top {
-			border-right: 24px solid transparent;
-			border-top-style: solid;
-			border-top-width: 24px;
-			height: 24px;
-			left: 0;
-			top: 0;
-			width: 24px;
-
-			&.handle-container-parent {
-				&-left {
-					border-left: 24px solid transparent;
-					border-right: transparent;
-					left: initial;
-					right: 0;
-
-					.handle-container-lines {
-						left: initial;
-						right: -5px;
-						top: -19px;
-						transform: rotate(45deg);
-					}
-				}
-			}
-
-			.handle-container-lines {
-				top: -19px;
-				transform: rotate(-45deg);
-			}
-		}
-
-		&-top-icon {
-			height: 24px;
-			left: initial;
-			opacity: 0.5;
-			right: 0;
-			top: 0;
-			transform: rotate(-90deg);
-			transition: opacity 0.3s ease;
-			width: 24px;
-
-			&:hover {
-				opacity: 1;
-			}
-
-			&.handle-container-parent {
-				&-right {
-					left: 0;
-					right: initial;
-					transform: rotate(-180deg);
-				}
-			}
-		}
-
-		&-top-icon-slot {
-			align-items: center;
-			height: 24px;
-			opacity: 0.5;
-			padding: 2px;
-			right: 0;
-			top: 0;
-			transition: opacity 0.3s ease;
-			width: auto;
-
-			&:hover {
-				opacity: 1;
-			}
-
-			&.handle-container-parent {
-				&-right {
-					left: 0;
-				}
-			}
-		}
-
-		&-border {
-			background-color: transparent !important;
-			cursor: col-resize;
-			height: 100%;
-			top: 0;
-			width: 8px;
-		}
-
-		&-left,
-		&-right {
-			height: 100%;
-			top: 0;
-			width: 12px;
-		}
-
-		&-center {
-			height: 24px;
-			top: 50%;
-			transform: translateY(-50%);
 		}
 
 		&-lines {
@@ -669,13 +620,145 @@ export default defineComponent({
 			}
 		}
 
-		&-icon {
-			height: auto;
-			width: 7px;
+		&-parent {
+			&-top {
+				border-right: 24px solid transparent;
+				border-top-style: solid;
+				border-top-width: 24px;
+				height: 24px;
+				left: 0;
+				top: 0;
+				width: 24px;
+
+				&-left {
+					border-left: 24px solid transparent;
+					border-right: transparent;
+					left: initial;
+					right: 0;
+
+					&-lines {
+						left: initial;
+						right: -5px;
+						top: -19px;
+						transform: rotate(45deg) !important;
+					}
+				}
+
+				&-right {
+					&-lines {
+						top: -19px;
+						transform: rotate(-45deg);
+					}
+				}
+			}
+
+			&-top-icon {
+				height: 24px;
+				left: initial;
+				opacity: 0.5;
+				right: 0;
+				top: 0;
+				transform: rotate(-90deg);
+				transition: opacity 0.3s ease;
+				width: 24px;
+
+				&:hover {
+					opacity: 1;
+				}
+
+				&-right {
+					left: 0;
+					right: initial;
+					transform: rotate(-180deg);
+				}
+			}
+
+			&-top-icon-slot {
+				align-items: center;
+				height: 24px;
+				opacity: 0.5;
+				padding: 2px;
+				right: 0;
+				top: 0;
+				transition: opacity 0.3s ease;
+				width: auto;
+
+				&:hover {
+					opacity: 1;
+				}
+
+				&-right {
+					left: 0;
+				}
+			}
+
+			&-center {
+				height: 24px;
+				top: 50%;
+				transform: translateY(-50%);
+
+				&-left {
+					left: initial;
+					right: 0;
+				}
+			}
+
+			&-border {
+				background-color: transparent !important;
+				cursor: col-resize;
+				height: 100%;
+				top: 0;
+				width: 8px;
+
+				&-left {
+					left: initial;
+					right: 0;
+				}
+
+				&-primary {
+					background-color: rgb(var(--v-theme-primary)) !important;
+				}
+
+				&-secondary {
+					background-color: rgb(var(--v-theme-secondary)) !important;
+				}
+
+				&-success {
+					background-color: rgb(var(--v-theme-success)) !important;
+				}
+
+				&-info {
+					background-color: rgb(var(--v-theme-info)) !important;
+				}
+
+				&-warning {
+					background-color: rgb(var(--v-theme-warning)) !important;
+				}
+
+				&-error {
+					background-color: rgb(var(--v-theme-error)) !important;
+				}
+			}
+
+			&-left {
+				left: initial;
+				right: 0;
+			}
+		}
+
+		&-left,
+		&-right {
+			height: 100%;
+			top: 0;
+			width: 12px;
 		}
 
 		&-handle-flip {
 			transform: scaleX(-1);
+		}
+
+		&-icon {
+			font-size: 0.5rem;
 		}
 	}
 }

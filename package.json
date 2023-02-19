@@ -1,6 +1,6 @@
 {
 	"name": "vuetify3-resize-drawer",
-	"version": "1.0.1",
+	"version": "1.0.0-beta",
 	"description": "The vuetify-resize-drawer component extends the functionality of the v-navigation-drawer so that it is resizable by the user.",
 	"private": false,
 	"main": "dist/vuetify3-resize-drawer.js",
@@ -44,6 +44,7 @@
 	},
 	"homepage": "https://github.com/webdevnerdstuff/vuetify3-resize-drawer",
 	"keywords": [
+		"vuetify3-resize-drawer",
 		"vuetify-resize-drawer",
 		"vuetifyResizeDrawer",
 		"v-resize-drawer",
@@ -52,7 +53,7 @@
 		"vuetify3",
 		"navigation drawer",
 		"v-navigation-drawer",
-		"vNavigationDrawer",
+		"VNavigationDrawer",
 		"api",
 		"drawer",
 		"resize",
@@ -66,7 +67,7 @@
 	],
 	"peerDependencies": {
 		"vue": "^3.2.47",
-		"vuetify": "3.1.2"
+		"vuetify": "^3.1.5"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.20.5",
@@ -99,6 +100,8 @@
 		"postcss-html": "^1.5.0",
 		"postcss-scss": "^4.0.6",
 		"prettier": "^2.8.3",
+		"prism-themes": "^1.9.0",
+		"prismjs": "^1.29.0",
 		"roboto-fontface": "^0.10.0",
 		"rollup": "^3.10.1",
 		"rollup-plugin-polyfill-node": "^0.12.0",
@@ -115,7 +118,7 @@
 		"vite-plugin-stylelint": "^4.2.0",
 		"vite-plugin-vuetify": "^1.0.2",
 		"vue": "^3.2.47",
-		"vuetify": "3.1.2",
+		"vuetify": "^3.1.5",
 		"webfontloader": "^1.6.28"
 	}
 }

@@ -5,7 +5,7 @@
 				class="my-3"
 				contain
 				height="200"
-				src="vuetify-logo-light-atom.svg"
+				src="../assets/vuetify-logo-light-atom.svg"
 			/>
 		</v-col>
 
@@ -49,7 +49,7 @@
 	<UsageComponent :drawerOptions="drawerOptions" />
 
 	<!-- Props -->
-	<PropsComponent />
+	<PropsComponent @updateOptions="emit('updateOptions', $event)" />
 
 	<!-- Events -->
 	<EventsComponent />
@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, provide, reactive, ref } from 'vue';
+import { defineEmits, inject, provide, reactive, ref } from 'vue';
 import packageInfo from '../../package.json';
 import CodeBlock from '@/components/elements/CodeBlock.vue';
 import {
@@ -93,6 +93,7 @@ import {
 const drawerOptions = inject('drawerOptions');
 const links: string[] = inject('links');
 
+const emit = defineEmits(['updateOptions']);
 
 const classes: string[] = reactive({
 	h2: 'v-heading text-h4 text-sm-h4 mb-3',

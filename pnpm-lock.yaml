@@ -31,6 +31,8 @@ specifiers:
   postcss-html: ^1.5.0
   postcss-scss: ^4.0.6
   prettier: ^2.8.3
+  prism-themes: ^1.9.0
+  prismjs: ^1.29.0
   roboto-fontface: ^0.10.0
   rollup: ^3.10.1
   rollup-plugin-polyfill-node: ^0.12.0
@@ -47,7 +49,7 @@ specifiers:
   vite-plugin-stylelint: ^4.2.0
   vite-plugin-vuetify: ^1.0.2
   vue: ^3.2.47
-  vuetify: 3.1.2
+  vuetify: ^3.1.5
   webfontloader: ^1.6.28
 
 devDependencies:
@@ -81,6 +83,8 @@ devDependencies:
   postcss-html: 1.5.0
   postcss-scss: 4.0.6_postcss@8.4.21
   prettier: 2.8.4
+  prism-themes: 1.9.0
+  prismjs: 1.29.0
   roboto-fontface: 0.10.0
   rollup: 3.15.0
   rollup-plugin-polyfill-node: 0.12.0_rollup@3.15.0
@@ -95,9 +99,9 @@ devDependencies:
   vite-plugin-babel: 1.1.3_ypjfabgbjgtw2rjuegdkirikti
   vite-plugin-eslint: 1.8.1_eslint@8.34.0+vite@4.1.1
   vite-plugin-stylelint: 4.2.0_ta4ord6cwqsj425wrhgvsqkm3a
-  vite-plugin-vuetify: 1.0.2_d244u4kgmj6vuhcwfo56xynpqy
+  vite-plugin-vuetify: 1.0.2_4k2swx35ecsvaxb2s7tgkn4atq
   vue: 3.2.47
-  vuetify: 3.1.2_zhdigtlnoj4qfl4bi7c6fb2bly
+  vuetify: 3.1.5_zhdigtlnoj4qfl4bi7c6fb2bly
   webfontloader: 1.6.28
 
 packages:
@@ -2703,7 +2707,7 @@ packages:
     resolution: {integrity: sha512-Iu8Tbg3f+emIIMmI2ycSI8QcEuAUgPTgHwesDU1eKMLE4YC/c/sFbGc70QgMq31ijRftV0R7vCm9co6rldCeOA==}
     dev: true
 
-  /@vuetify/loader-shared/1.7.1_vue@3.2.47+vuetify@3.1.2:
+  /@vuetify/loader-shared/1.7.1_vue@3.2.47+vuetify@3.1.5:
     resolution: {integrity: sha512-kLUvuAed6RCvkeeTNJzuy14pqnkur8lTuner7v7pNE/kVhPR97TuyXwBSBMR1cJeiLiOfu6SF5XlCYbXByEx1g==}
     peerDependencies:
       vue: ^3.0.0
@@ -2712,7 +2716,7 @@ packages:
       find-cache-dir: 3.3.2
       upath: 2.0.1
       vue: 3.2.47
-      vuetify: 3.1.2_zhdigtlnoj4qfl4bi7c6fb2bly
+      vuetify: 3.1.5_zhdigtlnoj4qfl4bi7c6fb2bly
     dev: true
 
   /@webassemblyjs/ast/1.11.1:
@@ -7168,6 +7172,15 @@ packages:
       renderkid: 3.0.0
     dev: true
 
+  /prism-themes/1.9.0:
+    resolution: {integrity: sha512-tX2AYsehKDw1EORwBps+WhBFKc2kxfoFpQAjxBndbZKr4fRmMkv47XN0BghC/K1qwodB1otbe4oF23vUTFDokw==}
+    dev: true
+
+  /prismjs/1.29.0:
+    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
+    engines: {node: '>=6'}
+    dev: true
+
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
     dev: true
@@ -8482,18 +8495,18 @@ packages:
       vite: 4.1.1_gyrp4zacqcjjrmgvdzgac5epyy
     dev: true
 
-  /vite-plugin-vuetify/1.0.2_d244u4kgmj6vuhcwfo56xynpqy:
+  /vite-plugin-vuetify/1.0.2_4k2swx35ecsvaxb2s7tgkn4atq:
     resolution: {integrity: sha512-MubIcKD33O8wtgQXlbEXE7ccTEpHZ8nPpe77y9Wy3my2MWw/PgehP9VqTp92BLqr0R1dSL970Lynvisx3UxBFw==}
     engines: {node: '>=12'}
     peerDependencies:
       vite: ^2.7.0 || ^3.0.0 || ^4.0.0
       vuetify: ^3.0.0-beta.4
     dependencies:
-      '@vuetify/loader-shared': 1.7.1_vue@3.2.47+vuetify@3.1.2
+      '@vuetify/loader-shared': 1.7.1_vue@3.2.47+vuetify@3.1.5
       debug: 4.3.4
       upath: 2.0.1
       vite: 4.1.1_gyrp4zacqcjjrmgvdzgac5epyy
-      vuetify: 3.1.2_zhdigtlnoj4qfl4bi7c6fb2bly
+      vuetify: 3.1.5_zhdigtlnoj4qfl4bi7c6fb2bly
     transitivePeerDependencies:
       - supports-color
       - vue
@@ -8677,8 +8690,8 @@ packages:
       '@vue/shared': 3.2.47
     dev: true
 
-  /vuetify/3.1.2_zhdigtlnoj4qfl4bi7c6fb2bly:
-    resolution: {integrity: sha512-vzxfVc1KlEmZ6tHjmrKCt25rKL6YkakbvQAZ0f/s03kHd0pjXKX4pcWuYgA5mZz4yrfZh/cRHvgGt+7A9CXOVg==}
+  /vuetify/3.1.5_zhdigtlnoj4qfl4bi7c6fb2bly:
+    resolution: {integrity: sha512-6DJYNuKrbxuL+MThmj+VbtvK9X3mY+s8Rqj1juj4RyeLSIAhE3byZf8Bo2/GxrU5Jv3zR07LZdpiq4wIl0ONzA==}
     engines: {node: ^12.20 || >=14.13}
     peerDependencies:
       vite-plugin-vuetify: ^1.0.0-alpha.12
@@ -8693,7 +8706,7 @@ packages:
       webpack-plugin-vuetify:
         optional: true
     dependencies:
-      vite-plugin-vuetify: 1.0.2_d244u4kgmj6vuhcwfo56xynpqy
+      vite-plugin-vuetify: 1.0.2_4k2swx35ecsvaxb2s7tgkn4atq
       vue: 3.2.47
     dev: true
 

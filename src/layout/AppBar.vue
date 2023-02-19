@@ -52,7 +52,7 @@
 import { inject, onMounted, reactive, ref } from 'vue';
 import { useTheme } from 'vuetify';
 
-const emit = defineEmits(['updatedDrawer']);
+const emit = defineEmits(['updatedDrawer', 'changedTheme']);
 const links = inject('links');
 
 const dark = ref(false);
@@ -93,10 +93,11 @@ onMounted(() => {
 
 function getDarkLocalStorage() {
 	const isDark = localStorage.getItem('vuetify-resize-drawer-dark');
-	const themeName = isDark === 'true' ? 'defaultLightTheme' : 'defaultDarkTheme';
+	const themeName = isDark === 'true' ? 'light' : 'dark';
 
 	dark.value = isDark === 'true';
 	theme.global.name.value = themeName;
+	emit('changedTheme', themeName);
 };
 
 function setDarkLocalStorage(val) {
@@ -108,12 +109,13 @@ function getLocalStorage() {
 }
 
 function toggleDark() {
-	const themeName = theme.global.name.value === 'defaultDarkTheme' ? 'defaultLightTheme' : 'defaultDarkTheme';
+	const themeName = theme.global.name.value === 'dark' ? 'light' : 'dark';
 	dark.value = !dark.value;
 
 	theme.global.name.value = themeName;
 
 	setDarkLocalStorage(dark.value);
+	emit('changedTheme', themeName);
 }
 
 function toggleDrawer() {
