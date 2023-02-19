@@ -44,6 +44,7 @@
 	},
 	"homepage": "https://github.com/webdevnerdstuff/vuetify3-resize-drawer",
 	"keywords": [
+		"vuetify3-resize-drawer",
 		"vuetify-resize-drawer",
 		"vuetifyResizeDrawer",
 		"v-resize-drawer",
@@ -52,7 +53,7 @@
 		"vuetify3",
 		"navigation drawer",
 		"v-navigation-drawer",
-		"vNavigationDrawer",
+		"VNavigationDrawer",
 		"api",
 		"drawer",
 		"resize",
@@ -66,7 +67,7 @@
 	],
 	"peerDependencies": {
 		"vue": "^3.2.47",
-		"vuetify": "3.1.2"
+		"vuetify": "^3.1.5"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.20.5",
