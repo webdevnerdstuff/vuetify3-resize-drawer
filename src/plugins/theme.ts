@@ -1,47 +1,35 @@
 import colors from 'vuetify/lib/util/colors';
 
-export const defaultDarkTheme = {
+export const dark = {
 	colors: {
-		accent: colors.purple.accent3,
-		background: '#181818',
-		bulb: colors.yellow.base,
+		accent: '#cd0373',
 		danger: colors.red.base,
-		error: colors.red.base,
+		error: '#ff5252',
 		info: '#fe019a',
-		infoAlt: colors.brown.lighten1,
-		jira: '#2684ff',
 		primary: '#099FFF',
-		secondary: '#cc00ff',
-		success: colors.green.base,
-		successOutline: '#0f0',
-		surface: '#333',
+		secondary: colors.cyan.darken1,
+		success: '#8cd302',
 		warning: '#ff0',
 	},
 	dark: true,
 };
 
-export const defaultLightTheme = {
+export const light = {
 	colors: {
-		accent: colors.lightGreen.darken4,
-		background: '#fff',
-		bulb: colors.yellow.accent4,
+		accent: '#905',
 		danger: '#e3342f',
-		error: colors.red.base,
-		info: colors.pink.base,
-		infoAlt: colors.brown.base,
-		jira: '#2684ff',
-		primary: colors.blue.darken4,
-		secondary: colors.purple.darken1,
-		success: colors.green.base,
-		successOutline: colors.green.base,
-		surface: '#fff',
-		warning: colors.orange.lighten1,
+		error: '#ff5252',
+		info: '#2196f3',
+		primary: '#1867c0',
+		secondary: colors.cyan.darken4,
+		success: '#690',
+		warning: '#fb8c00',
 	},
 	dark: false,
 };
 
 
 export default {
-	defaultDarkTheme,
-	defaultLightTheme,
+	dark,
+	light,
 };
