@@ -36,12 +36,7 @@
 			<!-- ========== Center Icon -->
 			<div
 				v-if="props.handlePosition === 'center'"
-				class="
-					v-resize-drawer--handle-icon
-					d-flex
-					align-items-center
-					justify-content-center
-				"
+				class="v-resize-drawer--handle-icon d-flex align-items-center justify-content-center"
 				:class="{
 					[`v-resize-drawer--handle-${props.handlePosition}-icon`]:
 						props.handlePosition,
@@ -117,12 +112,12 @@
 
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, useSlots, watch } from 'vue';
+import { computed, onMounted, ref, useSlots, watch } from 'vue';
 import { VNavigationDrawer } from 'vuetify/components';
 import { DrawerClasses } from '@/types';
 
 
-export default defineComponent({
+export default {
 	name: 'VResizeDrawer',
 	extends: VNavigationDrawer,
 	emits: [
@@ -242,9 +237,6 @@ export default defineComponent({
 		},
 	},
 	setup(props, { emit }) {
-		// Drawer Options //
-		// let drawerOptions: DrawerOptions = reactive(props);
-
 		const defaultWidth = ref<string | number>(256);
 		const drawerClasses = ref<DrawerClasses>();
 		const handleEvents: { mouseUp: boolean, mouseDown: boolean; } = {
@@ -294,8 +286,6 @@ export default defineComponent({
 		});
 
 		function updateDrawerOptions(): void {
-			// drawerOptions = { ...props };
-
 			buildDrawerClasses();
 			buildHandleClasses();
 			buildHandleStyles();
@@ -569,7 +559,6 @@ export default defineComponent({
 
 			// Drawer //
 			drawerClasses,
-			// drawerOptions,
 			drawerStyles,
 			drawerWidth,
 
@@ -586,7 +575,7 @@ export default defineComponent({
 			slots,
 		};
 	}
-});
+};
 </script>
 
 <style lang="scss">
