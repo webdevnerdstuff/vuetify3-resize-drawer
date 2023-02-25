@@ -1,13 +1,11 @@
-import colors from 'vuetify/lib/util/colors';
-
 export const dark = {
 	colors: {
 		accent: '#cd0373',
-		danger: colors.red.base,
+		danger: '#f44336',
 		error: '#ff5252',
 		info: '#fe019a',
 		primary: '#099FFF',
-		secondary: colors.cyan.darken1,
+		secondary: '#00acc1',
 		success: '#8cd302',
 		warning: '#ff0',
 	},
@@ -21,7 +19,7 @@ export const light = {
 		error: '#ff5252',
 		info: '#2196f3',
 		primary: '#1867c0',
-		secondary: colors.cyan.darken4,
+		secondary: '#006064',
 		success: '#690',
 		warning: '#fb8c00',
 	},

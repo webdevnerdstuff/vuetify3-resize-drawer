@@ -4,9 +4,13 @@ import nodePolyfills from 'rollup-plugin-polyfill-node';
 import pkg from './package.json';
 import typescript from 'rollup-plugin-typescript2';
 import vue from '@vitejs/plugin-vue';
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
 import { fileURLToPath, URL } from 'node:url';
+import scss from 'rollup-plugin-scss';
+import postcss from 'rollup-plugin-postcss';
+import terser from '@rollup/plugin-terser';
 
 const banner = `/**
  * @name ${pkg.name}
@@ -70,7 +74,18 @@ export default {
 		commonjs(),
 		typescript(),
 		vue({
-			defaultLang: { script: 'ts' }
+			defaultLang: { script: 'ts' },
+			template: { transformAssetUrls },
 		}),
+		vuetify({
+			autoImport: false,
+			styles: 'none',
+		}),
+		postcss({
+			modules: true,
+			extract: true
+		}),
+		scss(),
+		terser(),
 	],
 };

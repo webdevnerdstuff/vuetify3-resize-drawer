@@ -34,9 +34,17 @@
 		"lodash",
 		"node"
 	],
+	"exclude": [
+        "src/App.vue",
+        "src/main.ts",
+		"src/components/**/*.ts",
+		"src/components/**/*.vue",
+		"src/plugins/**/*.ts",
+		"node_modules"
+    ],
 	"include": [
 		"src/**/*.ts",
-		"src/**/*.vue",
+		"src/**/*.vue"
 	],
 	"references": [
 		{

@@ -12,15 +12,6 @@ export default defineConfig({
 	build: {
 		outDir: 'docs',
 	},
-	css: {
-		preprocessorOptions: {
-			scss: {
-				additionalData: `
-					@import "./src/scss/app.scss";
-				`,
-			},
-		},
-	},
 	plugins: [
 		eslint({
 			fix: true,
@@ -41,7 +32,6 @@ export default defineConfig({
 		alias: {
 			'@': fileURLToPath(new URL('./src', import.meta.url)),
 			'@root': fileURLToPath(new URL('.', import.meta.url)),
-			'@scss': fileURLToPath(new URL('./src/scss', import.meta.url)),
 		},
 		extensions: [
 			'.js',
