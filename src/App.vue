@@ -1,4 +1,3 @@
-<!-- eslint-disable no-console -->
 <template>
 	<v-app id="home">
 		<!-- ====================================================== App Bar -->
@@ -69,7 +68,6 @@
 			@handle:mousedown="handleMousedown"
 			@handle:mouseup="handleMouseup"
 			@input="drawerInput"
-			@transitionend="drawerTransitionend"
 		>
 			<!-- <template #handle>
 				<v-icon>mdi mdi-cog</v-icon>
@@ -168,14 +166,14 @@ const mainStyles = computed(() => {
 	return styles;
 });
 
-function drawerClose(val) {
-	console.log('drawerClose', val);
+function drawerClose(val): void {
+	eventTriggered('drawerClose', val);
 
 	this.drawer = false;
 }
 
-function drawerInput(val) {
-	console.log('drawerInput', val);
+function drawerInput(val): boolean {
+	eventTriggered('drawerInput', val);
 
 	if (val) {
 		getLocalStorage();
@@ -186,51 +184,52 @@ function drawerInput(val) {
 	return false;
 }
 
-function drawerTransitionend(evt) {
-	console.log('drawerTransitionend', evt);
+function eventTriggered(eventName, eventValue = null): object {
+	// console.log(eventName, eventValue);
+	return { eventName, eventValue };
 }
 
-function getLocalStorage() {
+function getLocalStorage(): void {
 	updateDrawerOffset(localStorage.getItem(drawerOptions.value.storageName) || drawerOffset.value);
 }
 
-function handleClick(evt) {
-	console.log('handleClick', evt);
+function handleClick(evt): void {
+	eventTriggered('handleClick', evt);
 }
 
-function handleDoubleClick(evt) {
-	console.log('handleDoubleClick', evt);
+function handleDoubleClick(evt): void {
+	eventTriggered('handleDoubleClick', evt);
 
 	updateDrawerOffset(evt.offsetWidth);
 }
 
-function handleDrag(evt) {
+function handleDrag(evt): void {
 	updateDrawerOffset(evt.offsetWidth);
 }
 
-function handleMousedown(evt) {
-	console.log('handleMousedown', evt);
+function handleMousedown(evt): void {
+	eventTriggered('handleMousedown', evt);
 }
 
-function handleMouseup(evt) {
-	console.log('handleMouseup', evt);
+function handleMouseup(evt): void {
+	eventTriggered('handleMouseup', evt);
 
 	updateDrawerOffset(evt.offsetWidth);
 }
 
-function toggleDrawer() {
+function toggleDrawer(): void {
 	drawer.value = !drawer.value;
 }
 
-function updateDrawerOffset(val) {
+function updateDrawerOffset(val): void {
 	drawerOffset.value = val;
 }
 
-function updateOptions(options) {
+function updateOptions(options): void {
 	drawerOptions.value = options;
 }
 
-function updateTheme(val) {
+function updateTheme(val): void {
 	drawerOptions.value.theme = val;
 	drawerOptions.value.dark = val === 'dark';
 }
