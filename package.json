@@ -5,7 +5,7 @@
 	"private": false,
 	"main": "dist/vuetify3-resize-drawer.js",
 	"module": "dist/vuetify3-resize-drawer.es.js",
-	"types": "dist/plugin/Vuetify3ResizeDrawer.d.ts",
+	"types": "dist/types/index.d.ts",
 	"scripts": {
 		"dev": "vite",
 		"watch": "pnpm dev",
