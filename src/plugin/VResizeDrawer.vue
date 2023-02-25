@@ -459,7 +459,6 @@ export default {
 			e.stopPropagation();
 
 			const drawer = resizeDrawer.value;
-			console.log({ drawer });
 
 			handleEvents.mouseDown = false;
 			resizedWidth.value = drawer.width;
