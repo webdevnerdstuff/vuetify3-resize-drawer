@@ -10,6 +10,7 @@ import json from '@rollup/plugin-json';
 import { fileURLToPath, URL } from 'node:url';
 import scss from 'rollup-plugin-scss';
 import postcss from 'rollup-plugin-postcss';
+import terser from '@rollup/plugin-terser';
 
 const banner = `/**
  * @name ${pkg.name}
@@ -77,12 +78,14 @@ export default {
 			template: { transformAssetUrls },
 		}),
 		vuetify({
-			autoImport: true,
+			autoImport: false,
+			styles: 'none',
 		}),
 		postcss({
 			modules: true,
 			extract: true
 		}),
 		scss(),
+		terser(),
 	],
 };
