@@ -41,8 +41,8 @@ npm i vuetify3-resize-drawer
 
 ## Dependencies
  
-[Vuetify v2](https://vuetifyjs.com/)  
-[Vue 2](https://v2.vuejs.org/)
+[Vuetify v3](https://vuetifyjs.com/)  
+[Vue 3](hhttps://vuejs.org/)
 
 
 ## Change Log
@@ -52,7 +52,7 @@ npm i vuetify3-resize-drawer
 
 ## License
 
-Copyright (c) 2022 WebDevNerdStuff  
+Copyright (c) 2023 WebDevNerdStuff  
 Licensed under the [MIT license](https://github.com/webdevnerdstuff/vuetify3-resize-drawer/blob/master/LICENSE.md).
 
 
