@@ -42,7 +42,7 @@ npm i vuetify3-resize-drawer
 ## Dependencies
  
 [Vuetify v3](https://vuetifyjs.com/)  
-[Vue 3](hhttps://vuejs.org/)
+[Vue 3](https://vuejs.org/)
 
 
 ## Change Log
