@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img alt="Vuetify Logo" width="100" src="https://webdevnerdstuff.github.io/vuetify3-resize-drawer/images/vuetify-logo-light-atom.svg">
+  <img alt="Vuetify Logo" width="100" src="https://raw.githubusercontent.com/webdevnerdstuff/vuetify3-resize-drawer/main/src/assets/vuetify-logo-light-atom.svg">
 </p>
 
 <p>
