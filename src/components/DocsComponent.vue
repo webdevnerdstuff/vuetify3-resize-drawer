@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineEmits, inject, provide, reactive, ref } from 'vue';
+import { inject, provide, reactive, ref } from 'vue';
 import packageInfo from '../../package.json';
 import CodeBlock from '@/components/elements/CodeBlock.vue';
 import {
@@ -88,7 +88,7 @@ import {
 	SassVariables,
 	SlotsComponent,
 	UsageComponent,
-} from '@/components/docs/index';
+} from '@/components/docs';
 
 const drawerOptions = inject('drawerOptions');
 const links: string[] = inject('links');
