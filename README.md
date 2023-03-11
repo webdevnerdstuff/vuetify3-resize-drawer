@@ -8,10 +8,10 @@
 </p>
 
 <p align="center">
-  <!-- <a href="https://www.npmjs.com/package/vuetify3-resize-drawer">
+  <a href="https://www.npmjs.com/package/vuetify3-resize-drawer">
     <img src="https://img.shields.io/npm/v/vuetify3-resize-drawer?color=1867c0&logo=npm" alt="NPM Package">
   </a>
-  &nbsp; -->
+  &nbsp;
   <a href="https://github.com/webdevnerdstuff/vuetify3-resize-drawer">
     <img src="https://img.shields.io/badge/GitHub-WebDevNerdStuff-brightgreen.svg?logo=github" alt="@WebDevNerdStuff">
   </a>
