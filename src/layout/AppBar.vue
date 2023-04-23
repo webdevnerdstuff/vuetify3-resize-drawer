@@ -1,5 +1,10 @@
 <template>
-	<v-app-bar class="top-app-bar" color="primary" density="compact" fixed>
+	<v-app-bar
+		class="top-app-bar"
+		color="primary"
+		density="compact"
+		fixed
+	>
 		<v-app-bar-nav-icon
 			class="nav-drawer-btn me-2 ms-3"
 			:height="iconSize.height"
@@ -12,6 +17,16 @@
 		<div class="site-title">Vuetify Resize Drawer</div>
 
 		<v-spacer></v-spacer>
+
+		<v-btn
+			class="me-2 text-capitalize"
+			:href="`${links.vuetify}/api/v-navigation-drawer/`"
+			target="_blank"
+			title="Vuetify v-navigation-drawer API"
+			variant="outlined"
+		>
+			<v-icon class="me-1">mdi-vuetify</v-icon> VNavigationDrawer
+		</v-btn>
 
 		<v-btn
 			class="me-2"
@@ -128,4 +143,5 @@ function updateDrawerOffset(val) {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+</style>
