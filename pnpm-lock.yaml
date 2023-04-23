@@ -56,7 +56,6 @@ specifiers:
 
 dependencies:
   vue: 3.2.47
-  vue3-code-block: 2.1.0_vue@3.2.47
   vuetify: 3.1.15_zhdigtlnoj4qfl4bi7c6fb2bly
 
 devDependencies:
@@ -108,6 +107,7 @@ devDependencies:
   vite-plugin-stylelint: 4.3.0_7jem2gdwwmup5t65lkeq3egrzi
   vite-plugin-vuetify: 1.0.2_d3bwmy7diytf7wulg7rbpr5zse
   vue-tsc: 1.4.4_typescript@5.0.4
+  vue3-code-block: 2.1.0_vue@3.2.47
   webfontloader: 1.6.28
 
 packages:
@@ -5365,7 +5365,7 @@ packages:
   /highlight.js/11.7.0:
     resolution: {integrity: sha512-1rRqesRFhMO/PRF+G86evnyJkCgaZFOI+Z6kdj15TA18funfoqJXvgPCLSf0SWq3SRfg1j3HlDs8o4s3EGq1oQ==}
     engines: {node: '>=12.0.0'}
-    dev: false
+    dev: true
 
   /hosted-git-info/2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
@@ -7374,7 +7374,7 @@ packages:
   /prismjs/1.29.0:
     resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
     engines: {node: '>=6'}
-    dev: false
+    dev: true
 
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
@@ -8601,7 +8601,7 @@ packages:
 
   /ua-parser-js/1.0.35:
     resolution: {integrity: sha512-fKnGuqmTBnIE+/KXSzCn4db8RTigUzw1AN0DmdU6hJovUTbYJKyqj+8Mt1c4VfRDnOVJnENmfYkIPZ946UrSAA==}
-    dev: false
+    dev: true
 
   /unbox-primitive/1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
@@ -8991,7 +8991,7 @@ packages:
       prismjs: 1.29.0
       ua-parser-js: 1.0.35
       vue: 3.2.47
-    dev: false
+    dev: true
 
   /vuetify/3.1.15_zhdigtlnoj4qfl4bi7c6fb2bly:
     resolution: {integrity: sha512-uxB4UCrP+hFyJaoSsVObAGBRD73qq5ga7HULepzGoMeUWap2H99mcqmMdN/a/Yp4ODK3gT8EcUeph3EgEcsArQ==}
