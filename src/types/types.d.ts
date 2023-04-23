@@ -18,11 +18,17 @@ export interface DrawerClasses {
 
 export type WidthProp = number | string | undefined;
 
+export type EmitEventNames = "handle:click" | "handle:dblclick" | "handle:drag" | "handle:mousedown" | "handle:mouseup";
 export type LocationPropType = PropType<"end" | "start" | "left" | "top" | "bottom" | "right">;
 export type StorageTypePropType = PropType<"local" | "session">;
 
 
 // -------------------------------------------------- Props //
+export type HandleColorProp = ({
+	dark?: string;
+	light?: string;
+});
+
 export type Props = {
 	absolute?: {
 		default: boolean;
@@ -60,7 +66,7 @@ export type Props = {
 		type: PropType<number | string | undefined>;
 	};
 	handleColor?: {
-		default: object;
+		default: () => HandleColorProp;
 		required: boolean;
 		type: PropType<object>;
 	};

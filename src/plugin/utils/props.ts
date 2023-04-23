@@ -37,14 +37,12 @@ export const AllProps: Props = {
 		required: false,
 	},
 	handleColor: {
-		type: Object,
+		default: () => ({
+			dark: 'default',
+			light: 'default',
+		}),
 		required: false,
-		default() {
-			return {
-				dark: 'default',
-				light: 'default',
-			};
-		},
+		type: Object,
 	},
 	handlePosition: {
 		type: String,
