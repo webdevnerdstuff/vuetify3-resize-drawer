@@ -40,6 +40,12 @@ export default {
 			banner,
 		},
 	],
+	onwarn: (warning, defaultHandler) => {
+		if (warning.code === "CIRCULAR_DEPENDENCY") {
+			return;
+		}
+		defaultHandler(warning);
+	},
 	external: [
 		...Object.keys(pkg.dependencies || {}),
 		...Object.keys(pkg.peerDependencies || {}),
