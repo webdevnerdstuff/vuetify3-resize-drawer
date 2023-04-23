@@ -20,10 +20,11 @@
 
 <script setup lang="ts">
 import { inject, onMounted, reactive, ref } from 'vue';
+import { DrawerOptions } from '@/components';
 
-const drawerOptions = inject('drawerOptions');
+const drawerOptions = inject<DrawerOptions>('drawerOptions');
 
-const active = ref(true);
+const active = ref<string | boolean>(true);
 const menuItems = reactive([
 	{ title: 'Home', icon: 'mdi-home', href: '#home' },
 	{ title: 'Installation', icon: 'mdi-plus-thick', href: '#installation' },
@@ -45,8 +46,8 @@ onMounted(() => {
 });
 
 function smoothScroll() {
-	document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-		anchor.addEventListener('click', (e) => {
+	document.querySelectorAll('a[href^="#"]').forEach((anchor: HTMLAnchorElement) => {
+		anchor.addEventListener('click', (e: MouseEvent) => {
 			e.preventDefault();
 
 			const hash = anchor.hash;

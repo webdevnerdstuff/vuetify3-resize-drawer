@@ -41,12 +41,14 @@
 								<template v-if="item.tab === 'Template'">
 									<CodeBlock
 										:code="codeTemplate"
+										highlightjs
 										lang="html"
 									/>
 								</template>
 								<template v-else>
 									<CodeBlock
 										:code="codeScript"
+										highlightjs
 										lang="javascript"
 									/>
 								</template>
@@ -62,22 +64,19 @@
 
 <script setup lang="ts">
 import { inject, ref } from 'vue';
+import { KeyStringObject } from '@/components';
 
-const classes = inject<string[]>('classes');
-const items: object[] = [
+const classes = inject<KeyStringObject>('classes');
+const items = [
 	{ tab: 'Template', content: 'Tab 1 Content' },
 	{ tab: 'Script', content: 'Tab 2 Content' },
 ];
 
 const activeTab = ref('Template');
-const codeTemplate = `
-<template>
+const codeTemplate = `<template>
 	<v-app id="home">
 		<v-resize-drawer
 			v-model="drawer"
-			app
-			clipped
-			fixed
 			handlePosition="center"
 			storageName="my-storage-name"
 			width="256px"
@@ -111,8 +110,7 @@ const codeTemplate = `
 	</v-app>
 </template>
 `;
-const codeScript = `
-import VResizeDrawer from 'vuetify-resize-drawer';
+const codeScript = `import VResizeDrawer from 'vuetify-resize-drawer';
 
 export default {
 	name: 'App',

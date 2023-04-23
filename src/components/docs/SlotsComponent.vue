@@ -52,8 +52,9 @@
 
 <script setup lang="ts">
 import { inject } from 'vue';
+import { KeyStringObject } from '@/components';
 
-const classes = inject<string[]>('classes');
+const classes = inject<KeyStringObject>('classes');
 
 const headers: object[] = [
 	{

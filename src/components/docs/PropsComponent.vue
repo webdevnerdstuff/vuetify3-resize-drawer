@@ -367,19 +367,19 @@
 
 <script setup lang="ts">
 import { inject, onMounted, reactive, ref, watch } from 'vue';
-import { DrawerOptions } from '@/types';
+import { DrawerOptions, KeyStringObject } from '@/components';
 
 const emit = defineEmits(['updateOptions']);
 
-const links = inject<string[]>('links');
-const classes = inject<string[]>('classes');
+const links = inject<KeyStringObject>('links');
+const classes = inject<KeyStringObject>('classes');
 const drawerOptions: DrawerOptions = inject('drawerOptions');
 const handleColor = ref<string>('');
 
 let defaultOptions: DrawerOptions = {};
 const dialog = ref<boolean>(false);
-const options: DrawerOptions = ref(drawerOptions);
-const propsSupported = reactive<object>({
+const options = ref<DrawerOptions>(drawerOptions);
+const propsSupported = reactive<{ headers: object[]; items: object[]; }>({
 	headers: [
 		{
 			align: 'start',
@@ -457,7 +457,7 @@ const propsSupported = reactive<object>({
 		},
 	],
 });
-const propsNotSupported = reactive<object>({
+const propsNotSupported = reactive<{ headers: object[]; items: object[]; }>({
 	headers: [
 		{
 			align: 'start',
@@ -512,7 +512,7 @@ const propsNotSupported = reactive<object>({
 	],
 });
 const search = ref<string>('');
-const selectOptions: object = {
+const selectOptions: { handleColor: object[], handlePosition: string[]; } = {
 	handleColor: [
 		{ title: 'Default', value: 'default' },
 		{ title: 'Primary', value: 'primary' },

@@ -37,21 +37,28 @@
 
 			<v-row>
 				<v-col cols="12">
-					Using npm:
+
 					<CodeBlock
 						code="npm i vuetify-resize-drawer"
+						highlightjs
+						label="Using npm:"
 						lang="plain"
 					/>
 				</v-col>
 				<v-col cols="12">
-					Using <a
-						:href="links.pnpm"
-						target="_blank"
-					>pnpm</a>:
+
 					<CodeBlock
 						code="pnpm add vuetify-resize-drawer"
+						highlightjs
 						lang="plain"
-					/>
+					>
+						<template #label>
+							Using <a
+								:href="links.pnpm"
+								target="_blank"
+							>pnpm</a>:
+						</template>
+					</CodeBlock>
 				</v-col>
 			</v-row>
 		</v-col>
@@ -93,7 +100,8 @@
 </template>
 
 <script setup lang="ts">
-import { inject, provide, reactive, ref } from 'vue';
+import { inject, provide, ref } from 'vue';
+import { DrawerOptions, KeyStringObject } from '@/components';
 import packageInfo from '../../package.json';
 import {
 	DependenciesComponent,
@@ -108,16 +116,16 @@ import {
 	UsageComponent,
 } from '@/components/docs';
 
-const drawerOptions = inject('drawerOptions');
-const links = inject<string[]>('links');
+const drawerOptions = inject<DrawerOptions>('drawerOptions');
+const links = inject<KeyStringObject>('links');
 
 const emit = defineEmits(['updateOptions']);
 
-const classes = reactive<object>({
+const classes = ref<KeyStringObject>({
+	appLink: 'app-link text-decoration-none primary--text font-weight-medium d-inline-block font-weight-bold',
 	h2: 'v-heading text-h4 text-sm-h4 mb-3',
 	h3: 'v-heading text-h5 text-sm-h5 mb-1',
 	headerA: 'text-decoration-none text-right text-md-left',
-	appLink: 'app-link text-decoration-none primary--text font-weight-medium d-inline-block font-weight-bold',
 });
 const componentVersion = ref<number | string>(packageInfo.version);
 

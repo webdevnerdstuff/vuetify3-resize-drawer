@@ -32,7 +32,8 @@
 
 <script setup lang="ts">
 import { inject } from 'vue';
+import { KeyStringObject } from '@/components';
 
-const classes = inject<string[]>('classes');
-const links = inject<string[]>('links');
+const classes = inject<KeyStringObject>('classes');
+const links = inject<KeyStringObject>('links');
 </script>
