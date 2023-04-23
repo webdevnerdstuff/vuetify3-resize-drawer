@@ -67,6 +67,7 @@
 	],
 	"dependencies": {
 		"vue": "^3.2.47",
+		"vue3-code-block": "^2.1.0",
 		"vuetify": "^3.1.15"
 	},
 	"devDependencies": {
