@@ -21,8 +21,14 @@
 				"./src/*"
 			]
 		},
+		"types": [
+			"node",
+			"vuetify"
+		],
 		"typeRoots": [
-			"./ts"
+			"./ts",
+			"./node_modules/@types",
+			"./node_modules/vuetify/types"
 		],
 		"skipLibCheck": true,
 		"useDefineForClassFields": true,
@@ -30,10 +36,6 @@
 		"resolveJsonModule": true,
 		"noEmit": true
 	},
-	"types": [
-		"lodash",
-		"node"
-	],
 	"exclude": [
         "src/App.vue",
         "src/main.ts",
