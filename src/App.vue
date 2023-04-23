@@ -1,7 +1,10 @@
 <template>
 	<v-app id="home">
 		<!-- ====================================================== App Bar -->
-		<AppBar @changedTheme="updateTheme" @updatedDrawer="toggleDrawer" />
+		<AppBar
+			@changedTheme="updateTheme"
+			@updatedDrawer="toggleDrawer"
+		/>
 
 		<!-- ====================================================== Navigation Drawer -->
 		<v-navigation-drawer
@@ -255,15 +258,12 @@ html {
 .v-heading {
 	position: relative;
 
-	> a {
-		bottom: 0;
+	>a {
 		color: rgb(var(--v-theme-primary));
 		display: inline-block;
-		left: 0;
+		inset: 0;
 		margin: 0 -0.7em;
 		position: absolute;
-		right: 0;
-		top: 0;
 
 		&:not(:hover):not(:focus) {
 			opacity: 0;
