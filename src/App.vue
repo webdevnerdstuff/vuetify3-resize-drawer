@@ -104,19 +104,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, provide, reactive, ref } from 'vue';
+import { computed, onMounted, provide, ref } from 'vue';
 import { useDisplay } from 'vuetify';
-import { DrawerOptions } from '@/types';
-import AppBar from '@/layout/AppBar.vue';
-import MenuComponent from '@/components/MenuComponent.vue';
-import DocsComponent from '@/components/DocsComponent.vue';
+import { DrawerOptions } from './components';
+import AppBar from './layout/AppBar.vue';
+import MenuComponent from './components/MenuComponent.vue';
+import DocsComponent from './components/DocsComponent.vue';
 
 onMounted(() => {
 	getLocalStorage();
 });
 
-const drawer: boolean = ref(true);
-const links: string[] = reactive({
+const drawer = ref<boolean>(true);
+const links = ref<object>({
 	github: 'https://github.com/webdevnerdstuff',
 	npm: 'https://www.npmjs.com/package/vuetify3-resize-drawer',
 	pnpm: 'https://pnpm.io/',
@@ -124,8 +124,8 @@ const links: string[] = reactive({
 	vue: 'https://vuejs.org/',
 	vuetify: 'https://vuetifyjs.com/en',
 });
-const drawerOffset: string = ref('256px');
-const drawerOptions: DrawerOptions = ref({
+const drawerOffset = ref<string | number>('256px');
+const drawerOptions = ref<DrawerOptions>({
 	absolute: false,
 	color: '',
 	dark: true,
@@ -139,7 +139,7 @@ const drawerOptions: DrawerOptions = ref({
 	},
 	handlePosition: 'center',
 	// image: 'https://media.newyorker.com/photos/59096937019dfc3494ea1169/master/w_2560%2Cc_limit/Frazier-Bunny-Rabbits.jpg',
-	location: 'left',
+	location: 'right',
 	resizable: true,
 	rail: false,
 	railWidth: 56,
