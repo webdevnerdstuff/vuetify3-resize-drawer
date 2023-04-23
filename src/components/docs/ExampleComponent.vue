@@ -1,13 +1,27 @@
 <template>
 	<v-row>
-		<v-col id="example" class="mb-5" cols="12">
+		<v-col
+			id="example"
+			class="mb-5"
+			cols="12"
+		>
 			<h2 :class="classes.h2">
-				<a :class="classes.headerA" href="#example">#</a>
+				<a
+					:class="classes.headerA"
+					href="#example"
+				>#</a>
 				Example
 			</h2>
 
-			<v-tabs v-model="activeTab" align-tabs="center">
-				<v-tab v-for="item in items" :key="item.tab" :value="item.tab">
+			<v-tabs
+				v-model="activeTab"
+				align-tabs="center"
+			>
+				<v-tab
+					v-for="item in items"
+					:key="item.tab"
+					:value="item.tab"
+				>
 					{{ item.tab }}
 				</v-tab>
 			</v-tabs>
@@ -20,12 +34,21 @@
 						:value="item.tab"
 					>
 						<v-row>
-							<v-col cols="10" offset="1">
+							<v-col
+								cols="10"
+								offset="1"
+							>
 								<template v-if="item.tab === 'Template'">
-									<CodeBlock :code="codeTemplate" lang="html" />
+									<CodeBlock
+										:code="codeTemplate"
+										lang="html"
+									/>
 								</template>
 								<template v-else>
-									<CodeBlock :code="codeScript" lang="javascript" />
+									<CodeBlock
+										:code="codeScript"
+										lang="javascript"
+									/>
 								</template>
 								<br />
 							</v-col>
@@ -39,9 +62,8 @@
 
 <script setup lang="ts">
 import { inject, ref } from 'vue';
-import CodeBlock from '@/components/elements/CodeBlock.vue';
 
-const classes: string[] = inject('classes');
+const classes = inject<string[]>('classes');
 const items: object[] = [
 	{ tab: 'Template', content: 'Tab 1 Content' },
 	{ tab: 'Script', content: 'Tab 2 Content' },

@@ -1,8 +1,15 @@
 <template>
 	<v-row>
-		<v-col id="description" class="mb-5" cols="12">
+		<v-col
+			id="description"
+			class="mb-5"
+			cols="12"
+		>
 			<h2 :class="classes.h2">
-				<a :class="classes.headerA" href="#description">#</a>
+				<a
+					:class="classes.headerA"
+					href="#description"
+				>#</a>
 				Description
 			</h2>
 
@@ -14,8 +21,7 @@
 						<a
 							:href="`${links.vuetify}/components/navigation-drawers/`"
 							target="_blank"
-							>v-navigation-drawer</a
-						>
+						>v-navigation-drawer</a>
 						so that it is resizable by the user.
 					</p>
 				</v-col>
@@ -27,6 +33,6 @@
 <script setup lang="ts">
 import { inject } from 'vue';
 
-const links: string[] = inject('links');
-const classes: string[] = inject('classes');
+const classes = inject<string[]>('classes');
+const links = inject<string[]>('links');
 </script>

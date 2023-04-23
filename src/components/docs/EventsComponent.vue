@@ -1,8 +1,15 @@
 <template>
 	<v-row>
-		<v-col id="events" class="mb-5" cols="12">
+		<v-col
+			id="events"
+			class="mb-5"
+			cols="12"
+		>
 			<h2 :class="classes.h2">
-				<a :class="classes.headerA" href="#events">#</a>
+				<a
+					:class="classes.headerA"
+					href="#events"
+				>#</a>
 				Events
 			</h2>
 
@@ -59,7 +66,7 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue';
 
-const classes: string[] = inject('classes');
+const classes = inject<string[]>('classes');
 
 const headers: object[] = [
 	{
@@ -114,5 +121,5 @@ const items: object[] = [
 		desc: 'Emits event object when mouse up on handle.',
 	},
 ];
-const search: string = ref('');
+const search = ref<string>('');
 </script>

@@ -1,8 +1,15 @@
 <template>
 	<v-row>
-		<v-col id="sass-variables" class="mb-5" cols="12">
+		<v-col
+			id="sass-variables"
+			class="mb-5"
+			cols="12"
+		>
 			<h2 :class="classes.h2">
-				<a :class="classes.headerA" href="#sass-variables">#</a>
+				<a
+					:class="classes.headerA"
+					href="#sass-variables"
+				>#</a>
 				SASS Variables
 			</h2>
 
@@ -12,8 +19,7 @@
 					<a
 						:href="`${links.vuetify}/api/v-navigation-drawer/#sass`"
 						target="_blank"
-						>SASS Variables</a
-					>
+					>SASS Variables</a>
 					are supported.
 				</v-col>
 			</v-row>
@@ -61,8 +67,8 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue';
 
-const classes: string[] = inject('classes');
-const links: string[] = inject('links');
+const classes = inject<string[]>('classes');
+const links = inject<string[]>('links');
 
 const headers: object[] = [
 	{
@@ -101,5 +107,5 @@ const items: object[] = [
 		desc: '',
 	},
 ];
-const search: string = ref('');
+const search = ref<string>('');
 </script>
