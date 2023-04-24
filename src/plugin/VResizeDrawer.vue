@@ -117,7 +117,11 @@ import {
 	useSlots,
 } from 'vue';
 import { VNavigationDrawer } from 'vuetify/components';
-import { DrawerClasses } from '@/types/types';
+import {
+	DrawerClasses,
+	EmitEventNames,
+	HandleColorProp,
+} from '@/types/types';
 import { componentName } from './utils/globals';
 import { AllProps } from './utils/props';
 import {
@@ -231,8 +235,9 @@ const drawerWidth = computed<string>(() => {
 const handleClasses = computed((): object => {
 	const handlePosition = props.handlePosition;
 	const parentPosition = props.location === 'right' ? 'right' : 'left';
-	const darkColor = props.handleColor.dark;
-	const lightColor = props.handleColor.light;
+	const propsHandleColor = props.handleColor as HandleColorProp;
+	const darkColor = propsHandleColor.dark;
+	const lightColor = propsHandleColor.light;
 	const isBorderHandle = handlePosition === 'border';
 
 	let handleBaseClass = `${componentName}--handle-${handlePosition}`;
@@ -258,7 +263,8 @@ const handleClasses = computed((): object => {
 
 const handleStyles = computed<CSSProperties>(() => {
 	const handlePosition = props.handlePosition;
-	const color = props.dark ? props.handleColor.dark : props.handleColor.light;
+	const propsHandleColor = props.handleColor as HandleColorProp;
+	const color = props.dark ? propsHandleColor.dark : propsHandleColor.light;
 	const styles = {
 		backgroundColor: null as string,
 		width: null as string,
@@ -390,7 +396,7 @@ function convertToUnit(str: string | number, unit = 'px'): string {
 	return `${Number(str)}${unit}`;
 }
 
-function emitEvent(name: string, e: Event | MouseEvent): void {
+function emitEvent(name: EmitEventNames, e: Event | MouseEvent): void {
 	const drawerData = {
 		e,
 		eventName: name,
