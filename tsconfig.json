@@ -24,6 +24,11 @@
 				"./src/*"
 			]
 		},
+		"plugins": [
+			{
+				"transform": "transformer-module"
+			}
+		],
 		"resolveJsonModule": true,
 		"rootDir": "src",
 		"skipLibCheck": true,
