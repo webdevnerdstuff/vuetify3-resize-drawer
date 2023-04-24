@@ -78,7 +78,10 @@ export default {
 			],
 		}),
 		commonjs(),
-		typescript(),
+		typescript({
+			tsconfig: './tsconfig.json',
+			useTsconfigDeclarationDir: true,
+		}),
 		vue({
 			defaultLang: { script: 'ts' },
 			template: { transformAssetUrls },
@@ -88,10 +91,13 @@ export default {
 			styles: 'none',
 		}),
 		postcss({
+			minimize: true,
 			modules: true,
 			extract: true
 		}),
-		scss(),
+		scss({
+			outputStyle: 'compressed'
+		}),
 		terser(),
 	],
 };
