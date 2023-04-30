@@ -151,8 +151,8 @@ const handleEvents: { mouseUp: boolean, mouseDown: boolean; } = {
 	mouseDown: false,
 };
 const isMouseover = ref<boolean>(false);
-const resizeDrawer = ref<VNavigationDrawer>(null);
-const resizedWidth = ref<number | string>(256);
+const resizeDrawer = ref<VNavigationDrawer>();
+const resizedWidth = ref<number | string | undefined>(256);
 const slots = useSlots();
 
 // -------------------------------------------------- Mounted //
@@ -168,12 +168,12 @@ function init(): boolean {
 	}
 
 	const storageWidth = useGetStorage(props.storageType, props.storageName);
-	const width: string | number = convertToUnit(props.width);
+	const width = convertToUnit(props.width as string);
 	resizedWidth.value = width;
-	defaultWidth.value = resizedWidth.value;
+	defaultWidth.value = resizedWidth.value as string;
 
 	if (props.saveWidth && storageWidth && !props.rail) {
-		resizedWidth.value = useGetStorage(props.storageType, props.storageName);
+		resizedWidth.value = useGetStorage(props.storageType, props.storageName) as string;
 	}
 
 	genListeners();
@@ -215,8 +215,10 @@ const drawerStyles = computed<object>(() => {
 		return {};
 	}
 
+	const widthValue = props.rail ? props.railWidth : resizedWidth.value;
+
 	const styles = {
-		width: convertToUnit(props.rail ? props.railWidth : resizedWidth.value),
+		width: convertToUnit(widthValue as string),
 	};
 
 	return styles;
@@ -224,10 +226,10 @@ const drawerStyles = computed<object>(() => {
 
 const drawerWidth = computed<string>(() => {
 	if (props.rail) {
-		return;
+		return '';
 	}
 
-	return convertToUnit(resizedWidth.value);
+	return convertToUnit(resizedWidth.value as string) as string;
 });
 
 
@@ -266,16 +268,16 @@ const handleStyles = computed<CSSProperties>(() => {
 	const propsHandleColor = props.handleColor as HandleColorProp;
 	const color = props.dark ? propsHandleColor.dark : propsHandleColor.light;
 	const styles = {
-		backgroundColor: null as string,
-		width: null as string,
+		backgroundColor: '',
+		width: '',
 	};
 
 	if (handlePosition === 'border') {
-		styles.width = convertToUnit(props.handleBorderWidth);
+		styles.width = convertToUnit(props.handleBorderWidth) as string;
 	}
 
 	if (handlePosition === 'border') {
-		styles.backgroundColor = color;
+		styles.backgroundColor = color as string;
 	}
 
 	if (handlePosition === 'center') {
@@ -362,7 +364,7 @@ function handleMouseUp(e: MouseEvent): void {
 	const drawer = resizeDrawer.value;
 
 	handleEvents.mouseDown = false;
-	resizedWidth.value = drawer.width;
+	resizedWidth.value = drawer?.width ?? defaultWidth.value;
 
 	document.body.style.cursor = '';
 
@@ -385,7 +387,7 @@ function handleMouseUp(e: MouseEvent): void {
 
 
 // -------------------------------------------------- Misc Events //
-function convertToUnit(str: string | number, unit = 'px'): string {
+function convertToUnit(str: string | number, unit = 'px'): string | undefined {
 	if (str == null || str === '') {
 		return undefined;
 	}
@@ -408,9 +410,13 @@ function emitEvent(name: EmitEventNames, e: Event | MouseEvent): void {
 }
 
 function genListeners(): void {
-	const drawer = resizeDrawer.value.$el;
-	drawer.addEventListener('mouseenter', drawerMouseenter, false);
-	drawer.addEventListener('mouseleave', drawerMouseleave, false);
+	const drawer = resizeDrawer.value;
+
+	if (drawer) {
+		const elm = drawer.$el;
+		elm.addEventListener('mouseenter', drawerMouseenter, false);
+		elm.addEventListener('mouseleave', drawerMouseleave, false);
+	}
 }
 </script>
 

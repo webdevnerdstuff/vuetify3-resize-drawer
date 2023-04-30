@@ -11,6 +11,11 @@ export const AllProps: Props = {
 		default: false,
 		required: false,
 	},
+	color: {
+		type: String,
+		default: '',
+		required: false,
+	},
 	dark: {
 		type: Boolean,
 		default: false,
@@ -49,6 +54,11 @@ export const AllProps: Props = {
 		default: 'center',
 		required: false,
 	},
+	height: {
+		type: [Number, String],
+		default: undefined,
+		required: false,
+	},
 	image: {
 		type: String,
 		default: '',
@@ -58,6 +68,11 @@ export const AllProps: Props = {
 		type: String as LocationPropType,
 		default: 'left',
 		required: false,
+	},
+	modelValue: {
+		type: Boolean,
+		required: false,
+		default: true,
 	},
 	name: {
 		type: String,
@@ -99,9 +114,19 @@ export const AllProps: Props = {
 		default: 'local',
 		required: false,
 	},
+	tag: {
+		type: String,
+		default: 'div',
+		required: false,
+	},
 	temporary: {
 		type: Boolean,
 		default: false,
+		required: false,
+	},
+	theme: {
+		type: String,
+		default: 'light',
 		required: false,
 	},
 	width: {
@@ -109,9 +134,5 @@ export const AllProps: Props = {
 		required: false,
 		default: 256,
 	},
-	modelValue: {
-		type: Boolean,
-		required: false,
-		default: true,
-	},
+
 };

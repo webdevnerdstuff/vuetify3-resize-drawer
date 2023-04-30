@@ -16,7 +16,7 @@ export interface DrawerClasses {
 	'v-navigation-drawer--temporary'?: boolean;
 }
 
-export type WidthProp = number | string | undefined;
+export type WidthProp = number | string | undefined | null;
 
 export type EmitEventNames = "handle:click" | "handle:dblclick" | "handle:drag" | "handle:mousedown" | "handle:mouseup";
 export type LocationPropType = PropType<"end" | "start" | "left" | "top" | "bottom" | "right">;
@@ -30,12 +30,12 @@ export type HandleColorProp = ({
 });
 
 export type Props = {
-	absolute?: {
+	absolute: {
 		default: boolean;
 		required: boolean;
 		type: PropType<boolean>;
 	};
-	color?: {
+	color: {
 		default: string | undefined;
 		required: boolean;
 		type: PropType<string>;
@@ -45,32 +45,32 @@ export type Props = {
 		required: boolean;
 		type: PropType<boolean>;
 	};
-	elevation?: {
+	elevation: {
 		default: number | string | undefined;
 		required: boolean;
 		type: PropType<number | string | undefined>;
 	};
-	expandOnHover?: {
+	expandOnHover: {
 		default: boolean;
 		required: boolean;
 		type: PropType<boolean>;
 	};
-	floating?: {
+	floating: {
 		default: boolean;
 		required: boolean;
 		type: PropType<boolean>;
 	};
-	handleBorderWidth?: {
-		default: number | string | undefined;
+	handleBorderWidth: {
+		default: number | string;
 		required: boolean;
-		type: PropType<number | string | undefined>;
+		type: PropType<number | string>;
 	};
 	handleColor?: {
 		default: () => HandleColorProp;
 		required: boolean;
 		type: PropType<object>;
 	};
-	handlePosition?: {
+	handlePosition: {
 		default: string;
 		required: boolean;
 		type: PropType<string>;
@@ -80,27 +80,32 @@ export type Props = {
 		required: boolean;
 		type: PropType<number | string | undefined>;
 	};
-	image?: {
+	image: {
 		default: string;
 		required: boolean;
 		type: PropType<string>;
 	};
-	location?: {
+	location: {
 		default: string;
 		required: boolean;
 		type: LocationPropType;
 	};
-	name?: {
-		default: string;
-		required: boolean;
-		type: PropType<string>;
-	};
-	rail?: {
+	modelValue: {
 		default: boolean;
 		required: boolean;
 		type: PropType<boolean>;
 	};
-	railWidth?: {
+	name: {
+		default: string;
+		required: boolean;
+		type: PropType<string>;
+	};
+	rail: {
+		default: boolean;
+		required: boolean;
+		type: PropType<boolean>;
+	};
+	railWidth: {
 		default: number | string | undefined;
 		required: boolean;
 		type: PropType<number | string | undefined>;
@@ -110,50 +115,45 @@ export type Props = {
 		required: boolean;
 		type: PropType<boolean>;
 	};
-	saveWidth?: {
+	saveWidth: {
 		default: boolean;
 		required: boolean;
 		type: PropType<boolean>;
 	};
-	sticky?: {
+	sticky: {
 		default: boolean;
 		required: boolean;
 		type: PropType<boolean>;
 	};
-	storageName?: {
+	storageName: {
 		default: string;
 		required: boolean;
 		type: PropType<string>;
 	};
-	storageType?: {
+	storageType: {
 		default: string;
 		required: boolean;
 		type: StorageTypePropType;
 	};
-	tag?: {
+	tag: {
 		default: string;
 		required: boolean;
 		type: PropType<string>;
 	};
-	theme?: {
+	temporary: {
+		default: boolean;
+		required: boolean;
+		type: PropType<boolean>;
+	};
+	theme: {
 		default: string | undefined;
 		required: boolean;
 		type: PropType<string | undefined>;
 	};
-	temporary?: {
-		default: boolean;
-		required: boolean;
-		type: PropType<boolean>;
-	};
-	width?: {
-		default: number | string | undefined;
+	width: {
+		default: number | string;
 		required: boolean;
 		type: PropType<WidthProp>;
-	};
-	modelValue?: {
-		default: boolean;
-		required: boolean;
-		type: PropType<boolean>;
 	};
 };
 

@@ -4,7 +4,7 @@ import type {
 } from '@/types/types';
 
 
-export function useGetStorage(storageType: string, storageName: string): string {
+export function useGetStorage(storageType: string, storageName: string): string | null {
 	if (storageType === 'local') {
 		return localStorage.getItem(storageName);
 	}
@@ -26,16 +26,16 @@ export function useSetStorage({ action = 'update', resizedWidth, storageType, st
 	width = width ?? undefined;
 
 	if (action === 'set') {
-		width = useGetStorage(storageType, storageName);
+		width = useGetStorage(storageType as keyof SetStorage, storageName as keyof SetStorage);
 		width = width || resizedWidth;
 	}
 
 	if (storageType === 'local') {
-		localStorage.setItem(storageName, String(width));
+		localStorage.setItem(storageName as keyof SetStorage, String(width));
 	}
 
 	if (storageType === 'session') {
-		sessionStorage.setItem(storageName, String(width));
+		sessionStorage.setItem(storageName as keyof SetStorage, String(width));
 	}
 
 	return;

@@ -1,7 +1,7 @@
 /**
 * Converts a string to a number with a unit.
 */
-export function convertToUnit(str: string | number, unit = 'px'): string {
+export function convertToUnit(str: string | number, unit = 'px'): string | undefined {
 	if (str == null || str === '') {
 		return undefined;
 	}
