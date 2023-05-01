@@ -115,6 +115,7 @@
 		"typescript": "^5.0.4",
 		"vite": "^4.3.3",
 		"vite-plugin-babel": "^1.1.2",
+		"vite-plugin-dts": "^2.3.0",
 		"vite-plugin-eslint": "^1.8.1",
 		"vite-plugin-stylelint": "^4.3.0",
 		"vite-plugin-vuetify": "^1.0.2",
