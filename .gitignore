@@ -26,3 +26,5 @@ dist-ssr
 .stylelintcache
 
 src/components-v2/*
+
+vite.config.docs.ts
