@@ -402,6 +402,7 @@ function emitEvent(name: EmitEventNames, e: Event | MouseEvent): void {
 	const drawerData = {
 		e,
 		eventName: name,
+		offsetWidth: resizedWidth.value,
 		resizedWidth: resizedWidth.value,
 		width: resizedWidth.value,
 	};
