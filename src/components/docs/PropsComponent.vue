@@ -365,21 +365,20 @@
 	</v-dialog>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { inject, onMounted, reactive, ref, watch } from 'vue';
-import { DrawerOptions, KeyStringObject } from '@/components';
 
 const emit = defineEmits(['updateOptions']);
 
-const links = inject<KeyStringObject>('links');
-const classes = inject<KeyStringObject>('classes');
-const drawerOptions: DrawerOptions = inject('drawerOptions');
-const handleColor = ref<string>('');
+const links = inject('links');
+const classes = inject('classes');
+const drawerOptions = inject('drawerOptions');
+const handleColor = ref('');
 
-let defaultOptions: DrawerOptions = {};
-const dialog = ref<boolean>(false);
-const options = ref<DrawerOptions>(drawerOptions);
-const propsSupported = reactive<{ headers: object[]; items: object[]; }>({
+let defaultOptions = {};
+const dialog = ref(false);
+const options = ref(drawerOptions);
+const propsSupported = reactive({
 	headers: [
 		{
 			align: 'start',
@@ -457,7 +456,7 @@ const propsSupported = reactive<{ headers: object[]; items: object[]; }>({
 		},
 	],
 });
-const propsNotSupported = reactive<{ headers: object[]; items: object[]; }>({
+const propsNotSupported = reactive({
 	headers: [
 		{
 			align: 'start',
@@ -511,8 +510,8 @@ const propsNotSupported = reactive<{ headers: object[]; items: object[]; }>({
 		},
 	],
 });
-const search = ref<string>('');
-const selectOptions: { handleColor: object[], handlePosition: string[]; } = {
+const search = ref('');
+const selectOptions = {
 	handleColor: [
 		{ title: 'Default', value: 'default' },
 		{ title: 'Primary', value: 'primary' },
@@ -525,7 +524,7 @@ const selectOptions: { handleColor: object[], handlePosition: string[]; } = {
 	handlePosition: ['border', 'center', 'top', 'top-icon'],
 };
 
-watch(handleColor, (value: string): void => {
+watch(handleColor, (value) => {
 	options.value.handleColor = {
 		dark: value,
 		light: value
@@ -533,12 +532,12 @@ watch(handleColor, (value: string): void => {
 	emit('updateOptions', options.value);
 });
 
-onMounted((): void => {
+onMounted(() => {
 	defaultOptions = JSON.parse(JSON.stringify(drawerOptions.value));
 	handleColor.value = defaultOptions.handleColor.dark;
 });
 
-function resetOptions(): void {
+function resetOptions() {
 	options.value = JSON.parse(JSON.stringify(defaultOptions));
 
 	emit('updateOptions', options.value);

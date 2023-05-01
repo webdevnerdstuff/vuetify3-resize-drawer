@@ -50,13 +50,12 @@
 	</v-row>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { inject } from 'vue';
-import { KeyStringObject } from '@/components';
 
-const classes = inject<KeyStringObject>('classes');
+const classes = inject('classes');
 
-const headers: object[] = [
+const headers = [
 	{
 		align: 'start',
 		filterable: true,
@@ -73,7 +72,7 @@ const headers: object[] = [
 		title: 'Description',
 	},
 ];
-const items: object[] = [
+const items = [
 	{
 		name: 'handle',
 		desc: 'A slot for the resize handle.',

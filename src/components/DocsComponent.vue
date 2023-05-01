@@ -99,9 +99,8 @@
 	<LegalComponent />
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { inject, provide, ref } from 'vue';
-import { DrawerOptions, KeyStringObject } from '@/components';
 import packageInfo from '../../package.json';
 import {
 	DependenciesComponent,
@@ -116,18 +115,18 @@ import {
 	UsageComponent,
 } from '@/components/docs';
 
-const drawerOptions = inject<DrawerOptions>('drawerOptions');
-const links = inject<KeyStringObject>('links');
+const drawerOptions = inject('drawerOptions');
+const links = inject('links');
 
 const emit = defineEmits(['updateOptions']);
 
-const classes = ref<KeyStringObject>({
+const classes = ref({
 	appLink: 'app-link text-decoration-none primary--text font-weight-medium d-inline-block font-weight-bold',
 	h2: 'v-heading text-h4 text-sm-h4 mb-3',
 	h3: 'v-heading text-h5 text-sm-h5 mb-1',
 	headerA: 'text-decoration-none text-right text-md-left',
 });
-const componentVersion = ref<number | string>(packageInfo.version);
+const componentVersion = ref(packageInfo.version);
 
 provide('classes', classes);
 </script>

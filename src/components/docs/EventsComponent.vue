@@ -63,13 +63,12 @@
 </template>
 
 
-<script setup lang="ts">
+<script setup>
 import { inject, ref } from 'vue';
-import { KeyStringObject } from '@/components';
 
-const classes = inject<KeyStringObject>('classes');
+const classes = inject('classes');
 
-const headers: object[] = [
+const headers = [
 	{
 		align: 'start',
 		filterable: true,
@@ -86,7 +85,7 @@ const headers: object[] = [
 		title: 'Description',
 	},
 ];
-const items: object[] = [
+const items = [
 	// Drawer Events //
 	{
 		name: 'transitionend',
@@ -122,5 +121,5 @@ const items: object[] = [
 		desc: 'Emits event object when mouse up on handle.',
 	},
 ];
-const search = ref<string>('');
+const search = ref('');
 </script>

@@ -62,11 +62,10 @@
 	</v-row>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { inject, ref } from 'vue';
-import { KeyStringObject } from '@/components';
 
-const classes = inject<KeyStringObject>('classes');
+const classes = inject('classes');
 const items = [
 	{ tab: 'Template', content: 'Tab 1 Content' },
 	{ tab: 'Script', content: 'Tab 2 Content' },

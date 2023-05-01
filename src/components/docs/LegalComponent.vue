@@ -25,9 +25,8 @@
 	</v-row>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { inject } from 'vue';
-import { KeyStringObject } from '@/components';
 
-const classes = inject<KeyStringObject>('classes');
+const classes = inject('classes');
 </script>

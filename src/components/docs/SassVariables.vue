@@ -64,14 +64,13 @@
 	</v-row>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { inject, ref } from 'vue';
-import { KeyStringObject } from '@/components';
 
-const classes = inject<KeyStringObject>('classes');
-const links = inject<KeyStringObject>('links');
+const classes = inject('classes');
+const links = inject('links');
 
-const headers: object[] = [
+const headers = [
 	{
 		align: 'start',
 		filterable: true,
@@ -96,7 +95,7 @@ const headers: object[] = [
 		title: 'Description',
 	},
 ];
-const items: object[] = [
+const items = [
 	{
 		name: '$navigation-drawer-border-width',
 		default: '1px !default;',
@@ -108,5 +107,5 @@ const items: object[] = [
 		desc: '',
 	},
 ];
-const search = ref<string>('');
+const search = ref('');
 </script>
