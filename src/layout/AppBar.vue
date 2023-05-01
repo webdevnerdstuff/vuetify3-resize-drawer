@@ -19,6 +19,7 @@
 		<v-spacer></v-spacer>
 
 		<v-btn
+			v-if="!mobile"
 			class="me-2 text-capitalize"
 			:href="`${links.vuetify}/api/v-navigation-drawer/`"
 			target="_blank"
@@ -65,7 +66,7 @@
 
 <script setup>
 import { inject, onMounted, reactive, ref } from 'vue';
-import { useTheme } from 'vuetify';
+import { useDisplay, useTheme } from 'vuetify';
 
 const emit = defineEmits(['updatedDrawer', 'changedTheme']);
 const links = inject('links');
@@ -95,6 +96,7 @@ const drawerOptions = reactive({
 	miniVariantWidth: 56,
 });
 const theme = useTheme();
+const { mobile } = useDisplay();
 
 const iconSize = ref({
 	height: 32,
