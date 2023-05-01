@@ -11,7 +11,6 @@ import { fileURLToPath, URL } from 'node:url';
 import scss from 'rollup-plugin-scss';
 import postcss from 'rollup-plugin-postcss';
 import terser from '@rollup/plugin-terser';
-// import ttypescript from 'ttypescript';
 
 const banner = `/**
  * @name ${pkg.name}
@@ -82,7 +81,6 @@ export default {
 		typescript({
 			clean: true,
 			tsconfig: './tsconfig.json',
-			//  typescript: ttypescript,
 			useTsconfigDeclarationDir: true,
 		}),
 		vue({

@@ -5,7 +5,7 @@
 	"private": false,
 	"main": "dist/vuetify3-resize-drawer.js",
 	"module": "dist/vuetify3-resize-drawer.es.js",
-	"types": "dist/types/plugin/VResizeDrawer.vue.d.ts",
+	"types": "dist/types/types.d.ts",
 	"scripts": {
 		"dev": "vite",
 		"watch": "pnpm dev",
@@ -112,7 +112,6 @@
 		"stylelint-order": "^6.0.3",
 		"stylelint-scss": "^5.0.0",
 		"ts-node": "^10.9.1",
-		"ttypescript": "^1.5.15",
 		"typescript": "^5.0.4",
 		"vite": "^4.3.3",
 		"vite-plugin-babel": "^1.1.2",

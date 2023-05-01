@@ -43,7 +43,6 @@ specifiers:
   stylelint-order: ^6.0.3
   stylelint-scss: ^5.0.0
   ts-node: ^10.9.1
-  ttypescript: ^1.5.15
   typescript: ^5.0.4
   vite: ^4.3.3
   vite-plugin-babel: ^1.1.2
@@ -103,7 +102,6 @@ devDependencies:
   stylelint-order: 6.0.3_stylelint@15.6.0
   stylelint-scss: 5.0.0_stylelint@15.6.0
   ts-node: 10.9.1_tz4znfsbt2bp6kjvaww33rryty
-  ttypescript: 1.5.15_pyqfhkbboucpxgvrs7ocxwodkm
   typescript: 5.0.4
   vite: 4.3.3_7zguiaeifckn4fzkszc6bvg2km
   vite-plugin-babel: 1.1.3_2kcifqw2ymor52hnodoqvl6jhi
@@ -8589,18 +8587,6 @@ packages:
       typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
     dependencies:
       tslib: 1.14.1
-      typescript: 5.0.4
-    dev: true
-
-  /ttypescript/1.5.15_pyqfhkbboucpxgvrs7ocxwodkm:
-    resolution: {integrity: sha512-48ykDNHzFnPMnv4hYX1P8Q84TvCZyL1QlFxeuxsuZ48X2+ameBgPenvmCkHJtoOSxpoWTWi8NcgNrRnVDOmfSg==}
-    hasBin: true
-    peerDependencies:
-      ts-node: '>=8.0.2'
-      typescript: '>=3.2.2'
-    dependencies:
-      resolve: 1.22.2
-      ts-node: 10.9.1_tz4znfsbt2bp6kjvaww33rryty
       typescript: 5.0.4
     dev: true
 
