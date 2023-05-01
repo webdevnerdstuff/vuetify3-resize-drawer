@@ -46,6 +46,8 @@
 	"exclude": [
 		"src/App.vue",
 		"src/main.ts",
+		"src/layout/**/*.ts",
+		"src/layout/**/*.vue",
 		"src/components/**/*.ts",
 		"src/components/**/*.vue",
 		"src/plugins/**/*.ts",
