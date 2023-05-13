@@ -88,37 +88,37 @@ const headers = [
 const items = [
 	// Drawer Events //
 	{
-		name: 'transitionend',
 		desc: 'Emits event object when transition is complete.',
+		name: 'transitionend',
 	},
 	{
-		name: 'input',
 		desc: 'The updated bound model',
+		name: 'input',
 	},
 	{
-		name: 'close',
 		desc: 'Emits event object when the drawer is closed.',
+		name: 'close',
 	},
 	// Handle Events //
 	{
-		name: 'handle:click',
 		desc: 'Emits event object when handle is clicked.',
+		name: 'handle:click',
 	},
 	{
-		name: 'handle:dblclick',
 		desc: 'Emits event object when handle is double clicked.',
+		name: 'handle:dblclick',
 	},
 	{
-		name: 'handle:drag',
 		desc: 'Emits event object when handle is dragged.',
+		name: 'handle:drag',
 	},
 	{
-		name: 'handle:mousedown',
 		desc: 'Emits event object when mouse down on handle.',
+		name: 'handle:mousedown',
 	},
 	{
-		name: 'handle:mouseup',
 		desc: 'Emits event object when mouse up on handle.',
+		name: 'handle:mouseup',
 	},
 ];
 const search = ref('');

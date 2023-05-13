@@ -1,11 +1,12 @@
+<!-- eslint-disable vue/sort-keys -->
 <template>
 	<v-list :color="drawerOptions.color ? 'white' : 'primary'">
 		<v-list-item
 			v-for="item in menuItems"
 			:key="item.title"
 			:class="{
-					'v-list-item--active': active === item.href,
-				}"
+				'v-list-item--active': active === item.href,
+			}"
 			:color="drawerOptions.color ? 'white' : 'primary'"
 			:href="item.href"
 			link

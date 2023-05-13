@@ -151,12 +151,12 @@
 							<template #[`item.status`]="{ item }">
 								<td
 									:class="{
-											'text-warning': item.raw.status === 'pending',
-											'text-error': item.raw.status === 'debugging',
-											'text-secondary':
-												item.raw.status !== 'debugging' &&
-												item.raw.status !== 'pending',
-										}"
+										'text-warning': item.raw.status === 'pending',
+										'text-error': item.raw.status === 'debugging',
+										'text-secondary':
+											item.raw.status !== 'debugging' &&
+											item.raw.status !== 'pending',
+									}"
 									v-html="item.raw.status"
 								></td>
 							</template>
@@ -413,46 +413,46 @@ const propsSupported = reactive({
 	],
 	items: [
 		{
-			name: 'handle-border-width',
-			type: 'string | number',
 			default: '8',
 			desc: 'Specifies the width of the handle if the handle position <code>border</code> is selected.',
+			name: 'handle-border-width',
+			type: 'string | number',
 		},
 		{
-			name: 'handle-color',
-			type: 'object',
 			default: "<pre><code>{ dark: '#555', light: '#ccc' }</code></pre>",
 			desc: 'Determines the background color of the handle for dark and light modes. Used when the <code>handlePosition</code> is set to <code>top</code>. Alternatively you can use CSS styles to adjust the colors.',
+			name: 'handle-color',
+			type: 'object',
 		},
 		{
-			name: 'handle-position',
-			type: 'string',
 			default: 'center',
 			desc: 'Specifies the position of the handle. Valid values are <code>border</code>, <code>center</code>, <code>top</code>, <code>top-icon</code>.',
+			name: 'handle-position',
+			type: 'string',
 		},
 		{
-			name: 'location',
-			type: 'string',
 			default: 'left',
 			desc: 'Places the navigation drawer position on the the screen. Valid values are <code>left</code> and <code>right</code>.',
+			name: 'location',
+			type: 'string',
 		},
 		{
-			name: 'resizable',
-			type: 'boolean',
 			default: 'true',
 			desc: 'Enables resize functionality.',
+			name: 'resizable',
+			type: 'boolean',
 		},
 		{
-			name: 'save-width',
-			type: 'boolean',
 			default: 'true',
 			desc: 'Determines if the width of the component is saved in local storage.',
+			name: 'save-width',
+			type: 'boolean',
 		},
 		{
-			name: 'storage-name',
-			type: 'string',
 			default: 'v-resize-drawer-width',
 			desc: 'Determines the name of the local storage item.',
+			name: 'storage-name',
+			type: 'string',
 		},
 	],
 });
@@ -485,28 +485,28 @@ const propsNotSupported = reactive({
 	items: [
 		{
 			name: 'disable-route-watcher',
-			status: 'pending',
 			notes: 'An environment that uses routes is needed to test.',
+			status: 'pending',
 		},
 		{
 			name: 'expand-on-hover',
-			status: 'partial support',
 			notes: 'The <code>expand-on-hover</code> prop will work, but the resizable functionality is disabled.',
+			status: 'partial support',
 		},
 		{
 			name: 'rail',
-			status: 'partial support',
 			notes: 'The <code>rail</code> prop will work, but the resizable functionality is disabled.',
+			status: 'partial support',
 		},
 		{
 			name: 'rail-width',
-			status: 'partial support',
 			notes: 'The <code>rail-width</code> prop for use with the <code>rail</code> prop will work, but the resizable functionality is disabled.',
+			status: 'partial support',
 		},
 		{
 			name: 'touchless',
-			status: 'debugging',
 			notes: 'Drawer does not function like it should with <code>touchless</code> enabled.',
+			status: 'debugging',
 		},
 	],
 });

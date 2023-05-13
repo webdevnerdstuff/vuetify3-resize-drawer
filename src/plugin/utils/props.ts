@@ -2,44 +2,44 @@ import {
 	LocationPropType,
 	Props,
 	StorageTypePropType,
-} from '@/types/types';
+} from '@/types';
 import { componentName } from './globals';
 
 export const AllProps: Props = {
 	absolute: {
-		type: Boolean,
 		default: false,
 		required: false,
+		type: Boolean,
 	},
 	color: {
-		type: String,
 		default: '',
 		required: false,
+		type: String,
 	},
 	dark: {
-		type: Boolean,
 		default: false,
 		required: false,
+		type: Boolean,
 	},
 	elevation: {
-		type: [Number, String],
 		default: 16,
 		required: false,
+		type: [Number, String],
 	},
 	expandOnHover: {
-		type: Boolean,
 		default: false,
 		required: false,
+		type: Boolean,
 	},
 	floating: {
-		type: Boolean,
 		default: false,
 		required: false,
+		type: Boolean,
 	},
 	handleBorderWidth: {
-		type: [Number, String],
 		default: 8,
 		required: false,
+		type: [Number, String],
 	},
 	handleColor: {
 		default: () => ({
@@ -50,89 +50,88 @@ export const AllProps: Props = {
 		type: Object,
 	},
 	handlePosition: {
-		type: String,
 		default: 'center',
 		required: false,
+		type: String,
 	},
 	height: {
-		type: [Number, String],
 		default: undefined,
 		required: false,
+		type: [Number, String],
 	},
 	image: {
-		type: String,
 		default: '',
 		required: false,
+		type: String,
 	},
 	location: {
-		type: String as LocationPropType,
 		default: 'left',
 		required: false,
+		type: String as LocationPropType,
 	},
 	modelValue: {
-		type: Boolean,
-		required: false,
 		default: true,
+		required: false,
+		type: Boolean,
 	},
 	name: {
-		type: String,
 		default: componentName,
 		required: false,
+		type: String,
 	},
 	rail: {
-		type: Boolean,
 		default: false,
 		required: false,
+		type: Boolean,
 	},
 	railWidth: {
-		type: [Number, String],
 		default: 56,
 		required: false,
+		type: [Number, String],
 	},
 	resizable: {
-		type: Boolean,
 		default: true,
 		required: false,
+		type: Boolean,
 	},
 	saveWidth: {
-		type: Boolean,
 		default: true,
 		required: false,
+		type: Boolean,
 	},
 	sticky: {
-		type: Boolean,
 		default: false,
 		required: false,
+		type: Boolean,
 	},
 	storageName: {
-		type: String,
 		default: `${componentName}-width`,
 		required: false,
+		type: String,
 	},
 	storageType: {
-		type: String as StorageTypePropType,
 		default: 'local',
 		required: false,
+		type: String as StorageTypePropType,
 	},
 	tag: {
-		type: String,
 		default: 'div',
 		required: false,
+		type: String,
 	},
 	temporary: {
-		type: Boolean,
 		default: false,
 		required: false,
+		type: Boolean,
 	},
 	theme: {
-		type: String,
 		default: 'light',
 		required: false,
+		type: String,
 	},
 	width: {
-		type: [String, Number],
-		required: false,
 		default: 256,
+		required: false,
+		type: [String, Number],
 	},
-
 };

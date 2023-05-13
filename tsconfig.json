@@ -37,19 +37,27 @@
 		"strict": true,
 		"target": "ESNext",
 		"typeRoots": [
-			"./src/plugin/types",
+			"./src/types",
 			"./node_modules/@types",
-			"./node_modules/vuetify/types"
+			"./node_modules/vuetify"
+		],
+		"types": [
+			"node",
+			"vuetify"
 		],
 		"useDefineForClassFields": true
 	},
 	"exclude": [
+		"playground",
 		"src/App.vue",
 		"src/main.ts",
 		"src/layout/**/*.ts",
 		"src/layout/**/*.vue",
 		"src/components/**/*.ts",
 		"src/components/**/*.vue",
+		"src/playground/**/*.vue",
+		"src/playground/**/*.ts",
+		"src/stores/**/*.ts",
 		"src/plugins/**/*.ts",
 		"node_modules"
 	],

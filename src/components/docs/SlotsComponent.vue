@@ -74,20 +74,20 @@ const headers = [
 ];
 const items = [
 	{
-		name: 'handle',
 		desc: 'A slot for the resize handle.',
+		name: 'handle',
 	},
 	{
-		name: 'prepend',
 		desc: 'A slot at the top of the drawer',
+		name: 'prepend',
 	},
 	{
-		name: 'default',
 		desc: 'The default Vue slot.',
+		name: 'default',
 	},
 	{
-		name: 'append',
 		desc: 'A slot at the bottom of the drawer',
+		name: 'append',
 	},
 ];
 </script>

@@ -97,14 +97,14 @@ const headers = [
 ];
 const items = [
 	{
-		name: '$navigation-drawer-border-width',
 		default: '1px !default;',
 		desc: '',
+		name: '$navigation-drawer-border-width',
 	},
 	{
-		name: '$navigation-drawer-mobile-temporary-elevation',
 		default: '16 !default;',
 		desc: '',
+		name: '$navigation-drawer-mobile-temporary-elevation',
 	},
 ];
 const search = ref('');

@@ -36,9 +36,9 @@
 				v-if="props.handlePosition === 'center'"
 				class="v-resize-drawer--handle-icon d-flex align-items-center justify-content-center"
 				:class="{
-						[`v-resize-drawer--handle-${props.handlePosition}-icon`]:
-							props.handlePosition,
-					}"
+					[`v-resize-drawer--handle-${props.handlePosition}-icon`]:
+						props.handlePosition,
+				}"
 			>
 				<template v-if="slots.handle">
 					<div class="v-resize-drawer--handle-slot">
@@ -49,8 +49,8 @@
 				<div
 					v-else
 					:class="{
-							'v-resize-drawer--handle-handle-flip': props.location === 'right',
-						}"
+						'v-resize-drawer--handle-handle-flip': props.location === 'right',
+					}"
 				>
 					&raquo; {{ slots.handle }}
 				</div>
@@ -61,11 +61,11 @@
 				<slot
 					v-if="slots.handle"
 					:class="{
-							'theme--dark': props.dark,
-							'theme--light': !props.dark,
-							'float-end': false,
-							'float-start': props.location !== 'right',
-						}"
+						'theme--dark': props.dark,
+						'theme--light': !props.dark,
+						'float-end': false,
+						'float-start': props.location !== 'right',
+					}"
 					name="handle"
 				></slot>
 			</template>
@@ -73,11 +73,11 @@
 			<v-icon
 				v-else-if="props.handlePosition === 'top-icon'"
 				:class="{
-						'theme--dark': props.dark,
-						'theme--light': !props.dark,
-						'float-end': props.location === 'right',
-						'float-start': props.location !== 'right',
-					}"
+					'theme--dark': props.dark,
+					'theme--light': !props.dark,
+					'float-end': props.location === 'right',
+					'float-start': props.location !== 'right',
+				}"
 			>
 				mdi-resize-bottom-right
 			</v-icon>
@@ -87,8 +87,8 @@
 				v-else-if="props.handlePosition === 'top'"
 				class="v-resize-drawer--handle-lines"
 				:class="[
-						`v-resize-drawer--handle-parent-${props.handlePosition}-${props.location}-lines`,
-					]"
+					`v-resize-drawer--handle-parent-${props.handlePosition}-${props.location}-lines`,
+				]"
 			></div>
 		</div>
 
@@ -121,7 +121,7 @@ import {
 	DrawerClasses,
 	EmitEventNames,
 	HandleColorProp,
-} from '@/types/types';
+} from '@/types';
 import { componentName } from './utils/globals';
 import { AllProps } from './utils/props';
 import {
@@ -147,8 +147,8 @@ const props = defineProps({ ...AllProps });
 
 const defaultWidth = ref<string | number>(256);
 const handleEvents: { mouseUp: boolean, mouseDown: boolean; } = {
-	mouseUp: true,
 	mouseDown: false,
+	mouseUp: true,
 };
 const isMouseover = ref<boolean>(false);
 const resizeDrawer = ref<VNavigationDrawer>();
@@ -180,11 +180,11 @@ function init(): boolean {
 
 	useSetStorage({
 		action: 'update',
-		resizedWidth: resizedWidth.value,
-		storageType: props.storageType,
-		storageName: props.storageName,
-		saveWidth: props.saveWidth,
 		rail: props.rail,
+		resizedWidth: resizedWidth.value,
+		saveWidth: props.saveWidth,
+		storageName: props.storageName,
+		storageType: props.storageType,
 	});
 
 	return false;
@@ -196,15 +196,12 @@ const drawerClasses = computed<DrawerClasses>(() => {
 	return {
 		[`${componentName}`]: true,
 		'v-navigation-drawer--absolute': props.absolute,
-		// 'v-navigation-drawer--bottom': props.bottom,
-		// 'v-navigation-drawer--clipped': props.clipped,
+		'v-navigation-drawer--custom-rail': Number(props.railWidth) !== 56,
 		'v-navigation-drawer--fixed': !props.absolute,
 		'v-navigation-drawer--floating': props.floating,
-		// 'v-navigation-drawer--is-mobile': props.isMobile,
 		'v-navigation-drawer--is-mouseover': isMouseover.value,
-		'v-navigation-drawer--rail': props.rail,
-		'v-navigation-drawer--custom-rail': Number(props.railWidth) !== 56,
 		'v-navigation-drawer--open-on-hover': props.expandOnHover,
+		'v-navigation-drawer--rail': props.rail,
 		'v-navigation-drawer--right': props.location === 'right',
 		'v-navigation-drawer--temporary': props.temporary,
 	};
@@ -325,11 +322,11 @@ function handleDoubleClick(e: Event): void {
 	resizedWidth.value = defaultWidth.value;
 
 	useSetStorage({
-		resizedWidth: resizedWidth.value,
-		storageType: props.storageType,
-		storageName: props.storageName,
-		saveWidth: props.saveWidth,
 		rail: props.rail,
+		resizedWidth: resizedWidth.value,
+		saveWidth: props.saveWidth,
+		storageName: props.storageName,
+		storageType: props.storageType,
 	});
 
 	emitEvent('handle:dblclick', e);
@@ -369,11 +366,11 @@ function handleMouseUp(e: MouseEvent): void {
 	document.body.style.cursor = '';
 
 	useSetStorage({
-		resizedWidth: resizedWidth.value,
-		storageType: props.storageType,
-		storageName: props.storageName,
-		saveWidth: props.saveWidth,
 		rail: props.rail,
+		resizedWidth: resizedWidth.value,
+		saveWidth: props.saveWidth,
+		storageName: props.storageName,
+		storageType: props.storageType,
 	});
 
 	if (!handleEvents.mouseUp) {

@@ -67,8 +67,14 @@ import { inject, ref } from 'vue';
 
 const classes = inject('classes');
 const items = [
-	{ tab: 'Template', content: 'Tab 1 Content' },
-	{ tab: 'Script', content: 'Tab 2 Content' },
+	{
+		content: 'Tab 1 Content',
+		tab: 'Template',
+	},
+	{
+		content: 'Tab 2 Content',
+		tab: 'Script',
+	},
 ];
 
 const activeTab = ref('Template');

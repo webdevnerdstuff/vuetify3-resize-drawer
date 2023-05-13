@@ -1,7 +1,7 @@
 import type {
 	SetStorage,
 	WidthProp,
-} from '@/types/types';
+} from '@/types';
 
 
 export function useGetStorage(storageType: string, storageName: string): string | null {
