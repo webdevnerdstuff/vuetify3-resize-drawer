@@ -13,7 +13,7 @@
 		"build:docs": "vite build",
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d docs",
-		"prepublishOnly": "npm run bundle",
+		"prepublishOnly": "npm run build",
 		"lint": "eslint src/**/*.{ts,vue} --max-warnings 4"
 	},
 	"lint-staged": {
