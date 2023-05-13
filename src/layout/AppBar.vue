@@ -77,23 +77,19 @@ const drawerOffset = ref(0);
 const drawerOptions = reactive({
 	color: undefined,
 	dark: false,
+	expandOnHover: false,
 	handlePosition: 'center',
 	light: false,
+	miniVariant: false,
+	miniVariantWidth: 56,
 	overflow: false,
 	resizable: true,
 	right: false,
+	saveWidth: true,
 	stateless: false,
+	storageName: 'v-resize-drawer-width',
 	touchless: false,
 	width: undefined,
-
-	// storage //
-	saveWidth: true,
-	storageName: 'v-resize-drawer-width',
-
-	// mini-variant //
-	expandOnHover: false,
-	miniVariant: false,
-	miniVariantWidth: 56,
 });
 const theme = useTheme();
 const { mobile } = useDisplay();

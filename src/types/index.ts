@@ -1,26 +1,14 @@
 import type { PropType } from 'vue';
+import type { VNavigationDrawer } from 'vuetify/components';
 
 
-export interface DrawerClasses {
-	'v-navigation-drawer--absolute'?: boolean;
-	'v-navigation-drawer--bottom'?: boolean;
-	'v-navigation-drawer--clipped'?: boolean;
-	'v-navigation-drawer--fixed'?: boolean;
-	'v-navigation-drawer--floating'?: boolean;
-	'v-navigation-drawer--is-mobile'?: boolean;
-	'v-navigation-drawer--is-mouseover'?: boolean;
-	'v-navigation-drawer--rail'?: boolean;
-	'v-navigation-drawer--custom-rail'?: boolean;
-	'v-navigation-drawer--open-on-hover'?: boolean;
-	'v-navigation-drawer--right'?: boolean;
-	'v-navigation-drawer--temporary'?: boolean;
-}
-
-export type WidthProp = number | string | undefined | null;
+export type Classes = {
+	[key: string]: boolean | undefined;
+};
 
 export type EmitEventNames = "handle:click" | "handle:dblclick" | "handle:drag" | "handle:mousedown" | "handle:mouseup";
-export type LocationPropType = PropType<"end" | "start" | "left" | "top" | "bottom" | "right">;
-export type StorageTypePropType = PropType<"local" | "session">;
+export type StorageType = "local" | "session";
+export type WidthProp = VNavigationDrawer['$props']['width'];
 
 
 // -------------------------------------------------- Props //
@@ -33,12 +21,12 @@ export type Props = {
 	absolute: {
 		default: boolean;
 		required: boolean;
-		type: PropType<boolean>;
+		type: PropType<VNavigationDrawer['$props']['absolute']>;
 	};
 	color: {
 		default: string | undefined;
 		required: boolean;
-		type: PropType<string>;
+		type: PropType<VNavigationDrawer['$props']['color']>;
 	};
 	dark?: {
 		default: boolean;
@@ -48,7 +36,7 @@ export type Props = {
 	elevation: {
 		default: number | string | undefined;
 		required: boolean;
-		type: PropType<number | string | undefined>;
+		type: PropType<VNavigationDrawer['$props']['elevation']>;
 	};
 	expandOnHover: {
 		default: boolean;
@@ -58,7 +46,7 @@ export type Props = {
 	floating: {
 		default: boolean;
 		required: boolean;
-		type: PropType<boolean>;
+		type: PropType<VNavigationDrawer['$props']['floating']>;
 	};
 	handleBorderWidth: {
 		default: number | string;
@@ -68,7 +56,7 @@ export type Props = {
 	handleColor?: {
 		default: () => HandleColorProp;
 		required: boolean;
-		type: PropType<object>;
+		type: PropType<HandleColorProp>;
 	};
 	handlePosition: {
 		default: string;
@@ -83,17 +71,17 @@ export type Props = {
 	image: {
 		default: string;
 		required: boolean;
-		type: PropType<string>;
+		type: PropType<VNavigationDrawer['$props']['image']>;
 	};
 	location: {
 		default: string;
 		required: boolean;
-		type: LocationPropType;
+		type: PropType<VNavigationDrawer['$props']['location']>;
 	};
 	modelValue: {
 		default: boolean;
 		required: boolean;
-		type: PropType<boolean>;
+		type: PropType<VNavigationDrawer['$props']['modelValue']>;
 	};
 	name: {
 		default: string;
@@ -103,12 +91,12 @@ export type Props = {
 	rail: {
 		default: boolean;
 		required: boolean;
-		type: PropType<boolean>;
+		type: PropType<VNavigationDrawer['$props']['rail']>;
 	};
 	railWidth: {
 		default: number | string | undefined;
 		required: boolean;
-		type: PropType<number | string | undefined>;
+		type: PropType<VNavigationDrawer['$props']['railWidth']>;
 	};
 	resizable?: {
 		default: boolean;
@@ -123,7 +111,7 @@ export type Props = {
 	sticky: {
 		default: boolean;
 		required: boolean;
-		type: PropType<boolean>;
+		type: PropType<VNavigationDrawer['$props']['sticky']>;
 	};
 	storageName: {
 		default: string;
@@ -133,22 +121,22 @@ export type Props = {
 	storageType: {
 		default: string;
 		required: boolean;
-		type: StorageTypePropType;
+		type: PropType<StorageType>;
 	};
 	tag: {
 		default: string;
 		required: boolean;
-		type: PropType<string>;
+		type: PropType<VNavigationDrawer['$props']['tag']>;
 	};
 	temporary: {
 		default: boolean;
 		required: boolean;
-		type: PropType<boolean>;
+		type: PropType<VNavigationDrawer['$props']['temporary']>;
 	};
 	theme: {
 		default: string | undefined;
 		required: boolean;
-		type: PropType<string | undefined>;
+		type: PropType<VNavigationDrawer['$props']['theme']>;
 	};
 	width: {
 		default: number | string;
@@ -165,5 +153,5 @@ export type SetStorage = {
 	storageType?: string;
 	storageName?: string;
 	saveWidth?: boolean;
-	rail?: boolean;
+	rail?: boolean | false | null | undefined;
 };

@@ -26,7 +26,7 @@ export function useSetStorage({ action = 'update', resizedWidth, storageType, st
 	width = width ?? undefined;
 
 	if (action === 'set') {
-		width = useGetStorage(storageType as keyof SetStorage, storageName as keyof SetStorage);
+		width = useGetStorage(storageType as keyof SetStorage, storageName as keyof SetStorage) ?? '';
 		width = width || resizedWidth;
 	}
 

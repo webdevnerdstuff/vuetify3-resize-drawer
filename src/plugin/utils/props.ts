@@ -1,8 +1,9 @@
+import type { PropType } from 'vue';
 import {
-	LocationPropType,
 	Props,
-	StorageTypePropType,
+	StorageType,
 } from '@/types';
+import type { VNavigationDrawer } from 'vuetify/components';
 import { componentName } from './globals';
 
 export const AllProps: Props = {
@@ -67,7 +68,7 @@ export const AllProps: Props = {
 	location: {
 		default: 'left',
 		required: false,
-		type: String as LocationPropType,
+		type: String as PropType<VNavigationDrawer['$props']['location']>,
 	},
 	modelValue: {
 		default: true,
@@ -112,7 +113,7 @@ export const AllProps: Props = {
 	storageType: {
 		default: 'local',
 		required: false,
-		type: String as StorageTypePropType,
+		type: String as PropType<StorageType>,
 	},
 	tag: {
 		default: 'div',

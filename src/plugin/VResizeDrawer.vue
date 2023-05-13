@@ -118,7 +118,7 @@ import {
 } from 'vue';
 import { VNavigationDrawer } from 'vuetify/components';
 import {
-	DrawerClasses,
+	Classes,
 	EmitEventNames,
 	HandleColorProp,
 } from '@/types';
@@ -132,7 +132,6 @@ import {
 
 // -------------------------------------------------- Emits & Slots & Injects //
 const emit = defineEmits([
-	// 'close',
 	'handle:click',
 	'handle:dblclick',
 	'handle:drag',
@@ -192,7 +191,7 @@ function init(): boolean {
 
 
 // -------------------------------------------------- Drawer Classes & Styles //
-const drawerClasses = computed<DrawerClasses>(() => {
+const drawerClasses = computed<Classes>(() => {
 	return {
 		[`${componentName}`]: true,
 		'v-navigation-drawer--absolute': props.absolute,
@@ -201,7 +200,7 @@ const drawerClasses = computed<DrawerClasses>(() => {
 		'v-navigation-drawer--floating': props.floating,
 		'v-navigation-drawer--is-mouseover': isMouseover.value,
 		'v-navigation-drawer--open-on-hover': props.expandOnHover,
-		'v-navigation-drawer--rail': props.rail,
+		'v-navigation-drawer--rail': props.rail ?? false,
 		'v-navigation-drawer--right': props.location === 'right',
 		'v-navigation-drawer--temporary': props.temporary,
 	};
@@ -231,7 +230,7 @@ const drawerWidth = computed<string>(() => {
 
 
 // -------------------------------------------------- Handle Classes & Styles //
-const handleClasses = computed((): object => {
+const handleClasses = computed<Classes>(() => {
 	const handlePosition = props.handlePosition;
 	const parentPosition = props.location === 'right' ? 'right' : 'left';
 	const propsHandleColor = props.handleColor as HandleColorProp;
@@ -286,10 +285,6 @@ const handleStyles = computed<CSSProperties>(() => {
 
 
 // -------------------------------------------------- Drawer Events //
-// function drawerClose(e: Event): void {
-// 	emitEvent('close', e);
-// }
-
 function drawerMouseenter(): void {
 	isMouseover.value = true;
 }
