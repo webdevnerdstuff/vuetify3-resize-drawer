@@ -2,9 +2,9 @@ import vue from '@vitejs/plugin-vue';
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 import babel from 'vite-plugin-babel';
 import eslint from 'vite-plugin-eslint';
+import stylelint from 'vite-plugin-stylelint';
 import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
-import StylelintPlugin from 'vite-plugin-stylelint';
 
 
 export default defineConfig({
@@ -17,9 +17,14 @@ export default defineConfig({
 			fix: true,
 		}),
 		babel(),
-		StylelintPlugin({
+		stylelint({
+			cache: false,
 			fix: true,
-			include: ['src/**/*.{css,scss,sass,vue}'],
+			include: [
+				'src/**/*.{css,scss,sass,vue}',
+				'./src/components/**/*.{css,scss,sass,vue}',
+				'./src/plugin/styles/*.{css,scss,sass}'
+			],
 		}),
 		vue({
 			template: { transformAssetUrls }

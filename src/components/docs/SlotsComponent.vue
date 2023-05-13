@@ -1,15 +1,26 @@
 <template>
 	<v-row>
-		<v-col id="slots" class="mb-5" cols="12">
+		<v-col
+			id="slots"
+			class="mb-5"
+			cols="12"
+		>
 			<h2 :class="classes.h2">
-				<a :class="classes.headerA" href="#slots">#</a>
+				<a
+					:class="classes.headerA"
+					href="#slots"
+				>#</a>
 				Slots
 			</h2>
 
 			<v-row>
 				<v-col cols="12">
 					<v-card>
-						<v-data-table :headers="headers" hide-default-footer :items="items">
+						<v-data-table
+							:headers="headers"
+							hide-default-footer
+							:items="items"
+						>
 							<template #item="{ item }">
 								<tr>
 									<td>
@@ -39,12 +50,12 @@
 	</v-row>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { inject } from 'vue';
 
-const classes: string[] = inject('classes');
+const classes = inject('classes');
 
-const headers: object[] = [
+const headers = [
 	{
 		align: 'start',
 		filterable: true,
@@ -61,22 +72,22 @@ const headers: object[] = [
 		title: 'Description',
 	},
 ];
-const items: object[] = [
+const items = [
 	{
-		name: 'handle',
 		desc: 'A slot for the resize handle.',
+		name: 'handle',
 	},
 	{
-		name: 'prepend',
 		desc: 'A slot at the top of the drawer',
+		name: 'prepend',
 	},
 	{
-		name: 'default',
 		desc: 'The default Vue slot.',
+		name: 'default',
 	},
 	{
-		name: 'append',
 		desc: 'A slot at the bottom of the drawer',
+		name: 'append',
 	},
 ];
 </script>

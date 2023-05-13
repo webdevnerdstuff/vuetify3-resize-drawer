@@ -1,8 +1,15 @@
 <template>
 	<v-row>
-		<v-col id="legal" class="mb-5" cols="12">
+		<v-col
+			id="legal"
+			class="mb-5"
+			cols="12"
+		>
 			<h2 :class="classes.h2">
-				<a :class="classes.headerA" href="#license">#</a>
+				<a
+					:class="classes.headerA"
+					href="#license"
+				>#</a>
 				Legal
 			</h2>
 
@@ -18,8 +25,8 @@
 	</v-row>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { inject } from 'vue';
 
-const classes: string[] = inject('classes');
+const classes = inject('classes');
 </script>

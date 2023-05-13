@@ -1,8 +1,15 @@
 <template>
 	<v-row>
-		<v-col id="events" class="mb-5" cols="12">
+		<v-col
+			id="events"
+			class="mb-5"
+			cols="12"
+		>
 			<h2 :class="classes.h2">
-				<a :class="classes.headerA" href="#events">#</a>
+				<a
+					:class="classes.headerA"
+					href="#events"
+				>#</a>
 				Events
 			</h2>
 
@@ -56,12 +63,12 @@
 </template>
 
 
-<script setup lang="ts">
+<script setup>
 import { inject, ref } from 'vue';
 
-const classes: string[] = inject('classes');
+const classes = inject('classes');
 
-const headers: object[] = [
+const headers = [
 	{
 		align: 'start',
 		filterable: true,
@@ -78,41 +85,41 @@ const headers: object[] = [
 		title: 'Description',
 	},
 ];
-const items: object[] = [
+const items = [
 	// Drawer Events //
 	{
-		name: 'transitionend',
 		desc: 'Emits event object when transition is complete.',
+		name: 'transitionend',
 	},
 	{
-		name: 'input',
 		desc: 'The updated bound model',
+		name: 'input',
 	},
 	{
-		name: 'close',
 		desc: 'Emits event object when the drawer is closed.',
+		name: 'close',
 	},
 	// Handle Events //
 	{
-		name: 'handle:click',
 		desc: 'Emits event object when handle is clicked.',
+		name: 'handle:click',
 	},
 	{
-		name: 'handle:dblclick',
 		desc: 'Emits event object when handle is double clicked.',
+		name: 'handle:dblclick',
 	},
 	{
-		name: 'handle:drag',
 		desc: 'Emits event object when handle is dragged.',
+		name: 'handle:drag',
 	},
 	{
-		name: 'handle:mousedown',
 		desc: 'Emits event object when mouse down on handle.',
+		name: 'handle:mousedown',
 	},
 	{
-		name: 'handle:mouseup',
 		desc: 'Emits event object when mouse up on handle.',
+		name: 'handle:mouseup',
 	},
 ];
-const search: string = ref('');
+const search = ref('');
 </script>

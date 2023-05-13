@@ -40,6 +40,12 @@ export default {
 			banner,
 		},
 	],
+	onwarn: (warning, defaultHandler) => {
+		if (warning.code === "CIRCULAR_DEPENDENCY") {
+			return;
+		}
+		defaultHandler(warning);
+	},
 	external: [
 		...Object.keys(pkg.dependencies || {}),
 		...Object.keys(pkg.peerDependencies || {}),
@@ -72,7 +78,11 @@ export default {
 			],
 		}),
 		commonjs(),
-		typescript(),
+		typescript({
+			clean: true,
+			tsconfig: './tsconfig.json',
+			useTsconfigDeclarationDir: true,
+		}),
 		vue({
 			defaultLang: { script: 'ts' },
 			template: { transformAssetUrls },
@@ -82,10 +92,13 @@ export default {
 			styles: 'none',
 		}),
 		postcss({
+			minimize: true,
 			modules: true,
 			extract: true
 		}),
-		scss(),
+		scss({
+			outputStyle: 'compressed'
+		}),
 		terser(),
 	],
 };

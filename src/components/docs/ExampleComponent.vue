@@ -1,13 +1,27 @@
 <template>
 	<v-row>
-		<v-col id="example" class="mb-5" cols="12">
+		<v-col
+			id="example"
+			class="mb-5"
+			cols="12"
+		>
 			<h2 :class="classes.h2">
-				<a :class="classes.headerA" href="#example">#</a>
+				<a
+					:class="classes.headerA"
+					href="#example"
+				>#</a>
 				Example
 			</h2>
 
-			<v-tabs v-model="activeTab" align-tabs="center">
-				<v-tab v-for="item in items" :key="item.tab" :value="item.tab">
+			<v-tabs
+				v-model="activeTab"
+				align-tabs="center"
+			>
+				<v-tab
+					v-for="item in items"
+					:key="item.tab"
+					:value="item.tab"
+				>
 					{{ item.tab }}
 				</v-tab>
 			</v-tabs>
@@ -20,12 +34,23 @@
 						:value="item.tab"
 					>
 						<v-row>
-							<v-col cols="10" offset="1">
+							<v-col
+								cols="10"
+								offset="1"
+							>
 								<template v-if="item.tab === 'Template'">
-									<CodeBlock :code="codeTemplate" lang="html" />
+									<CodeBlock
+										:code="codeTemplate"
+										highlightjs
+										lang="html"
+									/>
 								</template>
 								<template v-else>
-									<CodeBlock :code="codeScript" lang="javascript" />
+									<CodeBlock
+										:code="codeScript"
+										highlightjs
+										lang="javascript"
+									/>
 								</template>
 								<br />
 							</v-col>
@@ -37,25 +62,26 @@
 	</v-row>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { inject, ref } from 'vue';
-import CodeBlock from '@/components/elements/CodeBlock.vue';
 
-const classes: string[] = inject('classes');
-const items: object[] = [
-	{ tab: 'Template', content: 'Tab 1 Content' },
-	{ tab: 'Script', content: 'Tab 2 Content' },
+const classes = inject('classes');
+const items = [
+	{
+		content: 'Tab 1 Content',
+		tab: 'Template',
+	},
+	{
+		content: 'Tab 2 Content',
+		tab: 'Script',
+	},
 ];
 
 const activeTab = ref('Template');
-const codeTemplate = `
-<template>
+const codeTemplate = `<template>
 	<v-app id="home">
 		<v-resize-drawer
 			v-model="drawer"
-			app
-			clipped
-			fixed
 			handlePosition="center"
 			storageName="my-storage-name"
 			width="256px"
@@ -89,8 +115,7 @@ const codeTemplate = `
 	</v-app>
 </template>
 `;
-const codeScript = `
-import VResizeDrawer from 'vuetify-resize-drawer';
+const codeScript = `import VResizeDrawer from 'vuetify-resize-drawer';
 
 export default {
 	name: 'App',

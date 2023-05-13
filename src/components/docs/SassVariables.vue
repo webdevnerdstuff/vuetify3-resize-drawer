@@ -1,8 +1,15 @@
 <template>
 	<v-row>
-		<v-col id="sass-variables" class="mb-5" cols="12">
+		<v-col
+			id="sass-variables"
+			class="mb-5"
+			cols="12"
+		>
 			<h2 :class="classes.h2">
-				<a :class="classes.headerA" href="#sass-variables">#</a>
+				<a
+					:class="classes.headerA"
+					href="#sass-variables"
+				>#</a>
 				SASS Variables
 			</h2>
 
@@ -12,8 +19,7 @@
 					<a
 						:href="`${links.vuetify}/api/v-navigation-drawer/#sass`"
 						target="_blank"
-						>SASS Variables</a
-					>
+					>SASS Variables</a>
 					are supported.
 				</v-col>
 			</v-row>
@@ -58,13 +64,13 @@
 	</v-row>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { inject, ref } from 'vue';
 
-const classes: string[] = inject('classes');
-const links: string[] = inject('links');
+const classes = inject('classes');
+const links = inject('links');
 
-const headers: object[] = [
+const headers = [
 	{
 		align: 'start',
 		filterable: true,
@@ -89,17 +95,17 @@ const headers: object[] = [
 		title: 'Description',
 	},
 ];
-const items: object[] = [
+const items = [
 	{
-		name: '$navigation-drawer-border-width',
 		default: '1px !default;',
 		desc: '',
+		name: '$navigation-drawer-border-width',
 	},
 	{
-		name: '$navigation-drawer-mobile-temporary-elevation',
 		default: '16 !default;',
 		desc: '',
+		name: '$navigation-drawer-mobile-temporary-elevation',
 	},
 ];
-const search: string = ref('');
+const search = ref('');
 </script>

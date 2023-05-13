@@ -11,7 +11,11 @@
 
 		<v-col class="mb-4">
 			<h1 class="v-heading text-h3 text-sm-h3 mb-4">Vuetify 3 Resize Drawer</h1>
-			<v-chip color="primary" size="small" variant="outlined">
+			<v-chip
+				color="primary"
+				size="small"
+				variant="outlined"
+			>
 				v{{ componentVersion }}
 			</v-chip>
 		</v-col>
@@ -19,20 +23,42 @@
 
 	<!-- Installation -->
 	<v-row id="installation">
-		<v-col class="mb-5" cols="12">
+		<v-col
+			class="mb-5"
+			cols="12"
+		>
 			<h2 :class="classes.h2">
-				<a :class="classes.headerA" href="#installation">#</a>
+				<a
+					:class="classes.headerA"
+					href="#installation"
+				>#</a>
 				Installation
 			</h2>
 
 			<v-row>
 				<v-col cols="12">
-					Using npm:
-					<CodeBlock code="npm i vuetify-resize-drawer" lang="plain" />
+
+					<CodeBlock
+						code="npm i vuetify-resize-drawer"
+						highlightjs
+						label="Using npm:"
+						lang="plain"
+					/>
 				</v-col>
 				<v-col cols="12">
-					Using <a :href="links.pnpm" target="_blank">pnpm</a>:
-					<CodeBlock code="pnpm add vuetify-resize-drawer" lang="plain" />
+
+					<CodeBlock
+						code="pnpm add vuetify-resize-drawer"
+						highlightjs
+						lang="plain"
+					>
+						<template #label>
+							Using <a
+								:href="links.pnpm"
+								target="_blank"
+							>pnpm</a>:
+						</template>
+					</CodeBlock>
 				</v-col>
 			</v-row>
 		</v-col>
@@ -73,10 +99,9 @@
 	<LegalComponent />
 </template>
 
-<script setup lang="ts">
-import { inject, provide, reactive, ref } from 'vue';
+<script setup>
+import { inject, provide, ref } from 'vue';
 import packageInfo from '../../package.json';
-import CodeBlock from '@/components/elements/CodeBlock.vue';
 import {
 	DependenciesComponent,
 	DescriptionComponent,
@@ -91,17 +116,17 @@ import {
 } from '@/components/docs';
 
 const drawerOptions = inject('drawerOptions');
-const links: string[] = inject('links');
+const links = inject('links');
 
 const emit = defineEmits(['updateOptions']);
 
-const classes: string[] = reactive({
+const classes = ref({
+	appLink: 'app-link text-decoration-none primary--text font-weight-medium d-inline-block font-weight-bold',
 	h2: 'v-heading text-h4 text-sm-h4 mb-3',
 	h3: 'v-heading text-h5 text-sm-h5 mb-1',
 	headerA: 'text-decoration-none text-right text-md-left',
-	appLink: 'app-link text-decoration-none primary--text font-weight-medium d-inline-block font-weight-bold',
 });
-const componentVersion: number = ref(packageInfo.version);
+const componentVersion = ref(packageInfo.version);
 
 provide('classes', classes);
 </script>

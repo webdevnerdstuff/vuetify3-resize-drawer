@@ -1,40 +1,157 @@
-export interface DrawerOptions {
-	absolute?: boolean;
-	dark?: boolean;
-	elevation?: string | number | undefined;
-	expandOnHover?: boolean;
-	floating?: boolean;
-	handleBorderWidth?: string | number | undefined;
-	handleColor?: object;
-	handlePosition?: string;
-	height?: string | number | undefined;
-	image?: string;
-	name?: string;
-	rail?: boolean;
-	railWidth?: string | number | undefined;
-	resizable?: boolean;
-	saveWidth?: boolean;
-	sticky?: boolean;
-	storageName?: string;
-	storageType?: string;
-	tag?: string;
-	theme?: string | undefined;
-	temporary?: boolean;
-	width?: string | number | undefined;
-	modelValue?: boolean;
-}
+import type { PropType } from 'vue';
+import type { VNavigationDrawer } from 'vuetify/components';
 
-export interface DrawerClasses {
-	'v-navigation-drawer--absolute'?: boolean;
-	'v-navigation-drawer--bottom'?: boolean;
-	'v-navigation-drawer--clipped'?: boolean;
-	'v-navigation-drawer--fixed'?: boolean;
-	'v-navigation-drawer--floating'?: boolean;
-	'v-navigation-drawer--is-mobile'?: boolean;
-	'v-navigation-drawer--is-mouseover'?: boolean;
-	'v-navigation-drawer--rail'?: boolean;
-	'v-navigation-drawer--custom-rail'?: boolean;
-	'v-navigation-drawer--open-on-hover'?: boolean;
-	'v-navigation-drawer--right'?: boolean;
-	'v-navigation-drawer--temporary'?: boolean;
-}
+
+export type Classes = {
+	[key: string]: boolean | undefined;
+};
+
+export type EmitEventNames = "handle:click" | "handle:dblclick" | "handle:drag" | "handle:mousedown" | "handle:mouseup";
+export type StorageType = "local" | "session";
+export type WidthProp = VNavigationDrawer['$props']['width'];
+
+
+// -------------------------------------------------- Props //
+export type HandleColorProp = ({
+	dark?: string;
+	light?: string;
+});
+
+export type Props = {
+	absolute: {
+		default: boolean;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['absolute']>;
+	};
+	color: {
+		default: string | undefined;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['color']>;
+	};
+	dark?: {
+		default: boolean;
+		required: boolean;
+		type: PropType<boolean>;
+	};
+	elevation: {
+		default: number | string | undefined;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['elevation']>;
+	};
+	expandOnHover: {
+		default: boolean;
+		required: boolean;
+		type: PropType<boolean>;
+	};
+	floating: {
+		default: boolean;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['floating']>;
+	};
+	handleBorderWidth: {
+		default: number | string;
+		required: boolean;
+		type: PropType<number | string>;
+	};
+	handleColor?: {
+		default: () => HandleColorProp;
+		required: boolean;
+		type: PropType<HandleColorProp>;
+	};
+	handlePosition: {
+		default: string;
+		required: boolean;
+		type: PropType<string>;
+	};
+	height?: {
+		default: number | string | undefined;
+		required: boolean;
+		type: PropType<number | string | undefined>;
+	};
+	image: {
+		default: string;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['image']>;
+	};
+	location: {
+		default: string;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['location']>;
+	};
+	modelValue: {
+		default: boolean;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['modelValue']>;
+	};
+	name: {
+		default: string;
+		required: boolean;
+		type: PropType<string>;
+	};
+	rail: {
+		default: boolean;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['rail']>;
+	};
+	railWidth: {
+		default: number | string | undefined;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['railWidth']>;
+	};
+	resizable?: {
+		default: boolean;
+		required: boolean;
+		type: PropType<boolean>;
+	};
+	saveWidth: {
+		default: boolean;
+		required: boolean;
+		type: PropType<boolean>;
+	};
+	sticky: {
+		default: boolean;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['sticky']>;
+	};
+	storageName: {
+		default: string;
+		required: boolean;
+		type: PropType<string>;
+	};
+	storageType: {
+		default: string;
+		required: boolean;
+		type: PropType<StorageType>;
+	};
+	tag: {
+		default: string;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['tag']>;
+	};
+	temporary: {
+		default: boolean;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['temporary']>;
+	};
+	theme: {
+		default: string | undefined;
+		required: boolean;
+		type: PropType<VNavigationDrawer['$props']['theme']>;
+	};
+	width: {
+		default: number | string;
+		required: boolean;
+		type: PropType<WidthProp>;
+	};
+};
+
+
+// -------------------------------------------------- Storage //
+export type SetStorage = {
+	action?: string;
+	resizedWidth?: number | string;
+	storageType?: string;
+	storageName?: string;
+	saveWidth?: boolean;
+	rail?: boolean | false | null | undefined;
+};

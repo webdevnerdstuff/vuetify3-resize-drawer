@@ -1,32 +1,42 @@
 <template>
 	<v-row>
-		<v-col id="props" class="mb-5" cols="12">
+		<v-col
+			id="props"
+			class="mb-5"
+			cols="12"
+		>
 			<h2 :class="classes.h2">
-				<a :class="classes.headerA" href="#props">#</a>
+				<a
+					:class="classes.headerA"
+					href="#props"
+				>#</a>
 				Props
 			</h2>
 
 			<v-row>
 				<v-col cols="12">
 					Vuetify Resize Drawer uses Vuetify's
-					<a :href="`${links.vuetify}/api/v-navigation-drawer/`" target="_blank"
-						>Navigation Drawer</a
-					>
+					<a
+						:href="`${links.vuetify}/api/v-navigation-drawer/`"
+						target="_blank"
+					>Navigation Drawer</a>
 					behind the scenes. Most props that work for the
 					<code>v-navigation-drawer</code> are supported. For a list of those
 					props, you can find them
 					<a
 						:href="`${links.vuetify}/api/v-navigation-drawer/#props`"
 						target="_blank"
-						>here</a
-					>.
+					>here</a>.
 				</v-col>
 			</v-row>
 
 			<v-row id="additional-props">
 				<v-col cols="12">
 					<h3 :class="classes.h3">
-						<a :class="classes.headerA" href="#additional-props">#</a>
+						<a
+							:class="classes.headerA"
+							href="#additional-props"
+						>#</a>
 						Additional props
 					</h3>
 				</v-col>
@@ -63,8 +73,7 @@
 											class="text-primary"
 											:class="classes.appLink"
 											:href="`#props-${item.raw.name}`"
-											>{{ item.raw.name }}</a
-										>
+										>{{ item.raw.name }}</a>
 									</span>
 								</td>
 							</template>
@@ -76,7 +85,10 @@
 							</template>
 
 							<template #[`item.default`]="{ item }">
-								<td class="text-accent" v-html="item.raw.default"></td>
+								<td
+									class="text-accent"
+									v-html="item.raw.default"
+								></td>
 							</template>
 
 							<template #[`item.desc`]="{ item }">
@@ -89,7 +101,11 @@
 
 			<v-row>
 				<v-col>
-					<v-btn class="float-right" color="primary" @click="dialog = !dialog">
+					<v-btn
+						class="float-right"
+						color="primary"
+						@click="dialog = !dialog"
+					>
 						Try out some of the props
 					</v-btn>
 				</v-col>
@@ -98,7 +114,10 @@
 			<v-row id="props-not-supported">
 				<v-col cols="12">
 					<h3 :class="classes.h3">
-						<a :class="classes.headerA" href="#props-not-supported">#</a>
+						<a
+							:class="classes.headerA"
+							href="#props-not-supported"
+						>#</a>
 						Props with partial and/or no support
 					</h3>
 				</v-col>
@@ -124,8 +143,7 @@
 											class="text-primary"
 											:class="classes.appLink"
 											:href="`#props-${item.raw.name}`"
-											>{{ item.raw.name }}</a
-										>
+										>{{ item.raw.name }}</a>
 									</span>
 								</td>
 							</template>
@@ -153,15 +171,25 @@
 		</v-col>
 	</v-row>
 
-	<v-dialog v-model="dialog" width="500px">
+	<v-dialog
+		v-model="dialog"
+		width="500px"
+	>
 		<v-card>
-			<v-toolbar color="primary" density="compact">
+			<v-toolbar
+				color="primary"
+				density="compact"
+			>
 				<v-toolbar-title>Try out props</v-toolbar-title>
 			</v-toolbar>
 
 			<v-card-text class="py-2">
 				<v-row>
-					<v-col cols="12" md="6" sm="12">
+					<v-col
+						cols="12"
+						md="6"
+						sm="12"
+					>
 						<v-switch
 							v-model="options.resizable"
 							class="switch-label"
@@ -181,7 +209,11 @@
 						</v-switch>
 					</v-col>
 
-					<v-col cols="12" md="6" sm="12">
+					<v-col
+						cols="12"
+						md="6"
+						sm="12"
+					>
 						<v-switch
 							v-model="options.location"
 							class="switch-label"
@@ -201,7 +233,11 @@
 						</v-switch>
 					</v-col>
 
-					<v-col cols="12" md="6" sm="12">
+					<v-col
+						cols="12"
+						md="6"
+						sm="12"
+					>
 						<v-select
 							v-model="handleColor"
 							density="comfortable"
@@ -211,7 +247,11 @@
 						></v-select>
 					</v-col>
 
-					<v-col cols="12" md="6" sm="12">
+					<v-col
+						cols="12"
+						md="6"
+						sm="12"
+					>
 						<v-select
 							v-model="options.handlePosition"
 							density="comfortable"
@@ -221,7 +261,11 @@
 						></v-select>
 					</v-col>
 
-					<v-col cols="12" md="6" sm="12">
+					<v-col
+						cols="12"
+						md="6"
+						sm="12"
+					>
 						<v-text-field
 							v-model="options.handleBorderWidth"
 							density="comfortable"
@@ -232,7 +276,11 @@
 						</v-text-field>
 					</v-col>
 
-					<v-col cols="12" md="6" sm="12">
+					<v-col
+						cols="12"
+						md="6"
+						sm="12"
+					>
 						<v-switch
 							v-model="options.theme"
 							class="switch-label"
@@ -260,7 +308,11 @@
 						</p>
 					</v-col>
 
-					<v-col cols="12" md="6" sm="12">
+					<v-col
+						cols="12"
+						md="6"
+						sm="12"
+					>
 						<v-switch
 							v-model="options.saveWidth"
 							class="switch-label"
@@ -278,7 +330,11 @@
 						</v-switch>
 					</v-col>
 
-					<v-col cols="12" md="6" sm="12">
+					<v-col
+						cols="12"
+						md="6"
+						sm="12"
+					>
 						<v-text-field
 							v-model="options.storageName"
 							density="comfortable"
@@ -294,28 +350,35 @@
 
 			<v-card-actions>
 				<v-spacer></v-spacer>
-				<v-btn color="default" text @click="dialog = false"> Close </v-btn>
-				<v-btn color="primary" text @click="resetOptions"> Reset </v-btn>
+				<v-btn
+					color="default"
+					text
+					@click="dialog = false"
+				> Close </v-btn>
+				<v-btn
+					color="primary"
+					text
+					@click="resetOptions"
+				> Reset </v-btn>
 			</v-card-actions>
 		</v-card>
 	</v-dialog>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { inject, onMounted, reactive, ref, watch } from 'vue';
-import { DrawerOptions } from '@/types';
 
 const emit = defineEmits(['updateOptions']);
 
-const links: string[] = inject('links');
-const classes: string[] = inject('classes');
-const drawerOptions: DrawerOptions = inject('drawerOptions');
-const handleColor: string = ref('');
+const links = inject('links');
+const classes = inject('classes');
+const drawerOptions = inject('drawerOptions');
+const handleColor = ref('');
 
-let defaultOptions: DrawerOptions = {};
-const dialog: boolean = ref(false);
-const options: DrawerOptions = ref(drawerOptions);
-const propsSupported: object[] = reactive({
+let defaultOptions = {};
+const dialog = ref(false);
+const options = ref(drawerOptions);
+const propsSupported = reactive({
 	headers: [
 		{
 			align: 'start',
@@ -350,50 +413,50 @@ const propsSupported: object[] = reactive({
 	],
 	items: [
 		{
+			default: '8',
+			desc: 'Specifies the width of the handle if the handle position <code>border</code> is selected.',
 			name: 'handle-border-width',
 			type: 'string | number',
-			default: '8',
-			desc: 'Specifies the witdh of the handle if the handle position <code>border</code> is selected.',
 		},
 		{
-			name: 'handle-color',
-			type: 'object',
 			default: "<pre><code>{ dark: '#555', light: '#ccc' }</code></pre>",
 			desc: 'Determines the background color of the handle for dark and light modes. Used when the <code>handlePosition</code> is set to <code>top</code>. Alternatively you can use CSS styles to adjust the colors.',
+			name: 'handle-color',
+			type: 'object',
 		},
 		{
-			name: 'handle-position',
-			type: 'string',
 			default: 'center',
 			desc: 'Specifies the position of the handle. Valid values are <code>border</code>, <code>center</code>, <code>top</code>, <code>top-icon</code>.',
+			name: 'handle-position',
+			type: 'string',
 		},
 		{
+			default: 'left',
+			desc: 'Places the navigation drawer position on the the screen. Valid values are <code>left</code> and <code>right</code>.',
 			name: 'location',
 			type: 'string',
-			default: 'left',
-			desc: 'Places the navigation drawer posiion on the the screen. Valid values are <code>left</code> and <code>right</code>.',
 		},
 		{
-			name: 'resizable',
-			type: 'boolean',
 			default: 'true',
 			desc: 'Enables resize functionality.',
+			name: 'resizable',
+			type: 'boolean',
 		},
 		{
-			name: 'save-width',
-			type: 'boolean',
 			default: 'true',
 			desc: 'Determines if the width of the component is saved in local storage.',
+			name: 'save-width',
+			type: 'boolean',
 		},
 		{
-			name: 'storage-name',
-			type: 'string',
 			default: 'v-resize-drawer-width',
 			desc: 'Determines the name of the local storage item.',
+			name: 'storage-name',
+			type: 'string',
 		},
 	],
 });
-const propsNotSupported: object[] = reactive({
+const propsNotSupported = reactive({
 	headers: [
 		{
 			align: 'start',
@@ -422,33 +485,33 @@ const propsNotSupported: object[] = reactive({
 	items: [
 		{
 			name: 'disable-route-watcher',
-			status: 'pending',
 			notes: 'An environment that uses routes is needed to test.',
+			status: 'pending',
 		},
 		{
 			name: 'expand-on-hover',
-			status: 'partial support',
 			notes: 'The <code>expand-on-hover</code> prop will work, but the resizable functionality is disabled.',
+			status: 'partial support',
 		},
 		{
 			name: 'rail',
-			status: 'partial support',
 			notes: 'The <code>rail</code> prop will work, but the resizable functionality is disabled.',
+			status: 'partial support',
 		},
 		{
 			name: 'rail-width',
-			status: 'partial support',
 			notes: 'The <code>rail-width</code> prop for use with the <code>rail</code> prop will work, but the resizable functionality is disabled.',
+			status: 'partial support',
 		},
 		{
 			name: 'touchless',
-			status: 'debugging',
 			notes: 'Drawer does not function like it should with <code>touchless</code> enabled.',
+			status: 'debugging',
 		},
 	],
 });
-const search: string = ref('');
-const selectOptions: object[] = {
+const search = ref('');
+const selectOptions = {
 	handleColor: [
 		{ title: 'Default', value: 'default' },
 		{ title: 'Primary', value: 'primary' },
@@ -461,7 +524,7 @@ const selectOptions: object[] = {
 	handlePosition: ['border', 'center', 'top', 'top-icon'],
 };
 
-watch(handleColor, (value: string): void => {
+watch(handleColor, (value) => {
 	options.value.handleColor = {
 		dark: value,
 		light: value
@@ -469,12 +532,12 @@ watch(handleColor, (value: string): void => {
 	emit('updateOptions', options.value);
 });
 
-onMounted((): void => {
+onMounted(() => {
 	defaultOptions = JSON.parse(JSON.stringify(drawerOptions.value));
 	handleColor.value = defaultOptions.handleColor.dark;
 });
 
-function resetOptions(): void {
+function resetOptions() {
 	options.value = JSON.parse(JSON.stringify(defaultOptions));
 
 	emit('updateOptions', options.value);

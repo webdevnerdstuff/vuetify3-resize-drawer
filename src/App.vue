@@ -1,39 +1,12 @@
 <template>
 	<v-app id="home">
 		<!-- ====================================================== App Bar -->
-		<AppBar @changedTheme="updateTheme" @updatedDrawer="toggleDrawer" />
+		<AppBar
+			@changedTheme="updateTheme"
+			@updatedDrawer="toggleDrawer"
+		/>
 
 		<!-- ====================================================== Navigation Drawer -->
-		<v-navigation-drawer
-			v-model="drawer"
-			:absolute="drawerOptions.absolute"
-			:color="drawerOptions.color"
-			:elevation="drawerOptions.elevation"
-			:expand-on-hover="drawerOptions.expandOnHover"
-			:floating="drawerOptions.floating"
-			:image="drawerOptions.image"
-			:location="drawerOptions.location === 'left' ? 'right' : 'left'"
-			:rail="drawerOptions.rail"
-			:rail-width="drawerOptions.railWidth"
-			:sticky="drawerOptions.sticky"
-			:tag="drawerOptions.tag"
-			:theme="drawerOptions.theme"
-			:touchless="drawerOptions.touchless"
-			:width="drawerOptions.width"
-		>
-			<v-list>
-				<v-list-item>
-					<v-list-item-title class="text-h6">
-						Navigation Drawer
-					</v-list-item-title>
-					<v-list-item-subtitle>Stuck With You</v-list-item-subtitle>
-				</v-list-item>
-			</v-list>
-
-			<v-divider></v-divider>
-
-			<MenuComponent :drawerOptions="drawerOptions" />
-		</v-navigation-drawer>
 
 		<VResizeDrawer
 			v-model="drawer"
@@ -85,6 +58,37 @@
 			<MenuComponent :drawerOptions="drawerOptions" />
 		</VResizeDrawer>
 
+		<v-navigation-drawer
+			v-model="drawer"
+			:absolute="drawerOptions.absolute"
+			:color="drawerOptions.color"
+			:elevation="drawerOptions.elevation"
+			:expand-on-hover="drawerOptions.expandOnHover"
+			:floating="drawerOptions.floating"
+			:image="drawerOptions.image"
+			:location="drawerOptions.location === 'left' ? 'right' : 'left'"
+			:rail="drawerOptions.rail"
+			:rail-width="drawerOptions.railWidth"
+			:sticky="drawerOptions.sticky"
+			:tag="drawerOptions.tag"
+			:theme="drawerOptions.theme"
+			:touchless="drawerOptions.touchless"
+			:width="drawerOptions.width"
+		>
+			<v-list>
+				<v-list-item>
+					<v-list-item-title class="text-h6">
+						Navigation Drawer
+					</v-list-item-title>
+					<v-list-item-subtitle>Stuck With You</v-list-item-subtitle>
+				</v-list-item>
+			</v-list>
+
+			<v-divider></v-divider>
+
+			<MenuComponent :drawerOptions="drawerOptions" />
+		</v-navigation-drawer>
+
 		<!-- ====================================================== Main Container -->
 		<v-main
 			class="main-container pb-10"
@@ -100,20 +104,19 @@
 	</v-app>
 </template>
 
-<script setup lang="ts">
-import { computed, onMounted, provide, reactive, ref } from 'vue';
+<script setup>
+import { computed, onMounted, provide, ref } from 'vue';
 import { useDisplay } from 'vuetify';
-import { DrawerOptions } from '@/types';
-import AppBar from '@/layout/AppBar.vue';
-import MenuComponent from '@/components/MenuComponent.vue';
-import DocsComponent from '@/components/DocsComponent.vue';
+import AppBar from './layout/AppBar.vue';
+import MenuComponent from './components/MenuComponent.vue';
+import DocsComponent from './components/DocsComponent.vue';
 
 onMounted(() => {
 	getLocalStorage();
 });
 
-const drawer: boolean = ref(true);
-const links: string[] = reactive({
+const drawer = ref(true);
+const links = ref({
 	github: 'https://github.com/webdevnerdstuff',
 	npm: 'https://www.npmjs.com/package/vuetify3-resize-drawer',
 	pnpm: 'https://pnpm.io/',
@@ -121,14 +124,14 @@ const links: string[] = reactive({
 	vue: 'https://vuejs.org/',
 	vuetify: 'https://vuetifyjs.com/en',
 });
-const drawerOffset: string = ref('256px');
-const drawerOptions: DrawerOptions = ref({
+const drawerOffset = ref('256px');
+const drawerOptions = ref({
 	absolute: false,
 	color: '',
 	dark: true,
 	elevation: 10,
-	floating: false,
 	expandOnHover: true,
+	floating: false,
 	handleBorderWidth: 8,
 	handleColor: {
 		dark: 'primary',
@@ -137,16 +140,16 @@ const drawerOptions: DrawerOptions = ref({
 	handlePosition: 'center',
 	// image: 'https://media.newyorker.com/photos/59096937019dfc3494ea1169/master/w_2560%2Cc_limit/Frazier-Bunny-Rabbits.jpg',
 	location: 'left',
-	resizable: true,
 	rail: false,
 	railWidth: 56,
+	resizable: true,
 	saveWidth: true,
 	sticky: false,
 	storageName: 'v-resize-drawer-width',
 	storageType: 'local',
-	theme: 'dark',
 	tag: 'nav',
 	temporary: false,
+	theme: 'dark',
 	touchless: false,
 	width: undefined,
 });
@@ -157,22 +160,24 @@ provide('links', links);
 const mainStyles = computed(() => {
 	const { mobile } = useDisplay();
 	let styles = '';
+	let paddingValue = drawerOffset.value;
 
-	if (mobile.value) {
-		styles += 'padding-left: 0 !important;';
-		styles += 'padding-right: 0 !important;';
+	if (mobile.value || !drawer.value) {
+		paddingValue = '0';
 	}
+
+	styles += `padding-${drawerOptions.value.location}: ${paddingValue} !important;`;
 
 	return styles;
 });
 
-function drawerClose(val): void {
+function drawerClose(val) {
 	eventTriggered('drawerClose', val);
 
 	this.drawer = false;
 }
 
-function drawerInput(val): boolean {
+function drawerInput(val) {
 	eventTriggered('drawerInput', val);
 
 	if (val) {
@@ -184,52 +189,52 @@ function drawerInput(val): boolean {
 	return false;
 }
 
-function eventTriggered(eventName, eventValue = null): object {
+function eventTriggered(eventName, eventValue = null) {
 	// console.log(eventName, eventValue);
 	return { eventName, eventValue };
 }
 
-function getLocalStorage(): void {
+function getLocalStorage() {
 	updateDrawerOffset(localStorage.getItem(drawerOptions.value.storageName) || drawerOffset.value);
 }
 
-function handleClick(evt): void {
+function handleClick(evt) {
 	eventTriggered('handleClick', evt);
 }
 
-function handleDoubleClick(evt): void {
+function handleDoubleClick(evt) {
 	eventTriggered('handleDoubleClick', evt);
 
 	updateDrawerOffset(evt.offsetWidth);
 }
 
-function handleDrag(evt): void {
+function handleDrag(evt) {
 	updateDrawerOffset(evt.offsetWidth);
 }
 
-function handleMousedown(evt): void {
+function handleMousedown(evt) {
 	eventTriggered('handleMousedown', evt);
 }
 
-function handleMouseup(evt): void {
+function handleMouseup(evt) {
 	eventTriggered('handleMouseup', evt);
 
 	updateDrawerOffset(evt.offsetWidth);
 }
 
-function toggleDrawer(): void {
+function toggleDrawer() {
 	drawer.value = !drawer.value;
 }
 
-function updateDrawerOffset(val): void {
+function updateDrawerOffset(val) {
 	drawerOffset.value = val;
 }
 
-function updateOptions(options): void {
+function updateOptions(options) {
 	drawerOptions.value = options;
 }
 
-function updateTheme(val): void {
+function updateTheme(val) {
 	drawerOptions.value.theme = val;
 	drawerOptions.value.dark = val === 'dark';
 }
@@ -256,14 +261,11 @@ html {
 	position: relative;
 
 	> a {
-		bottom: 0;
 		color: rgb(var(--v-theme-primary));
 		display: inline-block;
-		left: 0;
+		inset: 0;
 		margin: 0 -0.7em;
 		position: absolute;
-		right: 0;
-		top: 0;
 
 		&:not(:hover):not(:focus) {
 			opacity: 0;

@@ -1,8 +1,15 @@
 <template>
 	<v-row>
-		<v-col id="usage" class="mb-5" cols="12">
+		<v-col
+			id="usage"
+			class="mb-5"
+			cols="12"
+		>
 			<h2 :class="classes.h2">
-				<a :class="classes.headerA" href="#usage">#</a>
+				<a
+					:class="classes.headerA"
+					href="#usage"
+				>#</a>
 				Usage
 			</h2>
 
@@ -14,8 +21,7 @@
 						<a
 							:href="`${links.vuetify}/components/navigation-drawers/`"
 							target="_blank"
-							>v-navigation-drawer</a
-						>. It can also be used as a component in its own right for things
+						>v-navigation-drawer</a>. It can also be used as a component in its own right for things
 						such as a settings panel or to display data.
 					</p>
 				</v-col>
@@ -24,9 +30,9 @@
 	</v-row>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { inject } from 'vue';
 
-const links: string[] = inject('links');
-const classes: string[] = inject('classes');
+const classes = inject('classes');
+const links = inject('links');
 </script>

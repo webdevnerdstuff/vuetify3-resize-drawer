@@ -1,5 +1,10 @@
 <template>
-	<v-app-bar class="top-app-bar" color="primary" density="compact" fixed>
+	<v-app-bar
+		class="top-app-bar"
+		color="primary"
+		density="compact"
+		fixed
+	>
 		<v-app-bar-nav-icon
 			class="nav-drawer-btn me-2 ms-3"
 			:height="iconSize.height"
@@ -12,6 +17,17 @@
 		<div class="site-title">Vuetify Resize Drawer</div>
 
 		<v-spacer></v-spacer>
+
+		<v-btn
+			v-if="!mobile"
+			class="me-2 text-capitalize"
+			:href="`${links.vuetify}/api/v-navigation-drawer/`"
+			target="_blank"
+			title="Vuetify v-navigation-drawer API"
+			variant="outlined"
+		>
+			<v-icon class="me-1">mdi-vuetify</v-icon> VNavigationDrawer
+		</v-btn>
 
 		<v-btn
 			class="me-2"
@@ -50,7 +66,7 @@
 
 <script setup>
 import { inject, onMounted, reactive, ref } from 'vue';
-import { useTheme } from 'vuetify';
+import { useDisplay, useTheme } from 'vuetify';
 
 const emit = defineEmits(['updatedDrawer', 'changedTheme']);
 const links = inject('links');
@@ -61,25 +77,22 @@ const drawerOffset = ref(0);
 const drawerOptions = reactive({
 	color: undefined,
 	dark: false,
+	expandOnHover: false,
 	handlePosition: 'center',
 	light: false,
+	miniVariant: false,
+	miniVariantWidth: 56,
 	overflow: false,
 	resizable: true,
 	right: false,
+	saveWidth: true,
 	stateless: false,
+	storageName: 'v-resize-drawer-width',
 	touchless: false,
 	width: undefined,
-
-	// storage //
-	saveWidth: true,
-	storageName: 'v-resize-drawer-width',
-
-	// mini-variant //
-	expandOnHover: false,
-	miniVariant: false,
-	miniVariantWidth: 56,
 });
 const theme = useTheme();
+const { mobile } = useDisplay();
 
 const iconSize = ref({
 	height: 32,
@@ -128,4 +141,5 @@ function updateDrawerOffset(val) {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+</style>
