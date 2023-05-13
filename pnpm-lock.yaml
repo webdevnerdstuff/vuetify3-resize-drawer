@@ -46,6 +46,7 @@ specifiers:
   typescript: ^5.0.4
   vite: ^4.3.5
   vite-plugin-babel: ^1.1.2
+  vite-plugin-css-injected-by-js: ^3.1.1
   vite-plugin-dts: ^2.3.0
   vite-plugin-eslint: ^1.8.1
   vite-plugin-stylelint: ^4.3.0
@@ -106,6 +107,7 @@ devDependencies:
   typescript: 5.0.4
   vite: 4.3.5_h6igujazjitl5yt7eg2rxdv4ai
   vite-plugin-babel: 1.1.3_yc5ftfscxrhpalteyfliutrfhy
+  vite-plugin-css-injected-by-js: 3.1.1_vite@4.3.5
   vite-plugin-dts: 2.3.0_yq6gkycmnryqil7cjc6ykw7eyy
   vite-plugin-eslint: 1.8.1_eslint@8.40.0+vite@4.3.5
   vite-plugin-stylelint: 4.3.0_pesrlkh26mdnrtkrfeskukcufa
@@ -8958,6 +8960,14 @@ packages:
       vite: ^2.7.0 || ^3.0.0 || ^4.0.0
     dependencies:
       '@babel/core': 7.21.8
+      vite: 4.3.5_h6igujazjitl5yt7eg2rxdv4ai
+    dev: true
+
+  /vite-plugin-css-injected-by-js/3.1.1_vite@4.3.5:
+    resolution: {integrity: sha512-mwrFvEEy0TuH8Ul0cb2HgjmNboQ/JnEFy+kHCWqAJph3ikMOiIuyYVdx0JO4nEIWJyzSnc4TTdmoTulsikvJEg==}
+    peerDependencies:
+      vite: '>2.0.0-0'
+    dependencies:
       vite: 4.3.5_h6igujazjitl5yt7eg2rxdv4ai
     dev: true
 
