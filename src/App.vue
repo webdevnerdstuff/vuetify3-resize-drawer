@@ -260,7 +260,7 @@ html {
 .v-heading {
 	position: relative;
 
-	>a {
+	> a {
 		color: rgb(var(--v-theme-primary));
 		display: inline-block;
 		inset: 0;
