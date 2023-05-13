@@ -4,7 +4,7 @@
 </p>
 
 <p>
-  <h1 align="center">Vuetify 3 Resize Drawer (beta)</h1>
+  <h1 align="center">Vuetify 3 Resize Drawer</h1>
 </p>
 
 <p align="center">
