@@ -2,7 +2,6 @@
 	<v-row>
 		<v-col
 			id="props"
-			class="mb-5"
 			cols="12"
 		>
 			<h2 :class="classes.h2">
@@ -12,163 +11,159 @@
 				>#</a>
 				Props
 			</h2>
-
-			<v-row>
-				<v-col cols="12">
-					Vuetify Resize Drawer uses Vuetify's
-					<a
-						:href="`${links.vuetify}/api/v-navigation-drawer/`"
-						target="_blank"
-					>Navigation Drawer</a>
-					behind the scenes. Most props that work for the
-					<code>v-navigation-drawer</code> are supported. For a list of those
-					props, you can find them
-					<a
-						:href="`${links.vuetify}/api/v-navigation-drawer/#props`"
-						target="_blank"
-					>here</a>.
-				</v-col>
-			</v-row>
-
-			<v-row id="additional-props">
-				<v-col cols="12">
-					<h3 :class="classes.h3">
-						<a
-							:class="classes.headerA"
-							href="#additional-props"
-						>#</a>
-						Additional props
-					</h3>
-				</v-col>
-			</v-row>
-
-			<v-row>
-				<v-col cols="12">
-					<v-card>
-						<v-card-title>
-							<v-text-field
-								v-model="search"
-								append-icon="mdi-magnify"
-								hide-details
-								label="Search"
-								single-line
-								variant="underlined"
-							></v-text-field>
-						</v-card-title>
-
-						<v-data-table
-							:headers="propsSupported.headers"
-							hide-default-footer
-							:items="propsSupported.items"
-							:search="search"
-						>
-							<template #[`item.name`]="{ item }">
-								<td>
-									<span
-										:id="`props-${item.raw.name}`"
-										class="name-item text-mono ml-n2"
-									>
-										<span class="text-primary">#</span>
-										<a
-											class="text-primary"
-											:class="classes.appLink"
-											:href="`#props-${item.raw.name}`"
-										>{{ item.raw.name }}</a>
-									</span>
-								</td>
-							</template>
-
-							<template #[`item.type`]="{ item }">
-								<td class="text-success">
-									{{ item.raw.type }}
-								</td>
-							</template>
-
-							<template #[`item.default`]="{ item }">
-								<td
-									class="text-accent"
-									v-html="item.raw.default"
-								></td>
-							</template>
-
-							<template #[`item.desc`]="{ item }">
-								<td v-html="item.raw.desc"></td>
-							</template>
-						</v-data-table>
-					</v-card>
-				</v-col>
-			</v-row>
-
-			<v-row>
-				<v-col>
-					<v-btn
-						class="float-right"
-						color="primary"
-						@click="dialog = !dialog"
-					>
-						Try out some of the props
-					</v-btn>
-				</v-col>
-			</v-row>
-
-			<v-row id="props-not-supported">
-				<v-col cols="12">
-					<h3 :class="classes.h3">
-						<a
-							:class="classes.headerA"
-							href="#props-not-supported"
-						>#</a>
-						Props with partial and/or no support
-					</h3>
-				</v-col>
-			</v-row>
-
-			<v-row>
-				<v-col cols="12">
-					<v-card>
-						<v-data-table
-							:headers="propsNotSupported.headers"
-							hide-default-footer
-							:items="propsNotSupported.items"
-							:search="search"
-						>
-							<template #[`item.name`]="{ item }">
-								<td>
-									<span
-										:id="`props-${item.raw.name}`"
-										class="name-item text-mono ml-n2"
-									>
-										<span class="text-primary">#</span>
-										<a
-											class="text-primary"
-											:class="classes.appLink"
-											:href="`#props-${item.raw.name}`"
-										>{{ item.raw.name }}</a>
-									</span>
-								</td>
-							</template>
-
-							<template #[`item.status`]="{ item }">
-								<td
-									:class="{
-										'text-warning': item.raw.status === 'pending',
-										'text-error': item.raw.status === 'debugging',
-										'text-secondary':
-											item.raw.status !== 'debugging' &&
-											item.raw.status !== 'pending',
-									}"
-									v-html="item.raw.status"
-								></td>
-							</template>
-
-							<template #[`item.notes`]="{ item }">
-								<td v-html="item.raw.notes"></td>
-							</template>
-						</v-data-table>
-					</v-card>
-				</v-col>
-			</v-row>
 		</v-col>
+
+
+		<v-col cols="12">
+			Vuetify Resize Drawer uses Vuetify's
+			<a
+				:href="`${links.vuetify}/api/v-navigation-drawer/`"
+				target="_blank"
+			>Navigation Drawer</a>
+			behind the scenes. Most props that work for the
+			<code class="ic">v-navigation-drawer</code> are supported. For a list of those
+			props, you can find them
+			<a
+				:href="`${links.vuetify}/api/v-navigation-drawer/#props`"
+				target="_blank"
+			>here</a>.
+		</v-col>
+
+		<v-col
+			id="additional-props"
+			cols="12"
+		>
+			<h3 :class="classes.h3">
+				<a
+					:class="classes.headerA"
+					href="#additional-props"
+				>#</a>
+				Additional props
+			</h3>
+		</v-col>
+
+		<v-col cols="12">
+			<v-card>
+				<v-card-title>
+					<v-text-field
+						v-model="search"
+						append-icon="mdi-magnify"
+						hide-details
+						label="Search"
+						single-line
+						variant="underlined"
+					></v-text-field>
+				</v-card-title>
+
+				<v-data-table
+					:headers="propsSupported.headers"
+					hide-default-footer
+					:items="propsSupported.items"
+					:search="search"
+				>
+					<template #[`item.name`]="{ item }">
+						<td>
+							<span
+								:id="`props-${item.raw.name}`"
+								class="name-item text-mono ml-n2"
+							>
+								<span class="text-primary">#</span>
+								<a
+									class="text-primary"
+									:class="classes.appLink"
+									:href="`#props-${item.raw.name}`"
+								>{{ item.raw.name }}</a>
+							</span>
+						</td>
+					</template>
+
+					<template #[`item.type`]="{ item }">
+						<td class="text-success">
+							{{ item.raw.type }}
+						</td>
+					</template>
+
+					<template #[`item.default`]="{ item }">
+						<td
+							class="text-accent"
+							v-html="item.raw.default"
+						></td>
+					</template>
+
+					<template #[`item.desc`]="{ item }">
+						<td v-html="item.raw.desc"></td>
+					</template>
+				</v-data-table>
+			</v-card>
+		</v-col>
+
+		<v-col>
+			<v-btn
+				class="float-right"
+				color="primary"
+				@click="dialog = !dialog"
+			>
+				Try out some of the props
+			</v-btn>
+		</v-col>
+
+		<v-col
+			id="props-not-supported"
+			cols="12"
+		>
+			<h3 :class="classes.h3">
+				<a
+					:class="classes.headerA"
+					href="#props-not-supported"
+				>#</a>
+				Props with partial and/or no support
+			</h3>
+		</v-col>
+
+		<v-col cols="12">
+			<v-card>
+				<v-data-table
+					:headers="propsNotSupported.headers"
+					hide-default-footer
+					:items="propsNotSupported.items"
+					:search="search"
+				>
+					<template #[`item.name`]="{ item }">
+						<td>
+							<span
+								:id="`props-${item.raw.name}`"
+								class="name-item text-mono ml-n2"
+							>
+								<span class="text-primary">#</span>
+								<a
+									class="text-primary"
+									:class="classes.appLink"
+									:href="`#props-${item.raw.name}`"
+								>{{ item.raw.name }}</a>
+							</span>
+						</td>
+					</template>
+
+					<template #[`item.status`]="{ item }">
+						<td
+							:class="{
+								'text-warning': item.raw.status === 'pending',
+								'text-error': item.raw.status === 'debugging',
+								'text-secondary':
+									item.raw.status !== 'debugging' &&
+									item.raw.status !== 'pending',
+							}"
+							v-html="item.raw.status"
+						></td>
+					</template>
+
+					<template #[`item.notes`]="{ item }">
+						<td v-html="item.raw.notes"></td>
+					</template>
+				</v-data-table>
+			</v-card>
+		</v-col>
+
 	</v-row>
 
 	<v-dialog
@@ -370,6 +365,7 @@ import { inject, onMounted, reactive, ref, watch } from 'vue';
 
 const emit = defineEmits(['updateOptions']);
 
+
 const links = inject('links');
 const classes = inject('classes');
 const drawerOptions = inject('drawerOptions');
@@ -378,6 +374,7 @@ const handleColor = ref('');
 let defaultOptions = {};
 const dialog = ref(false);
 const options = ref(drawerOptions);
+
 const propsSupported = reactive({
 	headers: [
 		{

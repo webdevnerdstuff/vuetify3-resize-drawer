@@ -2,7 +2,6 @@
 	<v-row>
 		<v-col
 			id="events"
-			class="mb-5"
 			cols="12"
 		>
 			<h2 :class="classes.h2">
@@ -12,52 +11,50 @@
 				>#</a>
 				Events
 			</h2>
+		</v-col>
 
-			<v-row>
-				<v-col cols="12">
-					<v-card>
-						<v-card-title>
-							<v-text-field
-								v-model="search"
-								append-icon="mdi-magnify"
-								hide-details
-								label="Search"
-								single-line
-								variant="underlined"
-							></v-text-field>
-						</v-card-title>
+		<v-col cols="12">
+			<v-card>
+				<v-card-title>
+					<v-text-field
+						v-model="search"
+						append-icon="mdi-magnify"
+						hide-details
+						label="Search"
+						single-line
+						variant="underlined"
+					></v-text-field>
+				</v-card-title>
 
-						<v-data-table
-							:headers="headers"
-							hide-default-footer
-							:items="items"
-							:search="search"
-						>
-							<template #item="{ item }">
-								<tr>
-									<td>
-										<span
-											:id="`events-${item.raw.name}`"
-											class="name-item text-mono ml-n2"
-										>
-											<span class="text-primary">#</span>
-											<a
-												class="text-primary"
-												:class="classes.appLink"
-												:href="`#events-${item.raw.name}`"
-											>
-												{{ item.raw.name }}
-											</a>
-										</span>
-									</td>
+				<v-data-table
+					:headers="headers"
+					hide-default-footer
+					:items="items"
+					:search="search"
+				>
+					<template #item="{ item }">
+						<tr>
+							<td>
+								<span
+									:id="`events-${item.raw.name}`"
+									class="name-item text-mono ml-n2"
+								>
+									<span class="text-primary">#</span>
+									<a
+										class="text-primary"
+										:class="classes.appLink"
+										:href="`#events-${item.raw.name}`"
+									>
+										{{ item.raw.name }}
+									</a>
+								</span>
+							</td>
 
-									<td>{{ item.raw.desc }}</td>
-								</tr>
-							</template>
-						</v-data-table>
-					</v-card>
-				</v-col>
-			</v-row>
+							<td>{{ item.raw.desc }}</td>
+						</tr>
+					</template>
+				</v-data-table>
+			</v-card>
 		</v-col>
 	</v-row>
 </template>

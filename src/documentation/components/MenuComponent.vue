@@ -20,67 +20,13 @@
 
 <script setup>
 import { inject, onMounted, reactive, ref } from 'vue';
+import { useMenuStore } from '@/stores/menu';
 
 const drawerOptions = inject('drawerOptions');
+const store = useMenuStore();
 
-const active = ref(true);
-const menuItems = reactive([
-	{
-		href: '#home',
-		icon: 'mdi-home',
-		title: 'Home',
-	},
-	{
-		href: '#installation',
-		icon: 'mdi-plus-thick',
-		title: 'Installation',
-	},
-	{
-		href: '#description',
-		icon: 'mdi-information-outline',
-		title: 'Description',
-	},
-	{
-		href: '#props',
-		icon: 'mdi-cog',
-		title: 'Props',
-	},
-	{
-		href: '#events',
-		icon: 'mdi-calendar-star',
-		title: 'Events',
-	},
-	{
-		href: '#slots',
-		icon: 'mdi-slot-machine',
-		title: 'Slots',
-	},
-	{
-		href: '#sass-variables',
-		icon: 'mdi-sass',
-		title: 'SASS Variables',
-	},
-	{
-		href: '#example',
-		icon: 'mdi-code-json',
-		title: 'Example',
-	},
-	{
-		href: '#dependencies',
-		icon: 'mdi-asterisk-circle-outline',
-		title: 'Dependencies',
-	},
-	{
-		href: '#license',
-		icon: 'mdi-card-account-details-outline',
-		title: 'License',
-	},
-	{
-		href: '#legal',
-		icon: 'mdi-scale-balance',
-		title: 'Legal',
-	},
-]);
+const active = ref('');
+const menuItems = store.menuItems;
 
 onMounted(() => {
 	smoothScroll();
@@ -102,15 +48,21 @@ function smoothScroll() {
 			active.value = hash;
 
 			window.location.hash = hash;
-			window.scrollTo({
-				behavior: 'smooth',
-				top: y,
-			});
+			window.scrollTo({ behavior: 'smooth', top: y });
 		});
 	});
 }
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.sub-items {
+	font-size: .9em;
+	padding-left: calc(var(--indent-padding) - 10px) !important;
+
+	:deep(.v-icon) {
+		font-size: 1em !important;
+		margin-right: 1em !important;
+	}
+}
 </style>

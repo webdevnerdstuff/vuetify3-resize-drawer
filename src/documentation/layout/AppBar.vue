@@ -6,38 +6,73 @@
 		fixed
 	>
 		<v-app-bar-nav-icon
+			v-if="!isPlayground"
 			class="nav-drawer-btn me-2 ms-3"
 			:height="iconSize.height"
 			:width="iconSize.width"
 			@click.stop="toggleDrawer"
 		>
-			<v-icon>mdi-menu</v-icon>
+			<v-icon icon="mdi:mdi-menu"></v-icon>
+		</v-app-bar-nav-icon>
+		<v-app-bar-nav-icon
+			v-else
+			class="nav-drawer-btn me-2 ms-3"
+			:height="iconSize.height"
+			:href="`/${store.storageName}/`"
+			:width="iconSize.width"
+		>
+			<v-icon icon="mdi:mdi-home"></v-icon>
 		</v-app-bar-nav-icon>
 
 		<div class="site-title">Vuetify Resize Drawer</div>
 
 		<v-spacer></v-spacer>
 
-		<v-btn
-			v-if="!mobile"
-			class="me-2 text-capitalize"
-			:href="`${links.vuetify}/api/v-navigation-drawer/`"
-			target="_blank"
-			title="Vuetify v-navigation-drawer API"
-			variant="outlined"
+		<v-select
+			class="ma-0 pa-0 me-2 d-none d-sm-block"
+			density="compact"
+			hide-details
+			:items="menuItems"
+			multiple
+			placeholder="Vuetify Links"
+			prepend-inner-icon="$vuetify"
+			style="height: inherit; max-width: 300px; width: 300px;"
+			title="name"
+			variant="underlined"
 		>
-			<v-icon class="me-1">mdi-vuetify</v-icon> VNavigationDrawer
+			<template #item="{ item }">
+				<v-list-item
+					:key="item.key"
+					density="compact"
+					:href="item.raw.link"
+					:prepend-icon="item.raw.icon ? item.raw.icon : '$vuetify'"
+					target="_blank"
+					:title="item.raw?.topTitle || item.title"
+				>
+				</v-list-item>
+			</template>
+		</v-select>
+
+		<v-btn
+			class="me-2"
+			:height="iconSize.height"
+			:href="links.discord"
+			icon
+			target="_blank"
+			:width="iconSize.width"
+		>
+			<fa-icon icon="fa-brands fa-discord" />
 		</v-btn>
 
 		<v-btn
 			class="me-2"
 			:height="iconSize.height"
-			:href="links.repo"
+			:href="links.github"
 			icon
 			target="_blank"
 			:width="iconSize.width"
 		>
-			<v-icon>mdi-github</v-icon>
+			<v-icon icon="mdi:mdi-github" />
 		</v-btn>
 
 		<v-btn
@@ -48,7 +83,7 @@
 			target="_blank"
 			:width="iconSize.width"
 		>
-			<v-icon>mdi-npm</v-icon>
+			<v-icon icon="mdi:mdi-npm" />
 		</v-btn>
 
 		<v-btn
@@ -56,88 +91,73 @@
 			:height="iconSize.height"
 			icon
 			:width="iconSize.width"
-			@click="toggleDark"
+			@click="setTheme"
 		>
-			<v-icon v-if="!dark">mdi-weather-sunny</v-icon>
-			<v-icon v-else>mdi-weather-night</v-icon>
+			<v-icon
+				v-if="themeName === 'dark'"
+				icon="mdi:mdi-weather-night"
+			/>
+			<v-icon
+				v-else
+				icon="mdi:mdi-weather-sunny"
+			/>
 		</v-btn>
 	</v-app-bar>
 </template>
 
 <script setup>
-import { inject, onMounted, reactive, ref } from 'vue';
-import { useDisplay, useTheme } from 'vuetify';
+import { onMounted, ref } from 'vue';
+import { useCoreStore } from '@/stores/index';
+import { useMenuStore } from '@/stores/menu';
+import { useTheme } from 'vuetify';
 
-const emit = defineEmits(['updatedDrawer', 'changedTheme']);
-const links = inject('links');
+const emit = defineEmits(['changedTheme', 'updatedDrawer']);
 
-const dark = ref(false);
-const drawer = ref(false);
-const drawerOffset = ref(0);
-const drawerOptions = reactive({
-	color: undefined,
-	dark: false,
-	expandOnHover: false,
-	handlePosition: 'center',
-	light: false,
-	miniVariant: false,
-	miniVariantWidth: 56,
-	overflow: false,
-	resizable: true,
-	right: false,
-	saveWidth: true,
-	stateless: false,
-	storageName: 'v-resize-drawer-width',
-	touchless: false,
-	width: undefined,
+defineProps({
+	isPlayground: {
+		default: false,
+		type: Boolean,
+	},
 });
+
+onMounted(() => {
+	getTheme();
+});
+
+const menuStore = useMenuStore();
+const store = useCoreStore();
 const theme = useTheme();
-const { mobile } = useDisplay();
+
+const links = store.links;
+const themeName = ref('dark');
+const drawer = ref(true);
+
+const menuItems = [...menuStore.vuetifyLinks, ...menuStore.componentItems];
 
 const iconSize = ref({
 	height: 32,
 	width: 32,
 });
 
-onMounted(() => {
-	getLocalStorage();
-	getDarkLocalStorage();
-});
+function getTheme() {
+	themeName.value = store.getTheme();
+	if (!themeName.value) {
+		setTheme();
+		return false;
+	}
 
-function getDarkLocalStorage() {
-	const isDark = localStorage.getItem('vuetify-resize-drawer-dark');
-	const themeName = isDark === 'true' ? 'light' : 'dark';
-
-	dark.value = isDark === 'true';
-	theme.global.name.value = themeName;
-	emit('changedTheme', themeName);
-};
-
-function setDarkLocalStorage(val) {
-	localStorage.setItem('vuetify-resize-drawer-dark', val);
+	theme.global.name.value = themeName.value;
+	emit('changedTheme', themeName.value);
 }
 
-function getLocalStorage() {
-	updateDrawerOffset(localStorage.getItem(drawerOptions.storageName) || drawerOffset.value);
-}
-
-function toggleDark() {
-	const themeName = theme.global.name.value === 'dark' ? 'light' : 'dark';
-	dark.value = !dark.value;
-
-	theme.global.name.value = themeName;
-
-	setDarkLocalStorage(dark.value);
-	emit('changedTheme', themeName);
+function setTheme() {
+	themeName.value = store.setTheme(themeName.value);
+	theme.global.name.value = themeName.value;
+	emit('changedTheme', themeName.value);
 }
 
 function toggleDrawer() {
-	drawer.value = !drawer.value;
 	emit('updatedDrawer', drawer.value);
-}
-
-function updateDrawerOffset(val) {
-	drawerOffset.value = val;
 }
 </script>
 
