@@ -171,8 +171,6 @@ function updateCodeBlockTheme(val) {
 		codeBlockSettings.value.theme = codeBlockDarkTheme;
 	}
 
-	console.log(val);
-
 	drawerOptions.value.theme = val;
 	drawerOptions.value.dark = val === 'dark';
 }
