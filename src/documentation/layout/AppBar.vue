@@ -6,7 +6,6 @@
 		fixed
 	>
 		<v-app-bar-nav-icon
-			v-if="!isPlayground"
 			class="nav-drawer-btn me-2 ms-3"
 			:height="iconSize.height"
 			:width="iconSize.width"
@@ -15,7 +14,6 @@
 			<v-icon icon="mdi:mdi-menu"></v-icon>
 		</v-app-bar-nav-icon>
 		<v-app-bar-nav-icon
-			v-else
 			class="nav-drawer-btn me-2 ms-3"
 			:height="iconSize.height"
 			:href="`/${store.storageName}/`"
