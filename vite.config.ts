@@ -42,6 +42,9 @@ export default defineConfig({
 			vueTemplate: true,
 		}),
 		vue({
+			script: {
+				defineModel: true,
+			},
 			template: { transformAssetUrls }
 		}),
 		vuetify({
