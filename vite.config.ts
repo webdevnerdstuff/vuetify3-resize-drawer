@@ -5,10 +5,14 @@ import eslint from 'vite-plugin-eslint';
 import stylelint from 'vite-plugin-stylelint';
 import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
+import AutoImport from 'unplugin-auto-import/vite';
+
+const baseUrl = '/vuetify3-resize-drawer/';
+const playgroundUrl = baseUrl + 'playground/';
 
 
 export default defineConfig({
-	base: '/vuetify3-resize-drawer/',
+	base: baseUrl,
 	build: {
 		outDir: 'docs',
 	},
@@ -25,6 +29,17 @@ export default defineConfig({
 				'./src/components/**/*.{css,scss,sass,vue}',
 				'./src/plugin/styles/*.{css,scss,sass}'
 			],
+		}),
+		AutoImport({
+			dts: false,
+			imports: [
+				'vue',
+				{
+					vue: ['CSSProperties'],
+					vuetify: ['useTheme']
+				}
+			],
+			vueTemplate: true,
 		}),
 		vue({
 			template: { transformAssetUrls }
@@ -49,10 +64,10 @@ export default defineConfig({
 		],
 	},
 	server: {
-		// open: true,
 		hmr: {
 			protocol: 'ws',
 		},
+		open: process?.env?.NODE_ENV === 'playground' ? playgroundUrl : false,
 	},
 });
 

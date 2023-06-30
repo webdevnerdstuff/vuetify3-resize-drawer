@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import * as path from 'path';
+import AutoImport from 'unplugin-auto-import/vite';
 import babel from 'vite-plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
@@ -9,6 +10,7 @@ import terser from '@rollup/plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
 import vue from '@vitejs/plugin-vue';
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 
 const banner = `/**
@@ -47,6 +49,16 @@ export default defineConfig({
 	plugins: [
 		babel(),
 		commonjs(),
+		AutoImport({
+			dts: false,
+			imports: [
+				'vue',
+				{
+					vue: ['CSSProperties'],
+				}
+			],
+			vueTemplate: true,
+		}),
 		vue({
 			template: { transformAssetUrls },
 		}),
@@ -61,6 +73,14 @@ export default defineConfig({
 			autoImport: true,
 		}),
 		cssInjectedByJsPlugin({ topExecutionPriority: false }),
+		viteStaticCopy({
+			targets: [
+				{
+					src: 'src/plugin/styles/*',
+					dest: 'scss',
+				},
+			]
+		}),
 		terser(),
 	],
 	resolve: {
