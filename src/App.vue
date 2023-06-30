@@ -256,11 +256,6 @@ function updateDrawerOffset(val) {
 function updateOptions(options) {
 	drawerOptions.value = options;
 }
-
-function updateTheme(val) {
-	drawerOptions.value.theme = val;
-	drawerOptions.value.dark = val === 'dark';
-}
 </script>
 
 <style lang="scss">
