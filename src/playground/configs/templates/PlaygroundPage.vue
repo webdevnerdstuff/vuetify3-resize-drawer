@@ -40,9 +40,9 @@
 		@handle:mouseup="handleMouseup"
 		@input="drawerInput"
 	>
-		<template #handle>
+		<!-- <template #handle>
 			<v-icon>mdi mdi-cog</v-icon>
-		</template>
+		</template> -->
 
 		<v-list>
 			<v-list-item>
