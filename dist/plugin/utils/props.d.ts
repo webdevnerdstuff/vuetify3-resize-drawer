@@ -1,2 +1,2 @@
-import { Props } from '../../types';
+import { Props } from '../../../src/types';
 export declare const AllProps: Props;

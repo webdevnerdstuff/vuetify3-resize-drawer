@@ -43,7 +43,6 @@
 		],
 		"types": [
 			"node",
-			"vuetify"
 		],
 		"useDefineForClassFields": true
 	},

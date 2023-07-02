@@ -9,12 +9,13 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended',
 		'@vue/typescript/recommended',
 		'prettier',
-
+		'./.eslintrc-auto-import.json',
 	],
 	ignorePatterns: [
 		'.eslintrc.js',
 		'vite.build.config.ts',
 		'vite.config.ts',
+		'*.bk.vue',
 	],
 	overrides: [
 		{
@@ -51,9 +52,9 @@ module.exports = {
 			{
 				'extendDefaults': true,
 				'types': {
-					'{}': false
+					'{}': false,
 				}
-			}
+			},
 		],
 		'@typescript-eslint/no-empty-function': 0,
 		'brace-style': ['error', 'stroustrup'],
@@ -111,7 +112,7 @@ module.exports = {
 		'space-before-function-paren': ['error', {
 			anonymous: 'never',
 			named: 'never',
-			asyncArrow: 'never',
+			asyncArrow: 'always',
 		}],
 		'vue/attributes-order': ['error', {
 			'alphabetical': true,

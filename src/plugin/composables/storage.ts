@@ -1,7 +1,4 @@
-import type {
-	SetStorage,
-	WidthProp,
-} from '@/types';
+import { UseSetStorage } from '@/types';
 
 
 export function useGetStorage(storageType: string, storageName: string): string | null {
@@ -17,26 +14,28 @@ export function useGetStorage(storageType: string, storageName: string): string 
 }
 
 
-export function useSetStorage({ action = 'update', resizedWidth, storageType, storageName, saveWidth, rail }: SetStorage): void {
+export const useSetStorage: UseSetStorage = (options) => {
+	const { action = 'update', resizedWidth, storageType, storageName, saveWidth, rail } = options;
+
 	if (!saveWidth || rail) {
 		return;
 	}
 
-	let width: WidthProp = resizedWidth;
+	let width = resizedWidth;
 	width = width ?? undefined;
 
 	if (action === 'set') {
-		width = useGetStorage(storageType as keyof SetStorage, storageName as keyof SetStorage) ?? '';
+		width = useGetStorage(storageType as string, storageName as string) ?? '';
 		width = width || resizedWidth;
 	}
 
 	if (storageType === 'local') {
-		localStorage.setItem(storageName as keyof SetStorage, String(width));
+		localStorage.setItem(storageName as string, String(width));
 	}
 
 	if (storageType === 'session') {
-		sessionStorage.setItem(storageName as keyof SetStorage, String(width));
+		sessionStorage.setItem(storageName as string, String(width));
 	}
 
 	return;
-}
+};

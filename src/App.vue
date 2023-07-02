@@ -2,12 +2,11 @@
 	<v-app id="home">
 		<!-- ====================================================== App Bar -->
 		<AppBar
-			@changedTheme="updateTheme"
-			@updatedDrawer="toggleDrawer"
+			@changed-theme="updateCodeBlockTheme"
+			@updated-drawer="toggleDrawer"
 		/>
 
 		<!-- ====================================================== Navigation Drawer -->
-
 		<VResizeDrawer
 			v-model="drawer"
 			:absolute="drawerOptions.absolute"
@@ -19,9 +18,9 @@
 			:handle-border-width="drawerOptions.handleBorderWidth"
 			:handle-color="drawerOptions.handleColor"
 			:handle-position="drawerOptions.handlePosition"
-			height="50vh"
 			:image="drawerOptions.image"
 			:location="drawerOptions.location === 'left' ? 'left' : 'right'"
+			min-width="256"
 			:rail="drawerOptions.rail"
 			:rail-width="drawerOptions.railWidth"
 			:resizable="drawerOptions.resizable"
@@ -95,35 +94,38 @@
 			:class="[{ 'drawer-open': drawer }]"
 			:style="mainStyles"
 		>
-			<v-responsive>
-				<v-container class="px-10">
-					<DocsComponent @updateOptions="updateOptions($event)" />
-				</v-container>
-			</v-responsive>
+			<v-container class="px-10">
+				<DocsPage
+					:codeBlockOptions="codeBlockSettings"
+					@updateOptions="updateOptions($event)"
+				/>
+			</v-container>
 		</v-main>
+
 	</v-app>
 </template>
 
 <script setup>
-import { computed, onMounted, provide, ref } from 'vue';
+import { onMounted, computed, provide, ref } from 'vue';
 import { useDisplay } from 'vuetify';
-import AppBar from './layout/AppBar.vue';
-import MenuComponent from './components/MenuComponent.vue';
-import DocsComponent from './components/DocsComponent.vue';
+import AppBar from './documentation/layout/AppBar.vue';
+import MenuComponent from './documentation/components/MenuComponent.vue';
+import DocsPage from './documentation/DocsPage.vue';
+import { useCoreStore } from './stores/index';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+import Prism from 'prismjs';
+import 'prismjs/components/prism-typescript.js';
+
 
 onMounted(() => {
 	getLocalStorage();
 });
 
-const drawer = ref(true);
-const links = ref({
-	github: 'https://github.com/webdevnerdstuff',
-	npm: 'https://www.npmjs.com/package/vuetify3-resize-drawer',
-	pnpm: 'https://pnpm.io/',
-	repo: 'https://github.com/webdevnerdstuff/vuetify3-resize-drawer',
-	vue: 'https://vuejs.org/',
-	vuetify: 'https://vuetifyjs.com/en',
-});
+const { smAndUp } = useDisplay();
+
+const isSmAndUp = computed(() => smAndUp.value);
+const store = useCoreStore();
+const drawer = ref(isSmAndUp.value);
 const drawerOffset = ref('256px');
 const drawerOptions = ref({
 	absolute: false,
@@ -133,12 +135,8 @@ const drawerOptions = ref({
 	expandOnHover: true,
 	floating: false,
 	handleBorderWidth: 8,
-	handleColor: {
-		dark: 'primary',
-		light: 'primary',
-	},
+	handleColor: 'primary',
 	handlePosition: 'center',
-	// image: 'https://media.newyorker.com/photos/59096937019dfc3494ea1169/master/w_2560%2Cc_limit/Frazier-Bunny-Rabbits.jpg',
 	location: 'left',
 	rail: false,
 	railWidth: 56,
@@ -154,8 +152,28 @@ const drawerOptions = ref({
 	width: undefined,
 });
 
+const codeBlockPlugin = 'prismjs';
+const codeBlockLightTheme = 'tomorrow';
+const codeBlockDarkTheme = 'tomorrow';
+
+const codeBlockSettings = ref({
+	plugin: codeBlockPlugin,
+	theme: codeBlockDarkTheme,
+});
+
+function updateCodeBlockTheme(val) {
+	codeBlockSettings.value.theme = codeBlockLightTheme;
+
+	if (val === 'dark') {
+		codeBlockSettings.value.theme = codeBlockDarkTheme;
+	}
+
+	drawerOptions.value.theme = val;
+	drawerOptions.value.dark = val === 'dark';
+}
+
 provide('drawerOptions', drawerOptions);
-provide('links', links);
+provide('links', store.links);
 
 const mainStyles = computed(() => {
 	const { mobile } = useDisplay();
@@ -174,7 +192,7 @@ const mainStyles = computed(() => {
 function drawerClose(val) {
 	eventTriggered('drawerClose', val);
 
-	this.drawer = false;
+	drawer.value = false;
 }
 
 function drawerInput(val) {
@@ -190,7 +208,6 @@ function drawerInput(val) {
 }
 
 function eventTriggered(eventName, eventValue = null) {
-	// console.log(eventName, eventValue);
 	return { eventName, eventValue };
 }
 
@@ -232,11 +249,6 @@ function updateDrawerOffset(val) {
 
 function updateOptions(options) {
 	drawerOptions.value = options;
-}
-
-function updateTheme(val) {
-	drawerOptions.value.theme = val;
-	drawerOptions.value.dark = val === 'dark';
 }
 </script>
 
