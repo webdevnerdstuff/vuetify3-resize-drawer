@@ -13,8 +13,10 @@
 		>
 			<v-icon icon="mdi:mdi-menu"></v-icon>
 		</v-app-bar-nav-icon>
+
 		<v-app-bar-nav-icon
-			class="nav-drawer-btn me-2 ms-3"
+			v-if="isPlayground"
+			class="nav-drawer-btn "
 			:height="iconSize.height"
 			:href="`/${store.storageName}/`"
 			:width="iconSize.width"
