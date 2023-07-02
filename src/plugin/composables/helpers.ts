@@ -19,3 +19,18 @@ export const useConvertToUnit: UseConvertToUnit = (options) => {
 
 	return `${Number(str)}${unit}`;
 };
+
+
+export const useConvertToNumber = (val: string | number): number => {
+	const windowsWidth = window.innerWidth;
+
+	if (typeof val === 'string' && val.includes('%')) {
+		return Number(val.replace('%', '')) / 100 * windowsWidth;
+	}
+
+	if (typeof val === 'string') {
+		return Number(val.replace(/\D/g, ''));
+	}
+
+	return val;
+};

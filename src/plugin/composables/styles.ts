@@ -1,48 +1,78 @@
 import {
 	UseDrawerStyles,
-	UseHandleStyles
-} from '@/plugin/types';
+	UseHandleContainerStyles,
+	UseHandleIconStyles,
+} from '@/types';
 import { useConvertToUnit } from '@/plugin/composables/helpers';
+import { useGetColor } from '@/plugin/composables/colors';
+
+
+const iconSizes = {
+	default: '1.5em',
+	large: '1.75em',
+	small: '1.25em',
+	'x-large': '2em',
+	'x-small': '1em',
+};
 
 
 // -------------------------------------------------- Drawer //
 export const useDrawerStyles: UseDrawerStyles = (options) => {
-	const { rail, railWidth, resizedWidth } = options;
+	const { maxWidth, minWidth, rail, railWidth, resizedWidth, widthSnapBack } = options;
 
 	if (rail) {
 		return {};
 	}
 
-	const widthValue = rail ? railWidth : unref(resizedWidth);
+	let widthValue = rail ? railWidth : unref(resizedWidth);
+
+	if (!widthSnapBack) {
+		if (parseInt(widthValue as string) >= parseInt(maxWidth as string)) {
+			widthValue = maxWidth;
+		}
+
+		if (parseInt(widthValue as string) <= parseInt(minWidth as string)) {
+			widthValue = minWidth;
+		}
+	}
 
 	return {
-		width: useConvertToUnit({ str: widthValue }),
+		width: useConvertToUnit({ str: widthValue as string }) as string,
 	};
 };
 
 
 // -------------------------------------------------- Handle //
-export const useHandleStyles: UseHandleStyles = (options) => {
-	const { borderWidth, color, dark, position } = options;
+export const useHandleContainerStyles: UseHandleContainerStyles = (options) => {
+	const { borderWidth, handleColor, iconSize, position, theme } = options;
 
-	const handleColor = dark ? color.dark : color.light;
+	if (position === 'border') {
+		return {
+			backgroundColor: useGetColor(handleColor as string, theme),
+			height: '100%',
+			width: useConvertToUnit({ str: borderWidth as string }) as string,
+		};
+	}
+
+	const dimensions = iconSizes[iconSize as string];
+
+	return {
+		backgroundColor: 'transparent',
+		height: dimensions,
+		width: dimensions,
+	};
+};
+
+
+export const useHandleIconStyles: UseHandleIconStyles = (options) => {
+	const { color, theme } = options;
+
+	const handleColor = useGetColor(color as string, theme);
 
 	const styles = {
-		backgroundColor: '',
-		width: '',
+		color: handleColor as string,
 	};
-
-	if (position === 'border') {
-		styles.width = useConvertToUnit({ str: borderWidth }) as string;
-	}
-
-	if (position === 'border') {
-		styles.backgroundColor = handleColor;
-	}
-
-	if (position === 'center') {
-		styles.backgroundColor = 'transparent';
-	}
 
 	return styles;
 };
+
