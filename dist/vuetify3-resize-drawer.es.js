@@ -2,7 +2,7 @@ import { Fragment as lt, reactive as Dt, computed as g, watchEffect as st, toRef
 import { useTheme as _t } from "vuetify";
 /**
  * @name vuetify3-resize-drawer
- * @version 2.0.0
+ * @version 2.0.1
  * @description The vuetify-resize-drawer component extends the functionality of the v-navigation-drawer so that it is resizable by the user.
  * @author WebDevNerdStuff & Bunnies... lots and lots of bunnies! <webdevnerdstuff@gmail.com> (https://webdevnerdstuff.com)
  * @copyright Copyright 2023, WebDevNerdStuff
