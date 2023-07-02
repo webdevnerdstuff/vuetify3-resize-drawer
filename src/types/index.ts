@@ -9,8 +9,8 @@ export type Classes = {
 	[key: string]: boolean | undefined;
 };
 
-export type EmitEventNames = "handle:click" | "handle:dblclick" | "handle:drag" | "handle:mousedown" | "handle:mouseup";
-export type StorageType = "local" | "session";
+export type EmitEventNames = 'handle:click' | 'handle:dblclick' | 'handle:drag' | 'handle:mousedown' | 'handle:mouseup';
+export type StorageType = 'local' | 'session';
 export type HandlePositions = 'bottom' | 'border' | 'center' | 'top';
 export type DrawerLocations = 'end' | 'start' | 'left' | 'right' | undefined;
 

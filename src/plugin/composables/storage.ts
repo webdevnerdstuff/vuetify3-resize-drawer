@@ -1,3 +1,5 @@
+import { UseSetStorage } from '@/types';
+
 
 export function useGetStorage(storageType: string, storageName: string): string | null {
 	if (storageType === 'local') {
@@ -23,16 +25,16 @@ export const useSetStorage: UseSetStorage = (options) => {
 	width = width ?? undefined;
 
 	if (action === 'set') {
-		width = useGetStorage(storageType, storageName) ?? '';
+		width = useGetStorage(storageType as string, storageName as string) ?? '';
 		width = width || resizedWidth;
 	}
 
 	if (storageType === 'local') {
-		localStorage.setItem(storageName, String(width));
+		localStorage.setItem(storageName as string, String(width));
 	}
 
 	if (storageType === 'session') {
-		sessionStorage.setItem(storageName, String(width));
+		sessionStorage.setItem(storageName as string, String(width));
 	}
 
 	return;
