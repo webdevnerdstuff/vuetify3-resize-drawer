@@ -1,6 +1,6 @@
 <template>
 	<v-navigation-drawer
-		v-bind="$attrs"
+		v-bind="bindingSettings"
 		ref="resizeDrawer"
 		:class="drawerClasses"
 		:location="props.location"
@@ -14,72 +14,27 @@
 		<!-- ============================== Resize handle -->
 		<div
 			v-if="props.resizable && !props.rail"
-			:class="handleClasses"
-			:style="handleStyles"
+			:class="handleContainerClasses"
+			:style="handleContainerStyles"
 			@click="handleClick"
 			@dblclick="handleDoubleClick"
 			@mousedown="handleMouseDown"
 			@mouseup="handleMouseUp"
 		>
-			<!-- ========== Center Icon -->
-			<div
-				v-if="props.handlePosition === 'center'"
-				class="v-resize-drawer--handle-icon d-flex align-items-center justify-content-center"
-				:class="{
-					[`v-resize-drawer--handle-${props.handlePosition}-icon`]:
-						props.handlePosition,
-				}"
-			>
-				<template v-if="slots.handle">
-					<div class="v-resize-drawer--handle-slot">
-						<slot name="handle"></slot>
-					</div>
-				</template>
-
-				<div
-					v-else
-					:class="{
-						'v-resize-drawer--handle-handle-flip': props.location === 'right',
-					}"
-				>
-					&raquo; {{ slots.handle }}
+			<template v-if="slots.handle">
+				<div class="v-resize-drawer--handle-slot">
+					<slot name="handle"></slot>
 				</div>
-			</div>
-
-			<!-- ========== Top Icon -->
-			<template v-if="slots.handle && props.handlePosition === 'top-icon'">
-				<slot
-					v-if="slots.handle"
-					:class="{
-						'theme--dark': props.dark,
-						'theme--light': !props.dark,
-						'float-end': false,
-						'float-start': props.location !== 'right',
-					}"
-					name="handle"
-				></slot>
 			</template>
 
 			<v-icon
-				v-else-if="props.handlePosition === 'top-icon'"
-				:class="{
-					'theme--dark': props.dark,
-					'theme--light': !props.dark,
-					'float-end': props.location === 'right',
-					'float-start': props.location !== 'right',
-				}"
-			>
-				mdi-resize-bottom-right
-			</v-icon>
-
-			<!-- ========== Top -->
-			<div
-				v-else-if="props.handlePosition === 'top'"
-				class="v-resize-drawer--handle-lines"
-				:class="[
-					`v-resize-drawer--handle-parent-${props.handlePosition}-${props.location}-lines`,
-				]"
-			></div>
+				v-else-if="handlePosition !== 'border'"
+				class="v-resize-drawer--handle-icon"
+				:class="handleIconClasses"
+				:icon="theHandleIcon"
+				:size="handleIconSize"
+				:style="handleIconStyles"
+			></v-icon>
 		</div>
 
 		<!-- ============================== Slots  -->
@@ -99,6 +54,7 @@
 </template>
 
 <script setup lang="ts">
+import { IconOptions, useTheme } from 'vuetify';
 import { VNavigationDrawer } from 'vuetify/components';
 import {
 	EmitEventNames,
@@ -111,13 +67,19 @@ import {
 } from '@/plugin/composables/storage';
 import {
 	useDrawerClasses,
-	useHandleClasses,
+	useHandleIconClasses,
+	useHandleContainerClasses,
 } from '@/plugin/composables/classes';
 import {
 	useDrawerStyles,
-	useHandleStyles,
+	useHandleContainerStyles,
+	useHandleIconStyles,
 } from '@/plugin/composables/styles';
-import { useConvertToUnit } from '@/plugin/composables/helpers';
+import {
+	useConvertToNumber,
+	useConvertToUnit,
+} from '@/plugin/composables/helpers';
+import { useGetIcon } from '@/plugin/composables/icons';
 
 
 // -------------------------------------------------- Emits & Slots & Injects //
@@ -132,8 +94,9 @@ const emit = defineEmits([
 
 // -------------------------------------------------- Props //
 const props = withDefaults(defineProps<Props>(), { ...AllProps });
+const bindingSettings = computed(() => props);
 
-
+const iconOptions = inject<IconOptions>(Symbol.for('vuetify:icons'));
 const defaultWidth = ref<Props['width']>(256);
 const handleEvents: { mouseUp: boolean, mouseDown: boolean; } = {
 	mouseDown: false,
@@ -141,11 +104,17 @@ const handleEvents: { mouseUp: boolean, mouseDown: boolean; } = {
 };
 const isMouseover = ref<boolean>(false);
 const resizeDrawer = ref<VNavigationDrawer>();
-const resizedWidth = ref<Props['width']>(256);
+const resizedWidth = ref<string | number | undefined>(256);
 const slots = useSlots();
+const theme = useTheme();
 
-// -------------------------------------------------- Mounted //
+
+// -------------------------------------------------- Life Cycle Hooks //
 onMounted(() => {
+	if (props.location !== 'start' && props.location !== 'end' && props.location !== 'left' && props.location !== 'right') {
+		throw new Error("VResizeDrawer: 'top' and 'bottom' locations are not supported.");
+	}
+
 	init();
 });
 
@@ -153,8 +122,11 @@ onUnmounted(() => {
 	removeListeners();
 });
 
+
+// -------------------------------------------------- Init //
 function init(): boolean {
-	// Disable resize if mini-variant is set //
+
+	// Disable resize if rail is set //
 	if (props.rail) {
 		resizedWidth.value = props.railWidth || undefined;
 		return false;
@@ -162,7 +134,7 @@ function init(): boolean {
 
 	const storageWidth = useGetStorage(props.storageType, props.storageName);
 	const width = useConvertToUnit({ str: props.width });
-	resizedWidth.value = width;
+	resizedWidth.value = width as string;
 	defaultWidth.value = resizedWidth.value as string;
 
 	if (props.saveWidth && storageWidth && !props.rail) {
@@ -197,35 +169,60 @@ const drawerClasses = computed(() => useDrawerClasses({
 }));
 
 const drawerStyles = computed(() => useDrawerStyles({
+	maxWidth: props.maxWidth,
+	minWidth: props.minWidth,
 	rail: props.rail,
 	railWidth: props.railWidth,
 	resizedWidth,
+	widthSnapBack: props.widthSnapBack,
 }));
 
-const drawerWidth = computed<string>(() => {
+const drawerWidth = computed<string | undefined>(() => {
 	if (props.rail) {
-		return '';
+		return undefined;
 	}
 
-	return useConvertToUnit({ str: resizedWidth.value });
+	return useConvertToUnit({ str: resizedWidth.value as string }) as string;
 });
 
 
-// -------------------------------------------------- Handle Classes & Styles //
-const handleClasses = computed(() => useHandleClasses({
-	color: props.handleColor,
-	dark: props.dark,
+// -------------------------------------------------- Handle Container //
+const handleContainerClasses = computed(() => useHandleContainerClasses({
+	drawerLocation: props.location,
 	handlePosition: props.handlePosition,
-	handleSlot: slots.handle,
-	parentPosition: props.location === 'right' ? 'right' : 'left',
 }));
 
-const handleStyles = computed(() => useHandleStyles({
+const handleContainerStyles = computed(() => useHandleContainerStyles({
 	borderWidth: props.handleBorderWidth,
-	color: props.handleColor,
-	dark: props.dark,
+	handleColor: props.handleColor,
+	iconSize: props.handleIconSize,
 	position: props.handlePosition,
+	theme,
 }));
+
+
+// -------------------------------------------------- Handle Icon //
+const handleIconStyles = computed(() => useHandleIconStyles({
+	color: props.handleColor,
+	theme,
+}));
+
+const handleIconClasses = computed(() => useHandleIconClasses({
+	drawerLocation: props.location,
+	handlePosition: props.handlePosition,
+	iconOptions,
+	isUserIcon: typeof props.handleIcon !== 'undefined' && props.handleIcon !== null,
+}));
+
+const theHandleIcon = computed(() => {
+	const icon = useGetIcon({
+		icon: props.handleIcon,
+		iconOptions,
+		position: props.handlePosition,
+	});
+
+	return icon;
+});
 
 
 // -------------------------------------------------- Drawer Events //
@@ -240,17 +237,37 @@ function drawerMouseleave(): void {
 function drawerResize(e: MouseEvent): void {
 	let width = e.clientX;
 
-	if (props.location === 'right') {
+	if (props.location === 'right' || props.location === 'end') {
 		width = document.body.scrollWidth - width;
 	}
 
-	resizedWidth.value = useConvertToUnit({ str: width });
+	resizedWidth.value = useConvertToUnit({ str: width }) || undefined;
+
+	if (!props.widthSnapBack) {
+		resizedWidth.value = checkMaxMinWidth(resizedWidth.value);
+	}
 
 	document.body.style.cursor = 'grabbing';
 
 	emitEvent('handle:drag', e);
 }
 
+
+function checkMaxMinWidth<T>(width: T): T {
+	let returnWidth = useConvertToNumber(width as string | number) as T;
+	const maxWidth = useConvertToNumber(props.maxWidth) as T;
+	const minWidth = useConvertToNumber(props.minWidth) as T;
+
+	if (returnWidth >= maxWidth) {
+		returnWidth = maxWidth as T;
+	}
+
+	if (minWidth >= returnWidth) {
+		returnWidth = minWidth as T;
+	}
+
+	return returnWidth as T;
+}
 
 // -------------------------------------------------- Handle Events //
 function handleClick(e: Event): void {
@@ -303,6 +320,9 @@ function handleMouseUp(e: MouseEvent): void {
 	resizedWidth.value = drawer?.width ?? defaultWidth.value;
 
 	document.body.style.cursor = '';
+
+	resizedWidth.value = checkMaxMinWidth(resizedWidth.value);
+	resizedWidth.value = useConvertToUnit({ str: resizedWidth.value as string }) || undefined;
 
 	useSetStorage({
 		rail: props.rail,
