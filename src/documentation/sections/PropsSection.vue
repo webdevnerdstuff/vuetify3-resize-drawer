@@ -424,6 +424,12 @@ const propsSupported = reactive({
 			type: 'object',
 		},
 		{
+			default: 'undefined',
+			desc: 'Determines the icon of the handle',
+			name: 'handle-icon',
+			type: 'string',
+		},
+		{
 			default: 'x-small',
 			desc: 'Sets the height and width of the icon. Default unit is px. Can also use the following predefined sizes: <code class="ic">x-small</code>, <code class="ic">small</code>, <code class="ic">default</code>, <code class="ic">large</code>, and <code class="ic">x-large</code>',
 			name: 'handle-icon-size',
@@ -442,13 +448,13 @@ const propsSupported = reactive({
 			type: 'string',
 		},
 		{
-			default: 'undefined',
+			default: '100%',
 			desc: 'The maximum width of the navigation drawer. Accepts: number, px, or %',
 			name: 'max-width',
 			type: 'string',
 		},
 		{
-			default: 'undefined',
+			default: '56',
 			desc: 'The minimum width of the navigation drawer. Accepts: number, px, or %',
 			name: 'min-width',
 			type: 'string',
