@@ -3,15 +3,15 @@ import { componentName } from './globals';
 
 
 export const AllProps: Props = {
-	dark: false,
 	handleBorderWidth: 8,
-	handleColor: () => ({
-		dark: 'default',
-		light: 'default',
-	}) as const,
+	handleColor: 'primary',
+	handleIcon: undefined,
+	handleIconSize: 'x-small',
 	handlePosition: 'center',
 	height: undefined,
-	location: 'left',
+	location: 'start',
+	maxWidth: '100%',
+	minWidth: 56,
 	modelValue: true,
 	name: componentName,
 	rail: false,
@@ -20,7 +20,8 @@ export const AllProps: Props = {
 	saveWidth: true,
 	storageName: `${componentName}-width`,
 	storageType: 'local',
-	tag: 'div',
+	tag: 'nav',
 	theme: 'light',
 	width: 256,
+	widthSnapBack: true,
 };
