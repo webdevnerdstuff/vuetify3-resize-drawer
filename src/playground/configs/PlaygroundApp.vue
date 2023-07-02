@@ -26,8 +26,10 @@
 						<v-col class="v-col-12">
 							<v-container>
 								<v-row class="row mb-4">
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit aut officia expedita id ullam quia in,
-									nostrum unde recusandae numquam at vero, autem voluptatibus quis! Quasi odit unde eligendi soluta?
+									<v-col class="text-center">
+										Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit aut officia expedita id ullam quia in,
+										nostrum unde recusandae numquam at vero, autem voluptatibus quis! Quasi odit unde eligendi soluta?
+									</v-col>
 								</v-row>
 							</v-container>
 						</v-col>
@@ -59,15 +61,11 @@ const drawerOffset = ref('256px');
 const drawerOptions = ref({
 	absolute: false,
 	color: '',
-	dark: true,
 	elevation: 10,
 	expandOnHover: true,
 	floating: false,
 	handleBorderWidth: 8,
-	handleColor: {
-		dark: 'primary',
-		light: 'primary',
-	},
+	handleColor: 'primary',
 	handlePosition: 'center',
 	location: 'left',
 	rail: false,
@@ -82,6 +80,7 @@ const drawerOptions = ref({
 	theme: 'dark',
 	touchless: false,
 	width: undefined,
+	widthSnapBack: true,
 });
 
 provide('links', store.links);
@@ -95,12 +94,21 @@ const mainStyles = computed(() => {
 	const { mobile } = useDisplay();
 	let styles = '';
 	let paddingValue = drawerOffset.value;
+	let location = drawerOptions.value.location;
+
+	if (location === 'left' || location === 'start') {
+		location = 'left';
+	}
+
+	if (location === 'right' || location === 'end') {
+		location = 'right';
+	}
 
 	if (mobile.value || !drawer.value) {
 		paddingValue = '0';
 	}
 
-	styles += `padding-${drawerOptions.value.location}: ${paddingValue} !important;`;
+	styles += `padding-${location}: ${paddingValue} !important;`;
 
 	return styles;
 });

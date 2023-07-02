@@ -16,10 +16,13 @@
 		:floating="drawerOptions.floating"
 		:handle-border-width="drawerOptions.handleBorderWidth"
 		:handle-color="drawerOptions.handleColor"
+		:handle-icon="drawerOptions.handleIcon"
+		:handle-icon-size="drawerOptions.handleIconSize"
 		:handle-position="drawerOptions.handlePosition"
-		height="50vh"
 		:image="drawerOptions.image"
-		:location="drawerOptions.location === 'left' ? 'left' : 'right'"
+		:location="drawerOptions.location"
+		:max-width="drawerOptions.maxWidth"
+		:min-width="drawerOptions.minWidth"
 		:rail="drawerOptions.rail"
 		:rail-width="drawerOptions.railWidth"
 		:resizable="drawerOptions.resizable"
@@ -32,6 +35,7 @@
 		:theme="drawerOptions.theme"
 		:touchless="drawerOptions.touchless"
 		:width="drawerOptions.width"
+		:width-snap-back="drawerOptions.widthSnapBack"
 		@close="drawerClose"
 		@handle:click="handleClick"
 		@handle:dblclick="handleDoubleClick"
@@ -41,7 +45,7 @@
 		@input="drawerInput"
 	>
 		<!-- <template #handle>
-			<v-icon>mdi mdi-cog</v-icon>
+			<v-icon size="x-small">mdi mdi-cog</v-icon>
 		</template> -->
 
 		<v-list>
@@ -52,6 +56,7 @@
 
 		<v-divider></v-divider>
 
+		<MenuComponent />
 	</VResizeDrawer>
 </template>
 
@@ -59,22 +64,24 @@
 <script setup>
 import { onMounted, provide, ref } from 'vue';
 import AppBar from '@/documentation/layout/AppBar.vue';
+import MenuComponent from '@/documentation/components/MenuComponent.vue';
 
 
 const drawerOptions = ref({
 	absolute: false,
 	color: '',
-	dark: true,
-	elevation: 10,
+	elevation: 0,
 	expandOnHover: true,
 	floating: false,
 	handleBorderWidth: 8,
-	handleColor: {
-		dark: 'primary',
-		light: 'primary',
-	},
+	handleColor: 'primary',
+	handleIcon: null,
+	// handleIcon: 'mdi:mdi-arrow-right-bold-box',
+	handleIconSize: 'x-small',
 	handlePosition: 'center',
 	location: 'left',
+	maxWidth: '500px',
+	minWidth: '256px',
 	rail: false,
 	railWidth: 56,
 	resizable: true,
@@ -87,6 +94,7 @@ const drawerOptions = ref({
 	theme: 'dark',
 	touchless: false,
 	width: undefined,
+	widthSnapBack: true,
 });
 
 
@@ -154,7 +162,6 @@ function getLocalStorage() {
 }
 
 function eventTriggered(eventName, eventValue = null) {
-	// console.log(eventName, eventValue);
 	return { eventName, eventValue };
 }
 
