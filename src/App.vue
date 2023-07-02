@@ -18,9 +18,9 @@
 			:handle-border-width="drawerOptions.handleBorderWidth"
 			:handle-color="drawerOptions.handleColor"
 			:handle-position="drawerOptions.handlePosition"
-			height="50vh"
 			:image="drawerOptions.image"
 			:location="drawerOptions.location === 'left' ? 'left' : 'right'"
+			min-width="256"
 			:rail="drawerOptions.rail"
 			:rail-width="drawerOptions.railWidth"
 			:resizable="drawerOptions.resizable"
@@ -135,10 +135,7 @@ const drawerOptions = ref({
 	expandOnHover: true,
 	floating: false,
 	handleBorderWidth: 8,
-	handleColor: {
-		dark: 'primary',
-		light: 'primary',
-	},
+	handleColor: 'primary',
 	handlePosition: 'center',
 	location: 'left',
 	rail: false,
@@ -195,7 +192,7 @@ const mainStyles = computed(() => {
 function drawerClose(val) {
 	eventTriggered('drawerClose', val);
 
-	this.drawer = false;
+	drawer.value = false;
 }
 
 function drawerInput(val) {
@@ -211,7 +208,6 @@ function drawerInput(val) {
 }
 
 function eventTriggered(eventName, eventValue = null) {
-	// console.log(eventName, eventValue);
 	return { eventName, eventValue };
 }
 

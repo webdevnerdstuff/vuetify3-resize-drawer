@@ -373,7 +373,8 @@ const handleColor = ref('');
 
 let defaultOptions = {};
 const dialog = ref(false);
-const options = ref(drawerOptions);
+const options = ref(drawerOptions.value);
+
 
 const propsSupported = reactive({
 	headers: [
@@ -411,45 +412,69 @@ const propsSupported = reactive({
 	items: [
 		{
 			default: '8',
-			desc: 'Specifies the width of the handle if the handle position <code>border</code> is selected.',
+			desc: 'Specifies the width of the handle if the handle position <code class="ic">border</code> is selected.',
 			name: 'handle-border-width',
 			type: 'string | number',
 		},
 		{
-			default: "<pre><code>{ dark: '#555', light: '#ccc' }</code></pre>",
-			desc: 'Determines the background color of the handle for dark and light modes. Used when the <code>handlePosition</code> is set to <code>top</code>. Alternatively you can use CSS styles to adjust the colors.',
+			default: 'primary',
+			desc: 'Determines the color of the handle',
 			name: 'handle-color',
 			type: 'object',
 		},
 		{
+			default: 'x-small',
+			desc: 'Sets the height and width of the icon. Default unit is px. Can also use the following predefined sizes: <code class="ic">x-small</code>, <code class="ic">small</code>, <code class="ic">default</code>, <code class="ic">large</code>, and <code class="ic">x-large</code>',
+			name: 'handle-icon-size',
+			type: 'string',
+		},
+		{
 			default: 'center',
-			desc: 'Specifies the position of the handle. Valid values are <code>border</code>, <code>center</code>, <code>top</code>, <code>top-icon</code>.',
+			desc: 'Specifies the position of the handle. Valid values are <code class="ic">border</code>, <code class="ic">center</code>, <code class="ic">top</code>, <code class="ic">bottom</code>.',
 			name: 'handle-position',
 			type: 'string',
 		},
 		{
-			default: 'left',
-			desc: 'Places the navigation drawer position on the the screen. Valid values are <code>left</code> and <code>right</code>.',
+			default: 'start',
+			desc: 'Places the navigation drawer position on the the screen. *<code class="ic">top</code> and <code class="ic">bottom</code> are not supported',
 			name: 'location',
 			type: 'string',
 		},
 		{
+			default: 'undefined',
+			desc: 'The maximum width of the navigation drawer. Accepts: number, px, or %',
+			name: 'max-width',
+			type: 'string',
+		},
+		{
+			default: 'undefined',
+			desc: 'The minimum width of the navigation drawer. Accepts: number, px, or %',
+			name: 'min-width',
+			type: 'string',
+		},
+		{
 			default: 'true',
-			desc: 'Enables resize functionality.',
+			desc: 'Enables resize functionality',
 			name: 'resizable',
 			type: 'boolean',
 		},
 		{
 			default: 'true',
-			desc: 'Determines if the width of the component is saved in local storage.',
+			desc: 'Determines if the width of the component is saved in local/session storage',
 			name: 'save-width',
 			type: 'boolean',
 		},
 		{
 			default: 'v-resize-drawer-width',
-			desc: 'Determines the name of the local storage item.',
+			desc: 'Determines the name of the local/session storage item',
 			name: 'storage-name',
 			type: 'string',
+		},
+		{
+			default: 'true',
+			desc: 'Determines if the width of he navigation drawer should snap back if the <code class="ic">min-width</code> or <code class="ic">max-width</code> prop values pass their respective thresholds',
+			name: 'width-Snap-back',
+			type: 'boolean',
 		},
 	],
 });
@@ -482,28 +507,28 @@ const propsNotSupported = reactive({
 	items: [
 		{
 			name: 'disable-route-watcher',
-			notes: 'An environment that uses routes is needed to test.',
-			status: 'pending',
+			notes: 'An environment that uses routes is needed to test',
+			status: '',
 		},
 		{
 			name: 'expand-on-hover',
-			notes: 'The <code>expand-on-hover</code> prop will work, but the resizable functionality is disabled.',
+			notes: 'The <code class="ic">expand-on-hover</code> prop will work, but the resizable functionality is disabled',
 			status: 'partial support',
 		},
 		{
 			name: 'rail',
-			notes: 'The <code>rail</code> prop will work, but the resizable functionality is disabled.',
+			notes: 'The <code class="ic">rail</code> prop will work, but the resizable functionality is disabled',
 			status: 'partial support',
 		},
 		{
 			name: 'rail-width',
-			notes: 'The <code>rail-width</code> prop for use with the <code>rail</code> prop will work, but the resizable functionality is disabled.',
+			notes: 'The <code class="ic">rail-width</code> prop for use with the <code class="ic">rail</code> prop will work, but the resizable functionality is disabled',
 			status: 'partial support',
 		},
 		{
 			name: 'touchless',
-			notes: 'Drawer does not function like it should with <code>touchless</code> enabled.',
-			status: 'debugging',
+			notes: 'Drawer does not function like it should with <code class="ic">touchless</code> enabled',
+			status: '',
 		},
 	],
 });
@@ -518,20 +543,17 @@ const selectOptions = {
 		{ title: 'Error', value: 'error' },
 		{ title: 'Info', value: 'info' },
 	],
-	handlePosition: ['border', 'center', 'top', 'top-icon'],
+	handlePosition: ['border', 'center', 'top', 'bottom'],
 };
 
 watch(handleColor, (value) => {
-	options.value.handleColor = {
-		dark: value,
-		light: value
-	};
+	options.value.handleColor = value;
 	emit('updateOptions', options.value);
 });
 
 onMounted(() => {
 	defaultOptions = JSON.parse(JSON.stringify(drawerOptions.value));
-	handleColor.value = defaultOptions.handleColor.dark;
+	handleColor.value = defaultOptions.handleColor;
 });
 
 function resetOptions() {

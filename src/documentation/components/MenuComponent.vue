@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { inject, onMounted, reactive, ref } from 'vue';
+import { inject, onMounted, ref } from 'vue';
 import { useMenuStore } from '@/stores/menu';
 
 const drawerOptions = inject('drawerOptions');
