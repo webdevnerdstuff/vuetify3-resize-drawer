@@ -59,6 +59,7 @@
 					:headers="propsSupported.headers"
 					hide-default-footer
 					:items="propsSupported.items"
+					items-per-page="25"
 					:search="search"
 				>
 					<template #[`item.name`]="{ item }">
@@ -473,7 +474,7 @@ const propsSupported = reactive({
 		{
 			default: 'true',
 			desc: 'Determines if the width of he navigation drawer should snap back if the <code class="ic">min-width</code> or <code class="ic">max-width</code> prop values pass their respective thresholds',
-			name: 'width-Snap-back',
+			name: 'width-snap-back',
 			type: 'boolean',
 		},
 	],
