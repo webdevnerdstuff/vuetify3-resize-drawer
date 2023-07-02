@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 import { CSSProperties, MaybeRef } from 'vue';
+import type { IconOptions, ThemeInstance } from 'vuetify';
 import type { VNavigationDrawer } from 'vuetify/components';
 
 
@@ -10,25 +11,30 @@ export type Classes = {
 
 export type EmitEventNames = "handle:click" | "handle:dblclick" | "handle:drag" | "handle:mousedown" | "handle:mouseup";
 export type StorageType = "local" | "session";
+export type HandlePositions = 'bottom' | 'border' | 'center' | 'top';
+export type DrawerLocations = 'end' | 'start' | 'left' | 'right' | undefined;
+
+
+// -------------------------------------------------- Colors //
+export type HEXColor = string;
+export type HSLColor = [number, number, number];
+export type RGBColor = [number, number, number];
 
 
 // -------------------------------------------------- Props //
-export type HandleColorProp = {
-	dark?: string;
-	light?: string;
-};
-
-
 export interface Props {
 	absolute?: VNavigationDrawer['$props']['absolute'];
-	dark?: boolean | undefined;
 	expandOnHover?: VNavigationDrawer['$props']['expandOnHover'];
 	floating?: VNavigationDrawer['$props']['floating'];
 	handleBorderWidth?: number | string;
-	handleColor?: HandleColorProp;
-	handlePosition?: string;
+	handleColor?: string | undefined;
+	handleIcon?: string | undefined;
+	handleIconSize?: string | undefined;
+	handlePosition?: HandlePositions;
 	height?: number | string | undefined;
-	location?: VNavigationDrawer['$props']['location'];
+	location?: DrawerLocations;
+	maxWidth?: VNavigationDrawer['$props']['width'];
+	minWidth?: VNavigationDrawer['$props']['width'];
 	modelValue?: VNavigationDrawer['$props']['modelValue'];
 	name?: string;
 	rail?: VNavigationDrawer['$props']['rail'];
@@ -41,6 +47,7 @@ export interface Props {
 	temporary?: VNavigationDrawer['$props']['temporary'];
 	theme?: VNavigationDrawer['$props']['theme'];
 	width?: VNavigationDrawer['$props']['width'];
+	widthSnapBack?: boolean | undefined;
 }
 
 
@@ -61,7 +68,7 @@ export interface UseSetStorage {
 	(
 		options: {
 			action?: string;
-			resizedWidth?: Props['width'];
+			resizedWidth?: MaybeRef<string | number | undefined>;
 			storageType?: StorageType;
 			storageName?: Props['storageName'];
 			saveWidth?: Props['saveWidth'];
@@ -86,14 +93,22 @@ export interface UseDrawerClasses {
 	): object;
 }
 
-export interface UseHandleClasses {
+export interface UseHandleContainerClasses {
 	(
 		options: {
-			color?: Props['handleColor'],
-			dark?: Props['dark'],
 			handlePosition?: Props['handlePosition'],
-			handleSlot?: MaybeRef<string>,
-			parentPosition?: Props['location'],
+			drawerLocation?: Props['location'],
+		}
+	): object;
+}
+
+export interface UseHandleIconClasses {
+	(
+		options: {
+			handlePosition?: Props['handlePosition'],
+			iconOptions?: IconOptions,
+			isUserIcon?: boolean,
+			drawerLocation?: Props['location'],
 		}
 	): object;
 }
@@ -102,21 +117,44 @@ export interface UseHandleClasses {
 export interface UseDrawerStyles {
 	(
 		options: {
+			maxWidth?: Props['maxWidth'],
+			minWidth?: Props['minWidth'],
 			rail?: Props['rail'],
 			railWidth?: Props['railWidth'],
-			resizedWidth?: Props['width'],
+			resizedWidth: MaybeRef<string | number | undefined>,
+			widthSnapBack?: Props['widthSnapBack'],
 		}
 	): CSSProperties;
 }
 
-// ------------------------- Styles //
-export interface UseHandleStyles {
+export interface UseHandleContainerStyles {
 	(
 		options: {
 			borderWidth?: Props['handleBorderWidth'],
-			color?: Props['handleColor'],
-			dark?: Props['dark'],
+			handleColor?: Props['handleColor'],
+			iconSize?: Props['handleIconSize'],
 			position?: Props['handlePosition'],
+			theme: ThemeInstance,
 		}
 	): CSSProperties;
+}
+
+export interface UseHandleIconStyles {
+	(
+		options: {
+			color?: Props['handleColor'],
+			theme: ThemeInstance,
+		}
+	): CSSProperties;
+}
+
+// ------------------------ Icons //
+export interface UseGetIcon {
+	(
+		options: {
+			icon: string | undefined;
+			iconOptions: IconOptions | undefined;
+			position: Props['handlePosition'],
+		}
+	): string;
 }
