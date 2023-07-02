@@ -17,6 +17,7 @@ All notable changes to the "vuetify3-resize-drawer" plugin will be documented in
 * Update Vuetify to current version `3.3.6`
 * Improve organization of code
 * Update documentation
+* Add Developer Playground
 
 ## v1.0.3
 05-13-2023
