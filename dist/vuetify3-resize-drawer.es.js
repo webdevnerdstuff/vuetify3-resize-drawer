@@ -1,8 +1,8 @@
-import { Fragment as lt, reactive as Dt, computed as g, watchEffect as st, toRefs as Et, warn as kt, watch as se, onScopeDispose as At, effectScope as Wt, ref as ee, unref as $, provide as Ve, inject as ue, shallowRef as Z, defineComponent as ut, getCurrentInstance as $t, onDeactivated as xt, onActivated as zt, onBeforeUnmount as ze, toRaw as Mt, isRef as fe, onMounted as Be, readonly as Lt, createVNode as z, mergeProps as Ee, toRef as Ie, Text as It, nextTick as Nt, onBeforeMount as Pt, Transition as Vt, mergeDefaults as Ot, useSlots as Rt, onUnmounted as Tt, openBlock as Fe, createBlock as Ye, withCtx as Gt, createElementBlock as Ue, normalizeClass as qe, normalizeStyle as Xe, renderSlot as be, createCommentVNode as Se } from "vue";
+import { Fragment as lt, reactive as Dt, computed as g, watchEffect as st, toRefs as Et, warn as kt, watch as ae, onScopeDispose as At, effectScope as Wt, ref as Q, unref as W, provide as Ve, inject as re, shallowRef as Z, defineComponent as ut, getCurrentInstance as $t, onDeactivated as xt, onActivated as Mt, onBeforeUnmount as Me, toRaw as zt, isRef as fe, onMounted as Be, readonly as Lt, createVNode as M, mergeProps as Ee, toRef as Ie, Text as It, nextTick as Nt, onBeforeMount as Pt, Transition as Vt, mergeDefaults as Ot, useSlots as Rt, onUnmounted as Tt, openBlock as Fe, createBlock as Ye, withCtx as Gt, createElementBlock as Ue, normalizeClass as qe, normalizeStyle as Xe, renderSlot as be, createCommentVNode as Se } from "vue";
 import { useTheme as _t } from "vuetify";
 /**
  * @name vuetify3-resize-drawer
- * @version 2.0.1
+ * @version 2.0.2
  * @description The vuetify-resize-drawer component extends the functionality of the v-navigation-drawer so that it is resizable by the user.
  * @author WebDevNerdStuff & Bunnies... lots and lots of bunnies! <webdevnerdstuff@gmail.com> (https://webdevnerdstuff.com)
  * @copyright Copyright 2023, WebDevNerdStuff
@@ -10,13 +10,13 @@ import { useTheme as _t } from "vuetify";
  * @repository https://github.com/webdevnerdstuff/vuetify3-resize-drawer
  * @license MIT License
  */
-function R(e, n) {
+function T(e, n) {
   return (t) => Object.keys(e).reduce((a, o) => {
     const v = typeof e[o] == "object" && e[o] != null && !Array.isArray(e[o]) ? e[o] : { type: e[o] };
     return a[o] = t && o in t ? { ...v, default: t[o] } : v, n && !a[o].source && (a[o].source = n), a;
   }, {});
 }
-const ct = R({ class: [String, Array], style: { type: [String, Array, Object], default: null } }, "component");
+const ct = T({ class: [String, Array], style: { type: [String, Array, Object], default: null } }, "component");
 function Ke(e, n, t) {
   (function(a, o) {
     if (o.has(a))
@@ -34,7 +34,7 @@ function jt(e, n, t) {
     }
   }(e, dt(e, n, "set"), t), t;
 }
-function le(e, n) {
+function oe(e, n) {
   return function(t, a) {
     return a.get ? a.get.call(t) : a.value;
   }(e, dt(e, n, "get"));
@@ -44,45 +44,45 @@ function dt(e, n, t) {
     throw new TypeError("attempted to " + t + " private field on non-instance");
   return n.get(e);
 }
-function he(e) {
+function me(e) {
   let n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "px";
   return e == null || e === "" ? void 0 : isNaN(+e) ? String(e) : isFinite(+e) ? `${Number(e)}${n}` : void 0;
 }
 function Ze(e) {
   return e !== null && typeof e == "object" && !Array.isArray(e);
 }
-function pe() {
+function he() {
   let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, t = arguments.length > 2 ? arguments[2] : void 0;
   const a = {};
   for (const o in e)
     a[o] = e[o];
   for (const o in n) {
     const v = e[o], d = n[o];
-    Ze(v) && Ze(d) ? a[o] = pe(v, d, t) : Array.isArray(v) && Array.isArray(d) && t ? a[o] = t(v, d) : a[o] = d;
+    Ze(v) && Ze(d) ? a[o] = he(v, d, t) : Array.isArray(v) && Array.isArray(d) && t ? a[o] = t(v, d) : a[o] = d;
   }
   return a;
 }
 function vt(e) {
   return e.map((n) => n.type === lt ? vt(n.children) : n).flat();
 }
-function ce() {
+function ie() {
   let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "";
-  if (ce.cache.has(e))
-    return ce.cache.get(e);
+  if (ie.cache.has(e))
+    return ie.cache.get(e);
   const n = e.replace(/[^a-z]/gi, "-").replace(/\B([A-Z])/g, "-$1").toLowerCase();
-  return ce.cache.set(e, n), n;
+  return ie.cache.set(e, n), n;
 }
-ce.cache = /* @__PURE__ */ new Map();
-var Ce = /* @__PURE__ */ new WeakMap(), de = /* @__PURE__ */ new WeakMap();
+ie.cache = /* @__PURE__ */ new Map();
+var Ce = /* @__PURE__ */ new WeakMap(), ce = /* @__PURE__ */ new WeakMap();
 class Ht {
   constructor(n) {
-    Ke(this, Ce, { writable: !0, value: [] }), Ke(this, de, { writable: !0, value: 0 }), this.size = n;
+    Ke(this, Ce, { writable: !0, value: [] }), Ke(this, ce, { writable: !0, value: 0 }), this.size = n;
   }
   push(n) {
-    le(this, Ce)[le(this, de)] = n, jt(this, de, (le(this, de) + 1) % this.size);
+    oe(this, Ce)[oe(this, ce)] = n, jt(this, ce, (oe(this, ce) + 1) % this.size);
   }
   values() {
-    return le(this, Ce).slice(le(this, de)).concat(le(this, Ce).slice(0, le(this, de)));
+    return oe(this, Ce).slice(oe(this, ce)).concat(oe(this, Ce).slice(0, oe(this, ce)));
   }
 }
 function mt(e) {
@@ -102,7 +102,7 @@ function ht(e, n) {
       t == null || t.stop(), a();
     }) : n());
   }
-  se(e, (o) => {
+  ae(e, (o) => {
     o && !t ? a() : o || (t == null || t.stop(), t = void 0);
   }, { immediate: !0 }), At(() => {
     t == null || t.stop();
@@ -110,60 +110,60 @@ function ht(e, n) {
 }
 const Oe = Symbol.for("vuetify:defaults");
 function Re() {
-  const e = ue(Oe);
+  const e = re(Oe);
   if (!e)
     throw new Error("[Vuetify] Could not find defaults instance");
   return e;
 }
 function pt(e, n) {
-  const t = Re(), a = ee(e), o = g(() => {
-    if ($(n == null ? void 0 : n.disabled))
+  const t = Re(), a = Q(e), o = g(() => {
+    if (W(n == null ? void 0 : n.disabled))
       return t.value;
-    const v = $(n == null ? void 0 : n.scoped), d = $(n == null ? void 0 : n.reset), s = $(n == null ? void 0 : n.root);
-    let r = pe(a.value, { prev: t.value });
+    const v = W(n == null ? void 0 : n.scoped), d = W(n == null ? void 0 : n.reset), s = W(n == null ? void 0 : n.root);
+    let l = he(a.value, { prev: t.value });
     if (v)
-      return r;
+      return l;
     if (d || s) {
-      const l = Number(d || 1 / 0);
-      for (let c = 0; c <= l && r && "prev" in r; c++)
-        r = r.prev;
-      return r && typeof s == "string" && s in r && (r = pe(pe(r, { prev: r }), r[s])), r;
+      const h = Number(d || 1 / 0);
+      for (let r = 0; r <= h && l && "prev" in l; r++)
+        l = l.prev;
+      return l && typeof s == "string" && s in l && (l = he(he(l, { prev: l }), l[s])), l;
     }
-    return r.prev ? pe(r.prev, r) : r;
+    return l.prev ? he(l.prev, l) : l;
   });
   return Ve(Oe, o), o;
 }
 function Yt() {
   let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, n = arguments.length > 1 ? arguments[1] : void 0, t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : Re();
-  const a = q("useDefaults");
+  const a = U("useDefaults");
   if (n = n ?? a.type.name ?? a.type.__name, !n)
     throw new Error("[Vuetify] Could not determine component name");
   const o = g(() => {
     var s;
     return (s = t.value) == null ? void 0 : s[e._as ?? n];
-  }), v = new Proxy(e, { get(s, r) {
-    var c, w, E, f;
-    const l = Reflect.get(s, r);
-    return r === "class" || r === "style" ? [(c = o.value) == null ? void 0 : c[r], l].filter((F) => F != null) : typeof r != "string" || function(F, I) {
-      var j, X;
-      return ((j = F.props) == null ? void 0 : j[I]) !== void 0 || ((X = F.props) == null ? void 0 : X[ce(I)]) !== void 0;
-    }(a.vnode, r) ? l : ((w = o.value) == null ? void 0 : w[r]) ?? ((f = (E = t.value) == null ? void 0 : E.global) == null ? void 0 : f[r]) ?? l;
+  }), v = new Proxy(e, { get(s, l) {
+    var r, y, E, f;
+    const h = Reflect.get(s, l);
+    return l === "class" || l === "style" ? [(r = o.value) == null ? void 0 : r[l], h].filter((F) => F != null) : typeof l != "string" || function(F, N) {
+      var j, q;
+      return ((j = F.props) == null ? void 0 : j[N]) !== void 0 || ((q = F.props) == null ? void 0 : q[ie(N)]) !== void 0;
+    }(a.vnode, l) ? h : ((y = o.value) == null ? void 0 : y[l]) ?? ((f = (E = t.value) == null ? void 0 : E.global) == null ? void 0 : f[l]) ?? h;
   } }), d = Z();
   return st(() => {
     if (o.value) {
-      const s = Object.entries(o.value).filter((r) => {
-        let [l] = r;
-        return l.startsWith(l[0].toUpperCase());
+      const s = Object.entries(o.value).filter((l) => {
+        let [h] = l;
+        return h.startsWith(h[0].toUpperCase());
       });
       s.length && (d.value = Object.fromEntries(s));
     }
   }), { props: v, provideSubDefaults: function() {
     ht(d, () => {
       var s;
-      pt(pe(((s = function(r) {
-        const { provides: l } = q("injectSelf");
-        if (l && r in l)
-          return l[r];
+      pt(he(((s = function(l) {
+        const { provides: h } = U("injectSelf");
+        if (h && l in h)
+          return h[l];
       }(Oe)) == null ? void 0 : s.value) ?? {}, d.value));
     });
   } };
@@ -172,13 +172,13 @@ function ke(e) {
   if (e._setup = e._setup ?? e.setup, !e.name)
     return kt("Vuetify: The component is missing an explicit name, unable to generate default prop value"), e;
   if (e._setup) {
-    e.props = R(e.props ?? {}, e.name)();
+    e.props = T(e.props ?? {}, e.name)();
     const n = Object.keys(e.props);
     e.filterProps = function(t) {
       return function(a, o, v) {
         const d = /* @__PURE__ */ Object.create(null), s = /* @__PURE__ */ Object.create(null);
-        for (const r in a)
-          o.some((l) => l instanceof RegExp ? l.test(r) : l === r) && !(v != null && v.some((l) => l === r)) ? d[r] = a[r] : s[r] = a[r];
+        for (const l in a)
+          o.some((h) => h instanceof RegExp ? h.test(l) : h === l) && !(v != null && v.some((h) => h === l)) ? d[l] = a[l] : s[l] = a[l];
         return [d, s];
       }(t, n, ["class", "style"]);
     }, e.props._as = String, e.setup = function(t, a) {
@@ -195,19 +195,19 @@ function Te() {
   let e = !(arguments.length > 0 && arguments[0] !== void 0) || arguments[0];
   return (n) => (e ? ke : ut)(n);
 }
-function q(e, n) {
+function U(e, n) {
   const t = $t();
   if (!t)
     throw new Error(`[Vuetify] ${e} ${n || "must be called from inside a setup function"}`);
   return t;
 }
 function Ne() {
-  const e = q(arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "composables").type;
-  return ce((e == null ? void 0 : e.aliasName) || (e == null ? void 0 : e.name));
+  const e = U(arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "composables").type;
+  return ie((e == null ? void 0 : e.aliasName) || (e == null ? void 0 : e.name));
 }
 let gt = 0, De = /* @__PURE__ */ new WeakMap();
 function ft() {
-  const e = q("getUid");
+  const e = U("getUid");
   if (De.has(e))
     return De.get(e);
   {
@@ -216,21 +216,21 @@ function ft() {
   }
 }
 function yt(e) {
-  q("useRender").render = e;
+  U("useRender").render = e;
 }
 ft.reset = () => {
   gt = 0, De = /* @__PURE__ */ new WeakMap();
 };
-const Ut = Symbol.for("vuetify:layout"), qt = Symbol.for("vuetify:layout-item"), Xt = R({ name: { type: String }, order: { type: [Number, String], default: 0 }, absolute: Boolean }, "layout-item"), Kt = Symbol.for("vuetify:locale"), Je = Symbol.for("vuetify:theme"), wt = R({ theme: String }, "theme");
+const Ut = Symbol.for("vuetify:layout"), qt = Symbol.for("vuetify:layout-item"), Xt = T({ name: { type: String }, order: { type: [Number, String], default: 0 }, absolute: Boolean }, "layout-item"), Kt = Symbol.for("vuetify:locale"), Je = Symbol.for("vuetify:theme"), wt = T({ theme: String }, "theme");
 function Ft(e) {
-  q("provideTheme");
-  const n = ue(Je, null);
+  U("provideTheme");
+  const n = re(Je, null);
   if (!n)
     throw new Error("Could not find Vuetify theme injection");
   const t = g(() => e.theme ?? (n == null ? void 0 : n.name.value)), a = g(() => n.isDisabled ? void 0 : `v-theme--${t.value}`), o = { ...n, name: t, themeClasses: a };
   return Ve(Je, o), o;
 }
-const bt = R({ tag: { type: String, default: "div" } }, "tag"), Zt = R({ border: [Boolean, Number, String] }, "border");
+const bt = T({ tag: { type: String, default: "div" } }, "tag"), Zt = T({ border: [Boolean, Number, String] }, "border");
 function St(e) {
   return mt(() => {
     const n = [], t = {};
@@ -241,59 +241,59 @@ function et(e, n) {
   const t = g(() => ({ background: fe(e) ? e.value : n ? e[n] : null })), { colorClasses: a, colorStyles: o } = St(t);
   return { backgroundColorClasses: a, backgroundColorStyles: o };
 }
-const Qt = R({ elevation: { type: [Number, String], validator(e) {
+const Qt = T({ elevation: { type: [Number, String], validator(e) {
   const n = parseInt(e);
   return !isNaN(n) && n >= 0 && n <= 24;
-} } }, "elevation"), Jt = R({ rounded: { type: [Boolean, Number, String], default: void 0 } }, "rounded"), Ct = [String, Function, Object, Array], en = Symbol.for("vuetify:icons"), Ae = R({ icon: { type: Ct }, tag: { type: String, required: !0 } }, "icon"), tt = Te()({ name: "VComponentIcon", props: Ae(), setup(e, n) {
+} } }, "elevation"), Jt = T({ rounded: { type: [Boolean, Number, String], default: void 0 } }, "rounded"), Ct = [String, Function, Object, Array], en = Symbol.for("vuetify:icons"), Ae = T({ icon: { type: Ct }, tag: { type: String, required: !0 } }, "icon"), tt = Te()({ name: "VComponentIcon", props: Ae(), setup(e, n) {
   let { slots: t } = n;
   return () => {
     const a = e.icon;
-    return z(e.tag, null, { default: () => {
+    return M(e.tag, null, { default: () => {
       var o;
-      return [e.icon ? z(a, null, null) : (o = t.default) == null ? void 0 : o.call(t)];
+      return [e.icon ? M(a, null, null) : (o = t.default) == null ? void 0 : o.call(t)];
     } });
   };
 } }), tn = ke({ name: "VSvgIcon", inheritAttrs: !1, props: Ae(), setup(e, n) {
   let { attrs: t } = n;
-  return () => z(e.tag, Ee(t, { style: null }), { default: () => [z("svg", { class: "v-icon__svg", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", role: "img", "aria-hidden": "true" }, [Array.isArray(e.icon) ? e.icon.map((a) => Array.isArray(a) ? z("path", { d: a[0], "fill-opacity": a[1] }, null) : z("path", { d: a }, null)) : z("path", { d: e.icon }, null)])] });
+  return () => M(e.tag, Ee(t, { style: null }), { default: () => [M("svg", { class: "v-icon__svg", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", role: "img", "aria-hidden": "true" }, [Array.isArray(e.icon) ? e.icon.map((a) => Array.isArray(a) ? M("path", { d: a[0], "fill-opacity": a[1] }, null) : M("path", { d: a }, null)) : M("path", { d: e.icon }, null)])] });
 } });
-ke({ name: "VLigatureIcon", props: Ae(), setup: (e) => () => z(e.tag, null, { default: () => [e.icon] }) }), ke({ name: "VClassIcon", props: Ae(), setup: (e) => () => z(e.tag, { class: e.icon }, null) });
-const nn = ["x-small", "small", "default", "large", "x-large"], on = R({ size: { type: [String, Number], default: "default" } }, "size"), an = R({ color: String, start: Boolean, end: Boolean, icon: Ct, ...ct(), ...on(), ...bt({ tag: "i" }), ...wt() }, "VIcon"), rn = Te()({ name: "VIcon", props: an(), setup(e, n) {
+ke({ name: "VLigatureIcon", props: Ae(), setup: (e) => () => M(e.tag, null, { default: () => [e.icon] }) }), ke({ name: "VClassIcon", props: Ae(), setup: (e) => () => M(e.tag, { class: e.icon }, null) });
+const nn = ["x-small", "small", "default", "large", "x-large"], on = T({ size: { type: [String, Number], default: "default" } }, "size"), an = T({ color: String, start: Boolean, end: Boolean, icon: Ct, ...ct(), ...on(), ...bt({ tag: "i" }), ...wt() }, "VIcon"), rn = Te()({ name: "VIcon", props: an(), setup(e, n) {
   let { attrs: t, slots: a } = n;
-  const o = ee(), { themeClasses: v } = Ft(e), { iconData: d } = ((c) => {
-    const w = ue(en);
-    if (!w)
+  const o = Q(), { themeClasses: v } = Ft(e), { iconData: d } = ((r) => {
+    const y = re(en);
+    if (!y)
       throw new Error("Missing Vuetify Icons provide!");
     return { iconData: g(() => {
       var j;
-      const E = $(c);
+      const E = W(r);
       if (!E)
         return { component: tt };
       let f = E;
-      if (typeof f == "string" && (f = f.trim(), f.startsWith("$") && (f = (j = w.aliases) == null ? void 0 : j[f.slice(1)])), !f)
+      if (typeof f == "string" && (f = f.trim(), f.startsWith("$") && (f = (j = y.aliases) == null ? void 0 : j[f.slice(1)])), !f)
         throw new Error(`Could not find aliased icon "${E}"`);
       if (Array.isArray(f))
         return { component: tn, icon: f };
       if (typeof f != "string")
         return { component: tt, icon: f };
-      const F = Object.keys(w.sets).find((X) => typeof f == "string" && f.startsWith(`${X}:`)), I = F ? f.slice(F.length + 1) : f;
-      return { component: w.sets[F ?? w.defaultSet].component, icon: I };
+      const F = Object.keys(y.sets).find((q) => typeof f == "string" && f.startsWith(`${q}:`)), N = F ? f.slice(F.length + 1) : f;
+      return { component: y.sets[F ?? y.defaultSet].component, icon: N };
     }) };
-  })(g(() => o.value || e.icon)), { sizeClasses: s } = function(c) {
-    let w = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : Ne();
+  })(g(() => o.value || e.icon)), { sizeClasses: s } = function(r) {
+    let y = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : Ne();
     return mt(() => {
       let E, f;
-      var F, I;
-      return F = nn, I = c.size, F.includes(I) ? E = `${w}--size-${c.size}` : c.size && (f = { width: he(c.size), height: he(c.size) }), { sizeClasses: E, sizeStyles: f };
+      var F, N;
+      return F = nn, N = r.size, F.includes(N) ? E = `${y}--size-${r.size}` : r.size && (f = { width: me(r.size), height: me(r.size) }), { sizeClasses: E, sizeStyles: f };
     });
-  }(e), { textColorClasses: r, textColorStyles: l } = function(c, w) {
-    const E = g(() => ({ text: fe(c) ? c.value : w ? c[w] : null })), { colorClasses: f, colorStyles: F } = St(E);
+  }(e), { textColorClasses: l, textColorStyles: h } = function(r, y) {
+    const E = g(() => ({ text: fe(r) ? r.value : y ? r[y] : null })), { colorClasses: f, colorStyles: F } = St(E);
     return { textColorClasses: f, textColorStyles: F };
   }(Ie(e, "color"));
   return yt(() => {
-    var w, E;
-    const c = (w = a.default) == null ? void 0 : w.call(a);
-    return c && (o.value = (E = vt(c).filter((f) => f.type === It && f.children && typeof f.children == "string")[0]) == null ? void 0 : E.children), z(d.value.component, { tag: e.tag, icon: d.value.icon, class: ["v-icon", "notranslate", v.value, s.value, r.value, { "v-icon--clickable": !!t.onClick, "v-icon--start": e.start, "v-icon--end": e.end }, e.class], style: [s.value ? void 0 : { fontSize: he(e.size), height: he(e.size), width: he(e.size) }, l.value, e.style], role: t.onClick ? "button" : void 0, "aria-hidden": !t.onClick }, { default: () => [c] });
+    var y, E;
+    const r = (y = a.default) == null ? void 0 : y.call(a);
+    return r && (o.value = (E = vt(r).filter((f) => f.type === It && f.children && typeof f.children == "string")[0]) == null ? void 0 : E.children), M(d.value.component, { tag: e.tag, icon: d.value.icon, class: ["v-icon", "notranslate", v.value, s.value, l.value, { "v-icon--clickable": !!t.onClick, "v-icon--start": e.start, "v-icon--end": e.end }, e.class], style: [s.value ? void 0 : { fontSize: me(e.size), height: me(e.size), width: me(e.size) }, h.value, e.style], role: t.onClick ? "button" : void 0, "aria-hidden": !t.onClick }, { default: () => [r] });
   }), {};
 } }), ln = Symbol.for("vuetify:display"), sn = 100, un = 20;
 function nt(e) {
@@ -335,79 +335,79 @@ function cn() {
       o.push({ t: s[0], d: s[1].clientX }), v.push({ t: s[0], d: s[1].clientY });
     }
     return { x: ot(o), y: ot(v), get direction() {
-      const { x: s, y: r } = this, [l, c] = [Math.abs(s), Math.abs(r)];
-      return l > c && s >= 0 ? "right" : l > c && s <= 0 ? "left" : c > l && r >= 0 ? "down" : c > l && r <= 0 ? "up" : function() {
+      const { x: s, y: l } = this, [h, r] = [Math.abs(s), Math.abs(l)];
+      return h > r && s >= 0 ? "right" : h > r && s <= 0 ? "left" : r > h && l >= 0 ? "down" : r > h && l <= 0 ? "up" : function() {
         throw new Error();
       }();
     } };
   } };
 }
-function ve() {
+function de() {
   throw new Error();
 }
-const dn = ["start", "end", "left", "right", "top", "bottom"], vn = R({ color: String, disableResizeWatcher: Boolean, disableRouteWatcher: Boolean, expandOnHover: Boolean, floating: Boolean, modelValue: { type: Boolean, default: null }, permanent: Boolean, rail: { type: Boolean, default: null }, railWidth: { type: [Number, String], default: 56 }, scrim: { type: [Boolean, String], default: !0 }, image: String, temporary: Boolean, touchless: Boolean, width: { type: [Number, String], default: 256 }, location: { type: String, default: "start", validator: (e) => dn.includes(e) }, sticky: Boolean, ...Zt(), ...ct(), ...Qt(), ...Xt(), ...Jt(), ...bt({ tag: "nav" }), ...wt() }, "VNavigationDrawer"), mn = Te()({ name: "VNavigationDrawer", props: vn(), emits: { "update:modelValue": (e) => !0, "update:rail": (e) => !0 }, setup(e, n) {
-  var V, H;
+const dn = ["start", "end", "left", "right", "top", "bottom"], vn = T({ color: String, disableResizeWatcher: Boolean, disableRouteWatcher: Boolean, expandOnHover: Boolean, floating: Boolean, modelValue: { type: Boolean, default: null }, permanent: Boolean, rail: { type: Boolean, default: null }, railWidth: { type: [Number, String], default: 56 }, scrim: { type: [Boolean, String], default: !0 }, image: String, temporary: Boolean, touchless: Boolean, width: { type: [Number, String], default: 256 }, location: { type: String, default: "start", validator: (e) => dn.includes(e) }, sticky: Boolean, ...Zt(), ...ct(), ...Qt(), ...Xt(), ...Jt(), ...bt({ tag: "nav" }), ...wt() }, "VNavigationDrawer"), mn = Te()({ name: "VNavigationDrawer", props: vn(), emits: { "update:modelValue": (e) => !0, "update:rail": (e) => !0 }, setup(e, n) {
+  var I, O;
   let { attrs: t, emit: a, slots: o } = n;
   const { isRtl: v } = function() {
-    const i = ue(Kt);
+    const i = re(Kt);
     if (!i)
       throw new Error("[Vuetify] Could not find injected rtl instance");
     return { isRtl: i.isRtl, rtlClasses: i.rtlClasses };
   }(), { themeClasses: d } = Ft(e), { borderClasses: s } = function(i) {
-    let p = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : Ne();
+    let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : Ne();
     return { borderClasses: g(() => {
-      const S = fe(i) ? i.value : i.border, y = [];
+      const S = fe(i) ? i.value : i.border, w = [];
       if (S === !0 || S === "")
-        y.push(`${p}--border`);
+        w.push(`${u}--border`);
       else if (typeof S == "string" || S === 0)
-        for (const D of String(S).split(" "))
-          y.push(`border-${D}`);
-      return y;
+        for (const B of String(S).split(" "))
+          w.push(`border-${B}`);
+      return w;
     }) };
-  }(e), { backgroundColorClasses: r, backgroundColorStyles: l } = et(Ie(e, "color")), { elevationClasses: c } = function(i) {
+  }(e), { backgroundColorClasses: l, backgroundColorStyles: h } = et(Ie(e, "color")), { elevationClasses: r } = function(i) {
     return { elevationClasses: g(() => {
-      const p = fe(i) ? i.value : i.elevation, S = [];
-      return p == null || S.push(`elevation-${p}`), S;
+      const u = fe(i) ? i.value : i.elevation, S = [];
+      return u == null || S.push(`elevation-${u}`), S;
     }) };
-  }(e), { mobile: w } = function() {
-    const i = ue(ln);
+  }(e), { mobile: y } = function() {
+    const i = re(ln);
     if (!i)
       throw new Error("Could not find Vuetify display injection");
     return i;
   }(), { roundedClasses: E } = function(i) {
-    let p = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : Ne();
+    let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : Ne();
     return { roundedClasses: g(() => {
-      const S = fe(i) ? i.value : i.rounded, y = [];
+      const S = fe(i) ? i.value : i.rounded, w = [];
       if (S === !0 || S === "")
-        y.push(`${p}--rounded`);
+        w.push(`${u}--rounded`);
       else if (typeof S == "string" || S === 0)
-        for (const D of String(S).split(" "))
-          y.push(`rounded-${D}`);
-      return y;
+        for (const B of String(S).split(" "))
+          w.push(`rounded-${B}`);
+      return w;
     }) };
-  }(e), f = (H = (V = q("useRouter")) == null ? void 0 : V.proxy) == null ? void 0 : H.$router, F = function(i, p, S) {
-    let y = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : (C) => C, D = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : (C) => C;
-    const m = q("useProxiedModel"), M = ee(i[p] !== void 0 ? i[p] : S), Y = ce(p), U = g(Y !== p ? () => {
-      var C, A, L, O;
-      return i[p], !(!((C = m.vnode.props) != null && C.hasOwnProperty(p)) && !((A = m.vnode.props) != null && A.hasOwnProperty(Y)) || !((L = m.vnode.props) != null && L.hasOwnProperty(`onUpdate:${p}`)) && !((O = m.vnode.props) != null && O.hasOwnProperty(`onUpdate:${Y}`)));
+  }(e), f = (O = (I = U("useRouter")) == null ? void 0 : I.proxy) == null ? void 0 : O.$router, F = function(i, u, S) {
+    let w = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : (C) => C, B = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : (C) => C;
+    const m = U("useProxiedModel"), z = Q(i[u] !== void 0 ? i[u] : S), H = ie(u), Y = g(H !== u ? () => {
+      var C, A, L, R;
+      return i[u], !(!((C = m.vnode.props) != null && C.hasOwnProperty(u)) && !((A = m.vnode.props) != null && A.hasOwnProperty(H)) || !((L = m.vnode.props) != null && L.hasOwnProperty(`onUpdate:${u}`)) && !((R = m.vnode.props) != null && R.hasOwnProperty(`onUpdate:${H}`)));
     } : () => {
       var C, A;
-      return i[p], !(!((C = m.vnode.props) != null && C.hasOwnProperty(p)) || !((A = m.vnode.props) != null && A.hasOwnProperty(`onUpdate:${p}`)));
+      return i[u], !(!((C = m.vnode.props) != null && C.hasOwnProperty(u)) || !((A = m.vnode.props) != null && A.hasOwnProperty(`onUpdate:${u}`)));
     });
-    ht(() => !U.value, () => {
-      se(() => i[p], (C) => {
-        M.value = C;
+    ht(() => !Y.value, () => {
+      ae(() => i[u], (C) => {
+        z.value = C;
       });
     });
     const P = g({ get() {
-      const C = i[p];
-      return y(U.value ? C : M.value);
+      const C = i[u];
+      return w(Y.value ? C : z.value);
     }, set(C) {
-      const A = D(C), L = Mt(U.value ? i[p] : M.value);
-      L !== A && y(L) !== C && (M.value = A, m == null || m.emit(`update:${p}`, A));
+      const A = B(C), L = zt(Y.value ? i[u] : z.value);
+      L !== A && w(L) !== C && (z.value = A, m == null || m.emit(`update:${u}`, A));
     } });
-    return Object.defineProperty(P, "externalValue", { get: () => U.value ? i[p] : M.value }), P;
-  }(e, "modelValue", null, (i) => !!i), { ssrBootStyles: I } = function() {
+    return Object.defineProperty(P, "externalValue", { get: () => Y.value ? i[u] : z.value }), P;
+  }(e, "modelValue", null, (i) => !!i), { ssrBootStyles: N } = function() {
     const i = Z(!1);
     return Be(() => {
       window.requestAnimationFrame(() => {
@@ -415,121 +415,121 @@ const dn = ["start", "end", "left", "right", "top", "bottom"], vn = R({ color: S
       });
     }), { ssrBootStyles: g(() => i.value ? void 0 : { transition: "none !important" }), isBooted: Lt(i) };
   }(), { scopeId: j } = function() {
-    const i = q("useScopeId").vnode.scopeId;
+    const i = U("useScopeId").vnode.scopeId;
     return { scopeId: i ? { [i]: "" } : void 0 };
-  }(), X = ee(), te = Z(!1), ge = g(() => e.rail && e.expandOnHover && te.value ? Number(e.width) : Number(e.rail ? e.railWidth : e.width)), ne = g(() => function(i, p) {
-    return i === "start" ? p ? "right" : "left" : i === "end" ? p ? "left" : "right" : i;
-  }(e.location, v.value)), T = g(() => !e.permanent && (w.value || e.temporary)), oe = g(() => e.sticky && !T.value && ne.value !== "bottom");
-  e.expandOnHover && e.rail != null && se(te, (i) => a("update:rail", !i)), e.disableResizeWatcher || se(T, (i) => !e.permanent && Nt(() => F.value = !i)), !e.disableRouteWatcher && f && se(f.currentRoute, () => T.value && (F.value = !1)), se(() => e.permanent, (i) => {
+  }(), q = Q(), te = Z(!1), pe = g(() => e.rail && e.expandOnHover && te.value ? Number(e.width) : Number(e.rail ? e.railWidth : e.width)), le = g(() => function(i, u) {
+    return i === "start" ? u ? "right" : "left" : i === "end" ? u ? "left" : "right" : i;
+  }(e.location, v.value)), G = g(() => !e.permanent && (y.value || e.temporary)), se = g(() => e.sticky && !G.value && le.value !== "bottom");
+  e.expandOnHover && e.rail != null && ae(te, (i) => a("update:rail", !i)), e.disableResizeWatcher || ae(G, (i) => !e.permanent && Nt(() => F.value = !i)), !e.disableRouteWatcher && f && ae(f.currentRoute, () => G.value && (F.value = !1)), ae(() => e.permanent, (i) => {
     i && (F.value = !0);
   }), Pt(() => {
-    e.modelValue != null || T.value || (F.value = e.permanent || !w.value);
+    e.modelValue != null || G.value || (F.value = e.permanent || !y.value);
   });
-  const { isDragging: Q, dragProgress: ye, dragStyles: We } = function(i) {
-    let { isActive: p, isTemporary: S, width: y, touchless: D, position: m } = i;
+  const { isDragging: X, dragProgress: ge, dragStyles: We } = function(i) {
+    let { isActive: u, isTemporary: S, width: w, touchless: B, position: m } = i;
     Be(() => {
       window.addEventListener("touchstart", _e, { passive: !0 }), window.addEventListener("touchmove", je, { passive: !1 }), window.addEventListener("touchend", He, { passive: !0 });
-    }), ze(() => {
+    }), Me(() => {
       window.removeEventListener("touchstart", _e), window.removeEventListener("touchmove", je), window.removeEventListener("touchend", He);
     });
-    const M = g(() => ["left", "right"].includes(m.value)), { addMovement: Y, endTouch: U, getVelocity: P } = cn();
+    const z = g(() => ["left", "right"].includes(m.value)), { addMovement: H, endTouch: Y, getVelocity: P } = cn();
     let C = !1;
-    const A = Z(!1), L = Z(0), O = Z(0);
-    let ie;
-    function xe(k, W) {
-      return (m.value === "left" ? k : m.value === "right" ? document.documentElement.clientWidth - k : m.value === "top" ? k : m.value === "bottom" ? document.documentElement.clientHeight - k : ve()) - (W ? y.value : 0);
+    const A = Z(!1), L = Z(0), R = Z(0);
+    let ne;
+    function xe(k, $) {
+      return (m.value === "left" ? k : m.value === "right" ? document.documentElement.clientWidth - k : m.value === "top" ? k : m.value === "bottom" ? document.documentElement.clientHeight - k : de()) - ($ ? w.value : 0);
     }
     function Ge(k) {
-      let W = !(arguments.length > 1 && arguments[1] !== void 0) || arguments[1];
-      const x = m.value === "left" ? (k - O.value) / y.value : m.value === "right" ? (document.documentElement.clientWidth - k - O.value) / y.value : m.value === "top" ? (k - O.value) / y.value : m.value === "bottom" ? (document.documentElement.clientHeight - k - O.value) / y.value : ve();
-      return W ? Math.max(0, Math.min(1, x)) : x;
+      let $ = !(arguments.length > 1 && arguments[1] !== void 0) || arguments[1];
+      const x = m.value === "left" ? (k - R.value) / w.value : m.value === "right" ? (document.documentElement.clientWidth - k - R.value) / w.value : m.value === "top" ? (k - R.value) / w.value : m.value === "bottom" ? (document.documentElement.clientHeight - k - R.value) / w.value : de();
+      return $ ? Math.max(0, Math.min(1, x)) : x;
     }
     function _e(k) {
-      if (D.value)
+      if (B.value)
         return;
-      const W = k.changedTouches[0].clientX, x = k.changedTouches[0].clientY, K = m.value === "left" ? W < 25 : m.value === "right" ? W > document.documentElement.clientWidth - 25 : m.value === "top" ? x < 25 : m.value === "bottom" ? x > document.documentElement.clientHeight - 25 : ve(), J = p.value && (m.value === "left" ? W < y.value : m.value === "right" ? W > document.documentElement.clientWidth - y.value : m.value === "top" ? x < y.value : m.value === "bottom" ? x > document.documentElement.clientHeight - y.value : ve());
-      (K || J || p.value && S.value) && (C = !0, ie = [W, x], O.value = xe(M.value ? W : x, p.value), L.value = Ge(M.value ? W : x), U(k), Y(k));
+      const $ = k.changedTouches[0].clientX, x = k.changedTouches[0].clientY, K = m.value === "left" ? $ < 25 : m.value === "right" ? $ > document.documentElement.clientWidth - 25 : m.value === "top" ? x < 25 : m.value === "bottom" ? x > document.documentElement.clientHeight - 25 : de(), ee = u.value && (m.value === "left" ? $ < w.value : m.value === "right" ? $ > document.documentElement.clientWidth - w.value : m.value === "top" ? x < w.value : m.value === "bottom" ? x > document.documentElement.clientHeight - w.value : de());
+      (K || ee || u.value && S.value) && (C = !0, ne = [$, x], R.value = xe(z.value ? $ : x, u.value), L.value = Ge(z.value ? $ : x), Y(k), H(k));
     }
     function je(k) {
-      const W = k.changedTouches[0].clientX, x = k.changedTouches[0].clientY;
+      const $ = k.changedTouches[0].clientX, x = k.changedTouches[0].clientY;
       if (C) {
         if (!k.cancelable)
           return void (C = !1);
-        const J = Math.abs(W - ie[0]), we = Math.abs(x - ie[1]);
-        (M.value ? J > we && J > 3 : we > J && we > 3) ? (A.value = !0, C = !1) : (M.value ? we : J) > 3 && (C = !1);
+        const ee = Math.abs($ - ne[0]), we = Math.abs(x - ne[1]);
+        (z.value ? ee > we && ee > 3 : we > ee && we > 3) ? (A.value = !0, C = !1) : (z.value ? we : ee) > 3 && (C = !1);
       }
       if (!A.value)
         return;
-      k.preventDefault(), Y(k);
-      const K = Ge(M.value ? W : x, !1);
-      L.value = Math.max(0, Math.min(1, K)), K > 1 ? O.value = xe(M.value ? W : x, !0) : K < 0 && (O.value = xe(M.value ? W : x, !1));
+      k.preventDefault(), H(k);
+      const K = Ge(z.value ? $ : x, !1);
+      L.value = Math.max(0, Math.min(1, K)), K > 1 ? R.value = xe(z.value ? $ : x, !0) : K < 0 && (R.value = xe(z.value ? $ : x, !1));
     }
     function He(k) {
       if (C = !1, !A.value)
         return;
-      Y(k), A.value = !1;
-      const W = P(k.changedTouches[0].identifier), x = Math.abs(W.x), K = Math.abs(W.y), J = M.value ? x > K && x > 400 : K > x && K > 3;
-      p.value = J ? W.direction === ({ left: "right", right: "left", top: "down", bottom: "up" }[m.value] || ve()) : L.value > 0.5;
+      H(k), A.value = !1;
+      const $ = P(k.changedTouches[0].identifier), x = Math.abs($.x), K = Math.abs($.y), ee = z.value ? x > K && x > 400 : K > x && K > 3;
+      u.value = ee ? $.direction === ({ left: "right", right: "left", top: "down", bottom: "up" }[m.value] || de()) : L.value > 0.5;
     }
-    const Bt = g(() => A.value ? { transform: m.value === "left" ? `translateX(calc(-100% + ${L.value * y.value}px))` : m.value === "right" ? `translateX(calc(100% - ${L.value * y.value}px))` : m.value === "top" ? `translateY(calc(-100% + ${L.value * y.value}px))` : m.value === "bottom" ? `translateY(calc(100% - ${L.value * y.value}px))` : ve(), transition: "none" } : void 0);
+    const Bt = g(() => A.value ? { transform: m.value === "left" ? `translateX(calc(-100% + ${L.value * w.value}px))` : m.value === "right" ? `translateX(calc(100% - ${L.value * w.value}px))` : m.value === "top" ? `translateY(calc(-100% + ${L.value * w.value}px))` : m.value === "bottom" ? `translateY(calc(100% - ${L.value * w.value}px))` : de(), transition: "none" } : void 0);
     return { isDragging: A, dragProgress: L, dragStyles: Bt };
-  }({ isActive: F, isTemporary: T, width: ge, touchless: Ie(e, "touchless"), position: ne }), $e = g(() => {
-    const i = T.value ? 0 : e.rail && e.expandOnHover ? Number(e.railWidth) : ge.value;
-    return Q.value ? i * ye.value : i;
-  }), { layoutItemStyles: ae, layoutItemScrimStyles: re } = function(i) {
-    const p = ue(Ut);
-    if (!p)
+  }({ isActive: F, isTemporary: G, width: pe, touchless: Ie(e, "touchless"), position: le }), $e = g(() => {
+    const i = G.value ? 0 : e.rail && e.expandOnHover ? Number(e.railWidth) : pe.value;
+    return X.value ? i * ge.value : i;
+  }), { layoutItemStyles: ye, layoutItemScrimStyles: ue } = function(i) {
+    const u = re(Ut);
+    if (!u)
       throw new Error("[Vuetify] Could not find injected layout");
-    const S = i.id ?? `layout-item-${ft()}`, y = q("useLayoutItem");
+    const S = i.id ?? `layout-item-${ft()}`, w = U("useLayoutItem");
     Ve(qt, { id: S });
-    const D = Z(!1);
-    xt(() => D.value = !0), zt(() => D.value = !1);
-    const { layoutItemStyles: m, layoutItemScrimStyles: M } = p.register(y, { ...i, active: g(() => !D.value && i.active.value), id: S });
-    return ze(() => p.unregister(S)), { layoutItemStyles: m, layoutRect: p.layoutRect, layoutItemScrimStyles: M };
-  }({ id: e.name, order: g(() => parseInt(e.order, 10)), position: ne, layoutSize: $e, elementSize: ge, active: g(() => F.value || Q.value), disableTransitions: g(() => Q.value), absolute: g(() => e.absolute || oe.value && typeof u.value != "string") }), { isStuck: u, stickyStyles: h } = function(i) {
-    let { rootEl: p, isSticky: S, layoutItemStyles: y } = i;
-    const D = Z(!1), m = Z(0), M = g(() => {
-      const P = typeof D.value == "boolean" ? "top" : D.value;
-      return [S.value ? { top: "auto", bottom: "auto", height: void 0 } : void 0, D.value ? { [P]: he(m.value) } : { top: y.value.top }];
+    const B = Z(!1);
+    xt(() => B.value = !0), Mt(() => B.value = !1);
+    const { layoutItemStyles: m, layoutItemScrimStyles: z } = u.register(w, { ...i, active: g(() => !B.value && i.active.value), id: S });
+    return Me(() => u.unregister(S)), { layoutItemStyles: m, layoutRect: u.layoutRect, layoutItemScrimStyles: z };
+  }({ id: e.name, order: g(() => parseInt(e.order, 10)), position: le, layoutSize: $e, elementSize: pe, active: g(() => F.value || X.value), disableTransitions: g(() => X.value), absolute: g(() => e.absolute || se.value && typeof J.value != "string") }), { isStuck: J, stickyStyles: c } = function(i) {
+    let { rootEl: u, isSticky: S, layoutItemStyles: w } = i;
+    const B = Z(!1), m = Z(0), z = g(() => {
+      const P = typeof B.value == "boolean" ? "top" : B.value;
+      return [S.value ? { top: "auto", bottom: "auto", height: void 0 } : void 0, B.value ? { [P]: me(m.value) } : { top: w.value.top }];
     });
     Be(() => {
-      se(S, (P) => {
-        P ? window.addEventListener("scroll", U, { passive: !0 }) : window.removeEventListener("scroll", U);
+      ae(S, (P) => {
+        P ? window.addEventListener("scroll", Y, { passive: !0 }) : window.removeEventListener("scroll", Y);
       }, { immediate: !0 });
-    }), ze(() => {
-      document.removeEventListener("scroll", U);
+    }), Me(() => {
+      document.removeEventListener("scroll", Y);
     });
-    let Y = 0;
-    function U() {
-      const P = Y > window.scrollY ? "up" : "down", C = p.value.getBoundingClientRect(), A = parseFloat(y.value.top ?? 0), L = window.scrollY - Math.max(0, m.value - A), O = C.height + Math.max(m.value, A) - window.scrollY - window.innerHeight, ie = parseFloat(getComputedStyle(p.value).getPropertyValue("--v-body-scroll-y")) || 0;
-      C.height < window.innerHeight - A ? (D.value = "top", m.value = A) : P === "up" && D.value === "bottom" || P === "down" && D.value === "top" ? (m.value = window.scrollY + C.top - ie, D.value = !0) : P === "down" && O <= 0 ? (m.value = 0, D.value = "bottom") : P === "up" && L <= 0 && (ie ? D.value !== "top" && (m.value = -L + ie + A, D.value = "top") : (m.value = C.top + L, D.value = "top")), Y = window.scrollY;
+    let H = 0;
+    function Y() {
+      const P = H > window.scrollY ? "up" : "down", C = u.value.getBoundingClientRect(), A = parseFloat(w.value.top ?? 0), L = window.scrollY - Math.max(0, m.value - A), R = C.height + Math.max(m.value, A) - window.scrollY - window.innerHeight, ne = parseFloat(getComputedStyle(u.value).getPropertyValue("--v-body-scroll-y")) || 0;
+      C.height < window.innerHeight - A ? (B.value = "top", m.value = A) : P === "up" && B.value === "bottom" || P === "down" && B.value === "top" ? (m.value = window.scrollY + C.top - ne, B.value = !0) : P === "down" && R <= 0 ? (m.value = 0, B.value = "bottom") : P === "up" && L <= 0 && (ne ? B.value !== "top" && (m.value = -L + ne + A, B.value = "top") : (m.value = C.top + L, B.value = "top")), H = window.scrollY;
     }
-    return { isStuck: D, stickyStyles: M };
-  }({ rootEl: X, isSticky: oe, layoutItemStyles: ae }), B = et(g(() => typeof e.scrim == "string" ? e.scrim : null)), b = g(() => ({ ...Q.value ? { opacity: 0.2 * ye.value, transition: "none" } : void 0, ...re.value }));
-  function G() {
+    return { isStuck: B, stickyStyles: z };
+  }({ rootEl: q, isSticky: se, layoutItemStyles: ye }), p = et(g(() => typeof e.scrim == "string" ? e.scrim : null)), D = g(() => ({ ...X.value ? { opacity: 0.2 * ge.value, transition: "none" } : void 0, ...ue.value }));
+  function b() {
     te.value = !0;
   }
-  function N() {
+  function V() {
     te.value = !1;
   }
   return pt({ VList: { bgColor: "transparent" } }), yt(() => {
     const i = o.image || e.image;
-    return z(lt, null, [z(e.tag, Ee({ ref: X, onMouseenter: G, onMouseleave: N, class: ["v-navigation-drawer", `v-navigation-drawer--${ne.value}`, { "v-navigation-drawer--expand-on-hover": e.expandOnHover, "v-navigation-drawer--floating": e.floating, "v-navigation-drawer--is-hovering": te.value, "v-navigation-drawer--rail": e.rail, "v-navigation-drawer--temporary": T.value, "v-navigation-drawer--active": F.value, "v-navigation-drawer--sticky": oe.value }, d.value, r.value, s.value, c.value, E.value, e.class], style: [l.value, ae.value, We.value, I.value, h.value, e.style] }, j, t), { default: () => {
-      var p, S, y, D;
-      return [i && z("div", { key: "image", class: "v-navigation-drawer__img" }, [o.image ? (p = o.image) == null ? void 0 : p.call(o, { image: e.image }) : z("img", { src: e.image, alt: "" }, null)]), o.prepend && z("div", { class: "v-navigation-drawer__prepend" }, [(S = o.prepend) == null ? void 0 : S.call(o)]), z("div", { class: "v-navigation-drawer__content" }, [(y = o.default) == null ? void 0 : y.call(o)]), o.append && z("div", { class: "v-navigation-drawer__append" }, [(D = o.append) == null ? void 0 : D.call(o)])];
-    } }), z(Vt, { name: "fade-transition" }, { default: () => [T.value && (Q.value || F.value) && !!e.scrim && z("div", Ee({ class: ["v-navigation-drawer__scrim", B.backgroundColorClasses.value], style: [b.value, B.backgroundColorStyles.value], onClick: () => F.value = !1 }, j), null)] })]);
-  }), { isStuck: u };
+    return M(lt, null, [M(e.tag, Ee({ ref: q, onMouseenter: b, onMouseleave: V, class: ["v-navigation-drawer", `v-navigation-drawer--${le.value}`, { "v-navigation-drawer--expand-on-hover": e.expandOnHover, "v-navigation-drawer--floating": e.floating, "v-navigation-drawer--is-hovering": te.value, "v-navigation-drawer--rail": e.rail, "v-navigation-drawer--temporary": G.value, "v-navigation-drawer--active": F.value, "v-navigation-drawer--sticky": se.value }, d.value, l.value, s.value, r.value, E.value, e.class], style: [h.value, ye.value, We.value, N.value, c.value, e.style] }, j, t), { default: () => {
+      var u, S, w, B;
+      return [i && M("div", { key: "image", class: "v-navigation-drawer__img" }, [o.image ? (u = o.image) == null ? void 0 : u.call(o, { image: e.image }) : M("img", { src: e.image, alt: "" }, null)]), o.prepend && M("div", { class: "v-navigation-drawer__prepend" }, [(S = o.prepend) == null ? void 0 : S.call(o)]), M("div", { class: "v-navigation-drawer__content" }, [(w = o.default) == null ? void 0 : w.call(o)]), o.append && M("div", { class: "v-navigation-drawer__append" }, [(B = o.append) == null ? void 0 : B.call(o)])];
+    } }), M(Vt, { name: "fade-transition" }, { default: () => [G.value && (X.value || F.value) && !!e.scrim && M("div", Ee({ class: ["v-navigation-drawer__scrim", p.backgroundColorClasses.value], style: [D.value, p.backgroundColorStyles.value], onClick: () => F.value = !1 }, j), null)] })]);
+  }), { isStuck: J };
 } }), _ = "v-resize-drawer";
 function Pe(e, n) {
   return e === "local" ? localStorage.getItem(n) : e === "session" ? sessionStorage.getItem(n) : "";
 }
-const Me = (e) => {
+const ze = (e) => {
   const { action: n = "update", resizedWidth: t, storageType: a, storageName: o, saveWidth: v, rail: d } = e;
   if (!v || d)
     return;
   let s = t;
   s = s ?? void 0, n === "set" && (s = Pe(a, o) ?? "", s = s || t), a === "local" && localStorage.setItem(o, String(s)), a === "session" && sessionStorage.setItem(o, String(s));
-}, me = (e) => {
+}, ve = (e) => {
   const { str: n, unit: t = "px" } = e;
   if (n != null && n !== "")
     return +n ? `${Number(n)}${t}` : String(n);
@@ -538,18 +538,18 @@ const Me = (e) => {
   return typeof e == "string" && e.includes("%") ? Number(e.replace("%", "")) / 100 * n : typeof e == "string" ? Number(e.replace(/\D/g, "")) : e;
 };
 function at(e) {
-  let n = function(c) {
-    const w = { AliceBlue: "#F0F8FF", AntiqueWhite: "#FAEBD7", Aqua: "#00FFFF", Aquamarine: "#7FFFD4", Azure: "#F0FFFF", Beige: "#F5F5DC", Bisque: "#FFE4C4", Black: "#000000", BlanchedAlmond: "#FFEBCD", Blue: "#0000FF", BlueViolet: "#8A2BE2", Brown: "#A52A2A", BurlyWood: "#DEB887", CadetBlue: "#5F9EA0", Chartreuse: "#7FFF00", Chocolate: "#D2691E", Coral: "#FF7F50", CornflowerBlue: "#6495ED", Cornsilk: "#FFF8DC", Crimson: "#DC143C", Cyan: "#00FFFF", DarkBlue: "#00008B", DarkCyan: "#008B8B", DarkGoldenRod: "#B8860B", DarkGray: "#A9A9A9", DarkGreen: "#006400", DarkGrey: "#A9A9A9", DarkKhaki: "#BDB76B", DarkMagenta: "#8B008B", DarkOliveGreen: "#556B2F", DarkOrange: "#FF8C00", DarkOrchid: "#9932CC", DarkRed: "#8B0000", DarkSalmon: "#E9967A", DarkSeaGreen: "#8FBC8F", DarkSlateBlue: "#483D8B", DarkSlateGray: "#2F4F4F", DarkSlateGrey: "#2F4F4F", DarkTurquoise: "#00CED1", DarkViolet: "#9400D3", DeepPink: "#FF1493", DeepSkyBlue: "#00BFFF", DimGray: "#696969", DimGrey: "#696969", DodgerBlue: "#1E90FF", FireBrick: "#B22222", FloralWhite: "#FFFAF0", ForestGreen: "#228B22", Fuchsia: "#FF00FF", Gainsboro: "#DCDCDC", GhostWhite: "#F8F8FF", Gold: "#FFD700", GoldenRod: "#DAA520", Gray: "#808080", Green: "#008000", GreenYellow: "#ADFF2F", Grey: "#808080", HoneyDew: "#F0FFF0", HotPink: "#FF69B4", IndianRed: "#CD5C5C", Indigo: "#4B0082", Ivory: "#FFFFF0", Khaki: "#F0E68C", Lavender: "#E6E6FA", LavenderBlush: "#FFF0F5", LawnGreen: "#7CFC00", LemonChiffon: "#FFFACD", LightBlue: "#ADD8E6", LightCoral: "#F08080", LightCyan: "#E0FFFF", LightGoldenRodYellow: "#FAFAD2", LightGray: "#D3D3D3", LightGreen: "#90EE90", LightGrey: "#D3D3D3", LightPink: "#FFB6C1", LightSalmon: "#FFA07A", LightSeaGreen: "#20B2AA", LightSkyBlue: "#87CEFA", LightSlateGray: "#778899", LightSlateGrey: "#778899", LightSteelBlue: "#B0C4DE", LightYellow: "#FFFFE0", Lime: "#00FF00", LimeGreen: "#32CD32", Linen: "#FAF0E6", Magenta: "#FF00FF", Maroon: "#800000", MediumAquaMarine: "#66CDAA", MediumBlue: "#0000CD", MediumOrchid: "#BA55D3", MediumPurple: "#9370DB", MediumSeaGreen: "#3CB371", MediumSlateBlue: "#7B68EE", MediumSpringGreen: "#00FA9A", MediumTurquoise: "#48D1CC", MediumVioletRed: "#C71585", MidnightBlue: "#191970", MintCream: "#F5FFFA", MistyRose: "#FFE4E1", Moccasin: "#FFE4B5", NavajoWhite: "#FFDEAD", Navy: "#000080", OldLace: "#FDF5E6", Olive: "#808000", OliveDrab: "#6B8E23", Orange: "#FFA500", OrangeRed: "#FF4500", Orchid: "#DA70D6", PaleGoldenRod: "#EEE8AA", PaleGreen: "#98FB98", PaleTurquoise: "#AFEEEE", PaleVioletRed: "#DB7093", PapayaWhip: "#FFEFD5", PeachPuff: "#FFDAB9", Peru: "#CD853F", Pink: "#FFC0CB", Plum: "#DDA0DD", PowderBlue: "#B0E0E6", Purple: "#800080", RebeccaPurple: "#663399", Red: "#FF0000", RosyBrown: "#BC8F8F", RoyalBlue: "#4169E1", SaddleBrown: "#8B4513", Salmon: "#FA8072", SandyBrown: "#F4A460", SeaGreen: "#2E8B57", SeaShell: "#FFF5EE", Sienna: "#A0522D", Silver: "#C0C0C0", SkyBlue: "#87CEEB", SlateBlue: "#6A5ACD", SlateGray: "#708090", SlateGrey: "#708090", Snow: "#FFFAFA", SpringGreen: "#00FF7F", SteelBlue: "#4682B4", Tan: "#D2B48C", Teal: "#008080", Thistle: "#D8BFD8", Tomato: "#FF6347", Turquoise: "#40E0D0", Violet: "#EE82EE", Wheat: "#F5DEB3", White: "#FFFFFF", WhiteSmoke: "#F5F5F5", Yellow: "#FFFF00", YellowGreen: "#9ACD32" };
-    let E = c;
-    return Object.entries(w).forEach(([f, F]) => {
-      c.toLowerCase() != f.toLowerCase() || (E = F);
+  let n = function(r) {
+    const y = { AliceBlue: "#F0F8FF", AntiqueWhite: "#FAEBD7", Aqua: "#00FFFF", Aquamarine: "#7FFFD4", Azure: "#F0FFFF", Beige: "#F5F5DC", Bisque: "#FFE4C4", Black: "#000000", BlanchedAlmond: "#FFEBCD", Blue: "#0000FF", BlueViolet: "#8A2BE2", Brown: "#A52A2A", BurlyWood: "#DEB887", CadetBlue: "#5F9EA0", Chartreuse: "#7FFF00", Chocolate: "#D2691E", Coral: "#FF7F50", CornflowerBlue: "#6495ED", Cornsilk: "#FFF8DC", Crimson: "#DC143C", Cyan: "#00FFFF", DarkBlue: "#00008B", DarkCyan: "#008B8B", DarkGoldenRod: "#B8860B", DarkGray: "#A9A9A9", DarkGreen: "#006400", DarkGrey: "#A9A9A9", DarkKhaki: "#BDB76B", DarkMagenta: "#8B008B", DarkOliveGreen: "#556B2F", DarkOrange: "#FF8C00", DarkOrchid: "#9932CC", DarkRed: "#8B0000", DarkSalmon: "#E9967A", DarkSeaGreen: "#8FBC8F", DarkSlateBlue: "#483D8B", DarkSlateGray: "#2F4F4F", DarkSlateGrey: "#2F4F4F", DarkTurquoise: "#00CED1", DarkViolet: "#9400D3", DeepPink: "#FF1493", DeepSkyBlue: "#00BFFF", DimGray: "#696969", DimGrey: "#696969", DodgerBlue: "#1E90FF", FireBrick: "#B22222", FloralWhite: "#FFFAF0", ForestGreen: "#228B22", Fuchsia: "#FF00FF", Gainsboro: "#DCDCDC", GhostWhite: "#F8F8FF", Gold: "#FFD700", GoldenRod: "#DAA520", Gray: "#808080", Green: "#008000", GreenYellow: "#ADFF2F", Grey: "#808080", HoneyDew: "#F0FFF0", HotPink: "#FF69B4", IndianRed: "#CD5C5C", Indigo: "#4B0082", Ivory: "#FFFFF0", Khaki: "#F0E68C", Lavender: "#E6E6FA", LavenderBlush: "#FFF0F5", LawnGreen: "#7CFC00", LemonChiffon: "#FFFACD", LightBlue: "#ADD8E6", LightCoral: "#F08080", LightCyan: "#E0FFFF", LightGoldenRodYellow: "#FAFAD2", LightGray: "#D3D3D3", LightGreen: "#90EE90", LightGrey: "#D3D3D3", LightPink: "#FFB6C1", LightSalmon: "#FFA07A", LightSeaGreen: "#20B2AA", LightSkyBlue: "#87CEFA", LightSlateGray: "#778899", LightSlateGrey: "#778899", LightSteelBlue: "#B0C4DE", LightYellow: "#FFFFE0", Lime: "#00FF00", LimeGreen: "#32CD32", Linen: "#FAF0E6", Magenta: "#FF00FF", Maroon: "#800000", MediumAquaMarine: "#66CDAA", MediumBlue: "#0000CD", MediumOrchid: "#BA55D3", MediumPurple: "#9370DB", MediumSeaGreen: "#3CB371", MediumSlateBlue: "#7B68EE", MediumSpringGreen: "#00FA9A", MediumTurquoise: "#48D1CC", MediumVioletRed: "#C71585", MidnightBlue: "#191970", MintCream: "#F5FFFA", MistyRose: "#FFE4E1", Moccasin: "#FFE4B5", NavajoWhite: "#FFDEAD", Navy: "#000080", OldLace: "#FDF5E6", Olive: "#808000", OliveDrab: "#6B8E23", Orange: "#FFA500", OrangeRed: "#FF4500", Orchid: "#DA70D6", PaleGoldenRod: "#EEE8AA", PaleGreen: "#98FB98", PaleTurquoise: "#AFEEEE", PaleVioletRed: "#DB7093", PapayaWhip: "#FFEFD5", PeachPuff: "#FFDAB9", Peru: "#CD853F", Pink: "#FFC0CB", Plum: "#DDA0DD", PowderBlue: "#B0E0E6", Purple: "#800080", RebeccaPurple: "#663399", Red: "#FF0000", RosyBrown: "#BC8F8F", RoyalBlue: "#4169E1", SaddleBrown: "#8B4513", Salmon: "#FA8072", SandyBrown: "#F4A460", SeaGreen: "#2E8B57", SeaShell: "#FFF5EE", Sienna: "#A0522D", Silver: "#C0C0C0", SkyBlue: "#87CEEB", SlateBlue: "#6A5ACD", SlateGray: "#708090", SlateGrey: "#708090", Snow: "#FFFAFA", SpringGreen: "#00FF7F", SteelBlue: "#4682B4", Tan: "#D2B48C", Teal: "#008080", Thistle: "#D8BFD8", Tomato: "#FF6347", Turquoise: "#40E0D0", Violet: "#EE82EE", Wheat: "#F5DEB3", White: "#FFFFFF", WhiteSmoke: "#F5F5F5", Yellow: "#FFFF00", YellowGreen: "#9ACD32" };
+    let E = r;
+    return Object.entries(y).forEach(([f, F]) => {
+      r.toLowerCase() != f.toLowerCase() || (E = F);
     }), E;
   }(e), t = 0, a = 0, o = 0, v = 0, d = 0, s = 0;
   if (n.substring(0, 1) === "#")
-    n = function(c) {
-      let w = c.replace("#", "");
-      w.length === 3 && (w = w.split("").map((I) => I + I).join(""));
-      const E = parseInt(w.substring(0, 2), 16), f = parseInt(w.substring(2, 4), 16), F = parseInt(w.substring(4, 6), 16);
+    n = function(r) {
+      let y = r.replace("#", "");
+      y.length === 3 && (y = y.split("").map((N) => N + N).join(""));
+      const E = parseInt(y.substring(0, 2), 16), f = parseInt(y.substring(2, 4), 16), F = parseInt(y.substring(4, 6), 16);
       return [E, f, F];
     }(n);
   else if (n.includes("rgb"))
@@ -557,24 +557,24 @@ function at(e) {
   else if (n.includes("hsl"))
     return n = [...n.matchAll(/\d+/g)].map(Number), t = n[0], a = n[1], o = n[2], `${t} ${a}% ${o}%`;
   [v, d, s] = n, v /= 255, d /= 255, s /= 255;
-  const r = Math.max(v, d, s), l = Math.min(v, d, s);
-  if (r === null || !l === null || isNaN(r) || isNaN(l)) {
-    const c = "0 0% 100% / 12%";
-    return console.warn(`[VResizeDrawer]: The "color" prop value using "${n}" doesn't exist. Using the value "hsl(${c})" in it's place.`), c;
+  const l = Math.max(v, d, s), h = Math.min(v, d, s);
+  if (l === null || !h === null || isNaN(l) || isNaN(h)) {
+    const r = "0 0% 100% / 12%";
+    return console.warn(`[VResizeDrawer]: The "color" prop value using "${n}" doesn't exist. Using the value "hsl(${r})" in it's place.`), r;
   }
-  if (t = (r + l) / 2, a = (r + l) / 2, o = (r + l) / 2, r == l)
+  if (t = (l + h) / 2, a = (l + h) / 2, o = (l + h) / 2, l == h)
     t = a = 0;
   else {
-    const c = r - l;
-    switch (a = o > 0.5 ? c / (2 - r - l) : c / (r + l), r) {
+    const r = l - h;
+    switch (a = o > 0.5 ? r / (2 - l - h) : r / (l + h), l) {
       case v:
-        t = (d - s) / c + (d < s ? 6 : 0);
+        t = (d - s) / r + (d < s ? 6 : 0);
         break;
       case d:
-        t = (s - v) / c + 2;
+        t = (s - v) / r + 2;
         break;
       case s:
-        t = (v - d) / c + 4;
+        t = (v - d) / r + 4;
     }
     t /= 6;
   }
@@ -595,107 +595,107 @@ const rt = (e, n) => {
   }(e, n);
   return t ? `hsl(${at(t[1])})` : `hsl(${at(e)})`;
 }, hn = { default: "1.5em", large: "1.75em", small: "1.25em", "x-large": "2em", "x-small": "1em" }, pn = { fa: { bottom: "fas fa-grip", center: "fas fa-angles-right", top: "fas fa-grip" }, mdi: { bottom: "mdi:mdi-dots-grid", center: "mdi:mdi-chevron-double-right", top: "mdi:mdi-dots-grid" } }, gn = { key: 0, class: "v-resize-drawer--handle-slot" }, it = ut({ __name: "VResizeDrawer", props: Ot({ absolute: {}, expandOnHover: {}, floating: {}, handleBorderWidth: {}, handleColor: {}, handleIcon: {}, handleIconSize: {}, handlePosition: {}, height: {}, location: {}, maxWidth: {}, minWidth: {}, modelValue: {}, name: {}, rail: {}, railWidth: {}, resizable: { type: Boolean }, saveWidth: { type: Boolean }, storageName: {}, storageType: {}, tag: {}, temporary: {}, theme: {}, width: {}, widthSnapBack: { type: Boolean } }, { handleBorderWidth: 8, handleColor: "primary", handleIcon: void 0, handleIconSize: "x-small", handlePosition: "center", height: void 0, location: "start", maxWidth: "100%", minWidth: 56, modelValue: !0, name: _, rail: !1, railWidth: 8, resizable: !0, saveWidth: !0, storageName: `${_}-width`, storageType: "local", tag: "nav", theme: "light", width: 256, widthSnapBack: !0 }), emits: ["handle:click", "handle:dblclick", "handle:drag", "handle:mousedown", "handle:mouseup"], setup(e, { emit: n }) {
-  const t = e, a = g(() => t), o = ue(Symbol.for("vuetify:icons")), v = ee(256), d = { mouseDown: !1, mouseUp: !0 }, s = ee(!1), r = ee(), l = ee(256), c = Rt(), w = _t();
+  const t = e, a = g(() => t), o = re(Symbol.for("vuetify:icons")), v = Q(256), d = { mouseDown: !1, mouseUp: !0 }, s = Q(!1), l = Q(!1), h = Q(), r = Q(256), y = Rt(), E = _t();
   Be(() => {
     if (t.location !== "start" && t.location !== "end" && t.location !== "left" && t.location !== "right")
       throw new Error("VResizeDrawer: 'top' and 'bottom' locations are not supported.");
     (function() {
       if (t.rail)
-        return l.value = t.railWidth || void 0, !1;
-      const u = Pe(t.storageType, t.storageName), h = me({ str: t.width });
-      l.value = h, v.value = l.value, t.saveWidth && u && !t.rail && (l.value = Pe(t.storageType, t.storageName)), function() {
-        const B = r.value;
-        if (B) {
-          const b = B.$el;
-          b.addEventListener("mouseenter", ne, !1), b.addEventListener("mouseleave", T, !1);
+        return r.value = t.railWidth || void 0, !1;
+      const c = Pe(t.storageType, t.storageName), p = ve({ str: t.width });
+      r.value = p, v.value = r.value, t.saveWidth && c && !t.rail && (r.value = Pe(t.storageType, t.storageName)), function() {
+        const D = h.value;
+        if (D) {
+          const b = D.$el;
+          b.addEventListener("mouseenter", G, !1), b.addEventListener("mouseleave", se, !1);
         }
-      }(), Me({ action: "update", rail: t.rail, resizedWidth: l.value, saveWidth: t.saveWidth, storageName: t.storageName, storageType: t.storageType });
+      }(), ze({ action: "update", rail: t.rail, resizedWidth: r.value, saveWidth: t.saveWidth, storageName: t.storageName, storageType: t.storageType });
     })();
   }), Tt(() => {
     (function() {
-      const u = r.value;
-      if (u) {
-        const h = u.$el;
-        h.addEventListener("mouseenter", ne, !1), h.addEventListener("mouseleave", T, !1);
+      const c = h.value;
+      if (c) {
+        const p = c.$el;
+        p.addEventListener("mouseenter", G, !1), p.addEventListener("mouseleave", se, !1);
       }
-      document.removeEventListener("mouseup", ae, !1), document.removeEventListener("mousemove", oe, !1);
+      document.removeEventListener("mouseup", ue, !1), document.removeEventListener("mousemove", X, !1);
     })();
   });
-  const E = g(() => ((u) => {
-    const { absolute: h = !1, expandOnHover: B, floating: b, isMouseover: G, location: N, rail: V, railWidth: H, temporary: i } = u;
-    return { [`${_}`]: !0, "v-navigation-drawer--absolute": h ?? !1, "v-navigation-drawer--custom-rail": Number(H) !== 56, "v-navigation-drawer--fixed": !h, "v-navigation-drawer--floating": b, "v-navigation-drawer--is-mouseover": $(G), "v-navigation-drawer--left": N === "left" || N === "start" || N === void 0, "v-navigation-drawer--open-on-hover": B, "v-navigation-drawer--rail": V ?? !1, "v-navigation-drawer--right": N === "right" || N === "end", "v-navigation-drawer--temporary": i };
-  })({ absolute: t.absolute, expandOnHover: t.expandOnHover, floating: t.floating, isMouseover: s, location: t.location, rail: t.rail, railWidth: t.railWidth, temporary: t.temporary })), f = g(() => ((u) => {
-    const { maxWidth: h, minWidth: B, rail: b, railWidth: G, resizedWidth: N, widthSnapBack: V } = u;
-    if (b)
+  const f = g(() => ((c) => {
+    const { absolute: p = !1, expandOnHover: D, floating: b, isMouseover: V, location: I, rail: O, railWidth: i, temporary: u } = c;
+    return { [`${_}`]: !0, "v-navigation-drawer--absolute": p ?? !1, "v-navigation-drawer--custom-rail": Number(i) !== 56, "v-navigation-drawer--fixed": !p, "v-navigation-drawer--floating": b, "v-navigation-drawer--is-mouseover": W(V), "v-navigation-drawer--left": I === "left" || I === "start" || I === void 0, "v-navigation-drawer--open-on-hover": D, "v-navigation-drawer--rail": O ?? !1, "v-navigation-drawer--right": I === "right" || I === "end", "v-navigation-drawer--temporary": u };
+  })({ absolute: t.absolute, expandOnHover: t.expandOnHover, floating: t.floating, isMouseover: s, location: t.location, rail: t.rail, railWidth: t.railWidth, temporary: t.temporary })), F = g(() => ((c) => {
+    const { isMouseDown: p, maxWidth: D, minWidth: b, rail: V, railWidth: I, resizedWidth: O, widthSnapBack: i } = c;
+    if (V)
       return {};
-    let H = b ? G : $(N);
-    return V || (parseInt(H) >= parseInt(h) && (H = h), parseInt(H) <= parseInt(B) && (H = B)), { width: me({ str: H }) };
-  })({ maxWidth: t.maxWidth, minWidth: t.minWidth, rail: t.rail, railWidth: t.railWidth, resizedWidth: l, widthSnapBack: t.widthSnapBack })), F = g(() => {
+    let u = V ? I : W(O);
+    return i || (parseInt(u) >= parseInt(D) && (u = D), parseInt(u) <= parseInt(b) && (u = b)), { transitionDuration: W(p) ? "0s" : ".2s", width: ve({ str: u }) };
+  })({ isMouseDown: l, maxWidth: t.maxWidth, minWidth: t.minWidth, rail: t.rail, railWidth: t.railWidth, resizedWidth: r, widthSnapBack: t.widthSnapBack })), N = g(() => {
     if (!t.rail)
-      return me({ str: l.value });
-  }), I = g(() => ((u) => {
-    const { drawerLocation: h, handlePosition: B } = u;
-    return { [`${_}--handle-container`]: !0, [`${_}--handle-container-position-${B}`]: !0, [`${_}--handle-container-parent-${h}`]: !0 };
-  })({ drawerLocation: t.location, handlePosition: t.handlePosition })), j = g(() => ((u) => {
-    const { borderWidth: h, handleColor: B, iconSize: b, position: G, theme: N } = u;
-    if (G === "border")
-      return { backgroundColor: rt(B, N), height: "100%", width: me({ str: h }) };
-    const V = hn[b];
-    return { backgroundColor: "transparent", height: V, width: V };
-  })({ borderWidth: t.handleBorderWidth, handleColor: t.handleColor, iconSize: t.handleIconSize, position: t.handlePosition, theme: w })), X = g(() => ((u) => {
-    const { color: h, theme: B } = u;
-    return { color: rt(h, B) };
-  })({ color: t.handleColor, theme: w })), te = g(() => ((u) => {
-    const { drawerLocation: h, handlePosition: B, iconOptions: b, isUserIcon: G } = u;
-    return { [`${_}--handle-container-icon`]: !0, [`${_}--handle-container-icon-${B}-${h}`]: !0, [`${_}--handle-container-icon-user-icon`]: G, [`${_}--handle-container-icon-fa`]: (b == null ? void 0 : b.defaultSet) === "fa", [`${_}--handle-container-icon-fa-${B}`]: (b == null ? void 0 : b.defaultSet) === "fa" };
-  })({ drawerLocation: t.location, handlePosition: t.handlePosition, iconOptions: o, isUserIcon: t.handleIcon !== void 0 && t.handleIcon !== null })), ge = g(() => ((h) => {
-    const { icon: B, iconOptions: b, position: G } = h;
-    if (B)
-      return B;
-    const N = pn[b == null ? void 0 : b.defaultSet];
-    if (!N)
+      return ve({ str: r.value });
+  }), j = g(() => ((c) => {
+    const { drawerLocation: p, handlePosition: D } = c;
+    return { [`${_}--handle-container`]: !0, [`${_}--handle-container-position-${D}`]: !0, [`${_}--handle-container-parent-${p}`]: !0 };
+  })({ drawerLocation: t.location, handlePosition: t.handlePosition })), q = g(() => ((c) => {
+    const { borderWidth: p, handleColor: D, iconSize: b, position: V, theme: I } = c;
+    if (V === "border")
+      return { backgroundColor: rt(D, I), height: "100%", width: ve({ str: p }) };
+    const O = hn[b];
+    return { backgroundColor: "transparent", height: O, width: O };
+  })({ borderWidth: t.handleBorderWidth, handleColor: t.handleColor, iconSize: t.handleIconSize, position: t.handlePosition, theme: E })), te = g(() => ((c) => {
+    const { color: p, theme: D } = c;
+    return { color: rt(p, D) };
+  })({ color: t.handleColor, theme: E })), pe = g(() => ((c) => {
+    const { drawerLocation: p, handlePosition: D, iconOptions: b, isUserIcon: V } = c;
+    return { [`${_}--handle-container-icon`]: !0, [`${_}--handle-container-icon-${D}-${p}`]: !0, [`${_}--handle-container-icon-user-icon`]: V, [`${_}--handle-container-icon-fa`]: (b == null ? void 0 : b.defaultSet) === "fa", [`${_}--handle-container-icon-fa-${D}`]: (b == null ? void 0 : b.defaultSet) === "fa" };
+  })({ drawerLocation: t.location, handlePosition: t.handlePosition, iconOptions: o, isUserIcon: t.handleIcon !== void 0 && t.handleIcon !== null })), le = g(() => ((p) => {
+    const { icon: D, iconOptions: b, position: V } = p;
+    if (D)
+      return D;
+    const I = pn[b == null ? void 0 : b.defaultSet];
+    if (!I)
       throw new Error(`VResizeDrawer: No default ${b == null ? void 0 : b.defaultSet} icon set found. Please set the icon prop.`);
-    const V = N[G];
-    if (!V)
+    const O = I[V];
+    if (!O)
       throw new Error(`VResizeDrawer: No ${name} icon found. Please set the icon prop, or set the default icon set to 'mdi' or 'fa'`);
-    return V;
+    return O;
   })({ icon: t.handleIcon, iconOptions: o, position: t.handlePosition }));
-  function ne() {
+  function G() {
     s.value = !0;
   }
-  function T() {
+  function se() {
     s.value = !1;
   }
-  function oe(u) {
-    let h = u.clientX;
-    t.location !== "right" && t.location !== "end" || (h = document.body.scrollWidth - h), l.value = me({ str: h }) || void 0, t.widthSnapBack || (l.value = Q(l.value)), document.body.style.cursor = "grabbing", re("handle:drag", u);
+  function X(c) {
+    let p = c.clientX;
+    t.location !== "right" && t.location !== "end" || (p = document.body.scrollWidth - p), r.value = ve({ str: p }) || void 0, t.widthSnapBack || (r.value = ge(r.value)), document.body.style.cursor = "grabbing", J("handle:drag", c);
   }
-  function Q(u) {
-    let h = Le(u);
-    const B = Le(t.maxWidth), b = Le(t.minWidth);
-    return h >= B && (h = B), b >= h && (h = b), h;
+  function ge(c) {
+    let p = Le(c);
+    const D = Le(t.maxWidth), b = Le(t.minWidth);
+    return p >= D && (p = D), b >= p && (p = b), p;
   }
-  function ye(u) {
-    re("handle:click", u);
+  function We(c) {
+    J("handle:click", c);
   }
-  function We(u) {
-    l.value = v.value, Me({ rail: t.rail, resizedWidth: l.value, saveWidth: t.saveWidth, storageName: t.storageName, storageType: t.storageType }), re("handle:dblclick", u);
+  function $e(c) {
+    r.value = v.value, ze({ rail: t.rail, resizedWidth: r.value, saveWidth: t.saveWidth, storageName: t.storageName, storageType: t.storageType }), J("handle:dblclick", c);
   }
-  function $e(u) {
-    u.preventDefault(), u.stopPropagation();
-    let h = 25;
-    t.handlePosition === "border" && (h = t.handleBorderWidth), d.mouseUp = !1, u.offsetX < h && document.addEventListener("mousemove", oe, !1), d.mouseDown || (d.mouseDown = !0, document.addEventListener("mouseup", ae, !1), re("handle:mousedown", u));
+  function ye(c) {
+    c.preventDefault(), c.stopPropagation();
+    let p = 25;
+    l.value = !0, t.handlePosition === "border" && (p = t.handleBorderWidth), d.mouseUp = !1, c.offsetX < p && document.addEventListener("mousemove", X, !1), d.mouseDown || (d.mouseDown = !0, document.addEventListener("mouseup", ue, !1), J("handle:mousedown", c));
   }
-  function ae(u) {
-    u.preventDefault(), u.stopPropagation();
-    const h = r.value;
-    d.mouseDown = !1, l.value = (h == null ? void 0 : h.width) ?? v.value, document.body.style.cursor = "", l.value = Q(l.value), l.value = me({ str: l.value }) || void 0, Me({ rail: t.rail, resizedWidth: l.value, saveWidth: t.saveWidth, storageName: t.storageName, storageType: t.storageType }), d.mouseUp || (d.mouseUp = !0, document.removeEventListener("mouseup", ae, !1), document.removeEventListener("mousemove", oe, !1), re("handle:mouseup", u));
+  function ue(c) {
+    c.preventDefault(), c.stopPropagation();
+    const p = h.value;
+    l.value = !1, d.mouseDown = !1, r.value = (p == null ? void 0 : p.width) ?? v.value, document.body.style.cursor = "", r.value = ge(r.value), r.value = ve({ str: r.value }) || void 0, ze({ rail: t.rail, resizedWidth: r.value, saveWidth: t.saveWidth, storageName: t.storageName, storageType: t.storageType }), d.mouseUp || (d.mouseUp = !0, document.removeEventListener("mouseup", ue, !1), document.removeEventListener("mousemove", X, !1), J("handle:mouseup", c));
   }
-  function re(u, h) {
-    const B = { e: h, eventName: u, offsetWidth: l.value, resizedWidth: l.value, width: l.value };
-    n(u, B);
+  function J(c, p) {
+    const D = { e: p, eventName: c, offsetWidth: r.value, resizedWidth: r.value, width: r.value };
+    n(c, D);
   }
-  return (u, h) => (Fe(), Ye($(mn), Ee($(a), { ref_key: "resizeDrawer", ref: r, class: $(E), location: t.location, "model-value": u.modelValue, name: t.name, style: $(f), tag: t.tag, theme: t.theme, width: $(F) }), { default: Gt(() => [t.resizable && !t.rail ? (Fe(), Ue("div", { key: 0, class: qe($(I)), style: Xe($(j)), onClick: ye, onDblclick: We, onMousedown: $e, onMouseup: ae }, [$(c).handle ? (Fe(), Ue("div", gn, [be(u.$slots, "handle")])) : u.handlePosition !== "border" ? (Fe(), Ye(rn, { key: 1, class: qe(["v-resize-drawer--handle-icon", $(te)]), icon: $(ge), size: u.handleIconSize, style: Xe($(X)) }, null, 8, ["class", "icon", "size", "style"])) : Se("", !0)], 38)) : Se("", !0), $(c).prepend ? be(u.$slots, "prepend", { key: 1 }) : Se("", !0), be(u.$slots, "default"), $(c).append ? be(u.$slots, "append", { key: 2 }) : Se("", !0)]), _: 3 }, 16, ["class", "location", "model-value", "name", "style", "tag", "theme", "width"]));
+  return (c, p) => (Fe(), Ye(W(mn), Ee(W(a), { ref_key: "resizeDrawer", ref: h, class: W(f), location: t.location, "model-value": c.modelValue, name: t.name, style: W(F), tag: t.tag, theme: t.theme, width: W(N) }), { default: Gt(() => [t.resizable && !t.rail ? (Fe(), Ue("div", { key: 0, class: qe(W(j)), style: Xe(W(q)), onClick: We, onDblclick: $e, onMousedown: ye, onMouseup: ue }, [W(y).handle ? (Fe(), Ue("div", gn, [be(c.$slots, "handle")])) : c.handlePosition !== "border" ? (Fe(), Ye(rn, { key: 1, class: qe(["v-resize-drawer--handle-icon", W(pe)]), icon: W(le), size: c.handleIconSize, style: Xe(W(te)) }, null, 8, ["class", "icon", "size", "style"])) : Se("", !0)], 38)) : Se("", !0), W(y).prepend ? be(c.$slots, "prepend", { key: 1 }) : Se("", !0), be(c.$slots, "default"), W(y).append ? be(c.$slots, "append", { key: 2 }) : Se("", !0)]), _: 3 }, 16, ["class", "location", "model-value", "name", "style", "tag", "theme", "width"]));
 } });
 it.install = (e) => {
   e.component("VResizeDrawer", it);
