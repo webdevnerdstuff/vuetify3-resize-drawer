@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to the "vuetify3-resize-drawer" plugin will be documented in this file.
 
+## v2.0.2
+06-02-2023
+[main] (@webdevnerdstuff)
+* Update to turn off transition duration when resizing
+
 ## v2.0.0
 06-02-2023
 [main] (@webdevnerdstuff)
