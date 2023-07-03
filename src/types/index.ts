@@ -117,6 +117,7 @@ export interface UseHandleIconClasses {
 export interface UseDrawerStyles {
 	(
 		options: {
+			isMouseDown?: MaybeRef<boolean>,
 			maxWidth?: Props['maxWidth'],
 			minWidth?: Props['minWidth'],
 			rail?: Props['rail'],

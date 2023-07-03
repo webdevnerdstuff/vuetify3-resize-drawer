@@ -18,7 +18,7 @@ const iconSizes = {
 
 // -------------------------------------------------- Drawer //
 export const useDrawerStyles: UseDrawerStyles = (options) => {
-	const { maxWidth, minWidth, rail, railWidth, resizedWidth, widthSnapBack } = options;
+	const { isMouseDown, maxWidth, minWidth, rail, railWidth, resizedWidth, widthSnapBack } = options;
 
 	if (rail) {
 		return {};
@@ -37,6 +37,7 @@ export const useDrawerStyles: UseDrawerStyles = (options) => {
 	}
 
 	return {
+		transitionDuration: unref(isMouseDown) ? '0s' : '.2s',
 		width: useConvertToUnit({ str: widthValue as string }) as string,
 	};
 };

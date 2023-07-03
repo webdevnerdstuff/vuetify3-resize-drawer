@@ -103,6 +103,7 @@ const handleEvents: { mouseUp: boolean, mouseDown: boolean; } = {
 	mouseUp: true,
 };
 const isMouseover = ref<boolean>(false);
+const isMouseDown = ref<boolean>(false);
 const resizeDrawer = ref<VNavigationDrawer>();
 const resizedWidth = ref<string | number | undefined>(256);
 const slots = useSlots();
@@ -169,6 +170,7 @@ const drawerClasses = computed(() => useDrawerClasses({
 }));
 
 const drawerStyles = computed(() => useDrawerStyles({
+	isMouseDown,
 	maxWidth: props.maxWidth,
 	minWidth: props.minWidth,
 	rail: props.rail,
@@ -293,6 +295,8 @@ function handleMouseDown(e: MouseEvent): void {
 	e.stopPropagation();
 	let offsetX = 25;
 
+	isMouseDown.value = true;
+
 	if (props.handlePosition === 'border') {
 		offsetX = props.handleBorderWidth as number;
 	}
@@ -316,6 +320,7 @@ function handleMouseUp(e: MouseEvent): void {
 
 	const drawer = resizeDrawer.value;
 
+	isMouseDown.value = false;
 	handleEvents.mouseDown = false;
 	resizedWidth.value = drawer?.width ?? defaultWidth.value;
 
