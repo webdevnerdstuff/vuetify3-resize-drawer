@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to the "vuetify3-resize-drawer" plugin will be documented in this file.
 
+## v2.0.3
+08-01-2023
+[main] (@webdevnerdstuff)
+* Add check for fasvg
+* Add important to fa icon size
+
 ## v2.0.2
 06-02-2023
 [main] (@webdevnerdstuff)
