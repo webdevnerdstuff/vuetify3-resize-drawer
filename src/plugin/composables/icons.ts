@@ -20,7 +20,12 @@ export const useGetIcon: UseGetIcon = (options) => {
 		return icon;
 	}
 
-	const iconSet = defaultIcons[iconOptions?.defaultSet as string];
+	const defaultSet = iconOptions?.defaultSet as string;
+	let iconAbbv = defaultSet.toLowerCase();
+
+	iconAbbv = iconAbbv === 'fa' || iconAbbv === 'fasvg' ? 'fa' : iconAbbv;
+
+	const iconSet = defaultIcons[iconAbbv];
 
 	if (!iconSet) {
 		throw new Error(`VResizeDrawer: No default ${iconOptions?.defaultSet} icon set found. Please set the icon prop.`);
