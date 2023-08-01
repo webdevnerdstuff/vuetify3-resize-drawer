@@ -54,7 +54,19 @@
 		<v-col cols="12">
 			This will create a file for you to adjust and play with.
 			<br />
-			<code class="ic">PlaygroundPage.vue</code>
+			<code class="ic">/src/playground/PlaygroundPage.vue</code>
+		</v-col>
+
+		<v-col cols="12">
+			<v-alert color="primary">
+				Alternatively you can test out the component on the
+				<v-btn
+					class="ms-1"
+					:href="links.vuetifyPlayground"
+					target="blank"
+					variant="outlined"
+				>Vuetify Playground</v-btn>
+			</v-alert>
 		</v-col>
 	</v-row>
 </template>
@@ -73,5 +85,6 @@ const props = defineProps({
 
 const codeBlockSettings = computed(() => props.codeBlockOptions);
 const classes = inject('classes');
+const links = inject('links');
 const store = useCoreStore();
 </script>
