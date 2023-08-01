@@ -20,6 +20,7 @@
 			:handle-position="drawerOptions.handlePosition"
 			:image="drawerOptions.image"
 			:location="drawerOptions.location === 'left' ? 'left' : 'right'"
+			max-width="50%"
 			min-width="256"
 			:rail="drawerOptions.rail"
 			:rail-width="drawerOptions.railWidth"
