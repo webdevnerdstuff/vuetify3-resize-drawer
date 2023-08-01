@@ -41,13 +41,12 @@ const codeBlockSettings = computed(() => props.codeBlockOptions);
 const classes = inject('classes');
 
 const codeTemplate = `<template>
-  <v-app id="home">
+  <v-app>
     <VResizeDrawer
       v-model="drawer"
-      :overflow="true"
+      max-width="50%"
+      min-width="256px"
       :saveWidth="true"
-      handlePosition="center"
-      storageName="my-storage-name"
       width="256px"
       @close="drawerClose"
       @handle:click="handleClick"
@@ -58,21 +57,6 @@ const codeTemplate = `<template>
       @input="drawerInput"
       @transitionend="drawerTransitionend"
     >
-    <template #handle>
-      <v-icon>mdi-arrow-right-circle</v-icon>
-    <\/template>
-
-    <template #prepend>
-      <div>
-        Prepend Slot
-      </div>
-    <\/template>
-
-    <template #append>
-      <div>
-       Append Slot
-      <\/div>
-    <\/template>
     <\/VResizeDrawer>
   <\/v-app>
 </template>
