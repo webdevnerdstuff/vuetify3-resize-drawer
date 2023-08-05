@@ -421,7 +421,7 @@ const propsSupported = reactive({
 			default: 'primary',
 			desc: 'Determines the color of the handle',
 			name: 'handle-color',
-			type: 'object',
+			type: 'string',
 		},
 		{
 			default: 'undefined',
@@ -475,6 +475,12 @@ const propsSupported = reactive({
 			default: 'v-resize-drawer-width',
 			desc: 'Determines the name of the local/session storage item',
 			name: 'storage-name',
+			type: 'string',
+		},
+		{
+			default: 'local',
+			desc: 'Determines the type of storage to use when the <code class="ic">save-width</code> is <code class="ic">true</code>. Valid values are <code class="ic">local</code> and <code class="ic">session</code>',
+			name: 'storage-type',
 			type: 'string',
 		},
 		{
