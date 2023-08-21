@@ -1,3 +1,5 @@
+@use './mixins' as *;
+
 .v-resize-drawer {
   &--handle {
     &-container {
@@ -69,4 +71,15 @@
       }
     }
   }
+
+  .v-row {
+    container-type: inline-size;
+    container-name: v-resize-drawer;
+  }
 }
+
+// Grid Columns //
+@include make-grid-columns;
+
+// Hidden Columns //
+@include make-grid-columns-hidden;
