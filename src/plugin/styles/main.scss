@@ -3,6 +3,9 @@
 @use 'vuetify/settings';
 
 .v-resize-drawer {
+  container-type: inline-size;
+  container-name: v-resize-drawer;
+
   &--handle {
     &-container {
       cursor: grab;
@@ -72,11 +75,6 @@
         }
       }
     }
-  }
-
-  .v-row {
-    container-type: inline-size;
-    container-name: v-resize-drawer;
   }
 }
 
