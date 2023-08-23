@@ -1,4 +1,6 @@
+@use 'sass:map';
 @use './mixins' as *;
+@use 'vuetify/settings';
 
 .v-resize-drawer {
   &--handle {
@@ -78,8 +80,20 @@
   }
 }
 
+@container v-resize-drawer (width > #{map.get(settings.$grid-breakpoints, 'xs')}) and (max-width: #{map.get(settings.$grid-breakpoints, 'sm') - 0.02}) {
+  .v-col {
+    &-xs-12 {
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
+      flex-basis: 0;
+      flex-grow: 1;
+      max-width: 100%;
+    }
+  }
+}
+
 // Grid Columns //
 @include make-grid-columns;
 
-// Hidden Columns //
+// Hidden & d-#{size}-#{display-value} Columns //
 @include make-grid-columns-hidden;
