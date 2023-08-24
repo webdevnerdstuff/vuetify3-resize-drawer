@@ -59,6 +59,11 @@ export const useMenuStore = defineStore('menu', () => {
 			title: 'Props',
 		},
 		{
+			href: '#vuetify-grid-system',
+			icon: 'mdi-view-grid',
+			title: 'Grid System',
+		},
+		{
 			href: '#events',
 			icon: 'mdi-calendar-star',
 			title: 'Events',
