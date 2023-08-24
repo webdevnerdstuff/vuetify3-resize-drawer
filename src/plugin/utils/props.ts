@@ -10,7 +10,7 @@ export const AllProps: Props = {
 	handlePosition: 'center',
 	height: undefined,
 	location: 'start',
-	maxWidth: '100%',
+	maxWidth: window.innerWidth,
 	minWidth: 56,
 	modelValue: true,
 	name: componentName,

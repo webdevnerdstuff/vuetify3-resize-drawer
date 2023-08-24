@@ -84,11 +84,13 @@ import { useGetIcon } from '@/plugin/composables/icons';
 
 // -------------------------------------------------- Emits & Slots & Injects //
 const emit = defineEmits([
+	'close',
 	'handle:click',
 	'handle:dblclick',
 	'handle:drag',
 	'handle:mousedown',
 	'handle:mouseup',
+	'update:modelValue',
 ]);
 
 
@@ -171,8 +173,8 @@ const drawerClasses = computed(() => useDrawerClasses({
 
 const drawerStyles = computed(() => useDrawerStyles({
 	isMouseDown,
-	maxWidth: props.maxWidth,
-	minWidth: props.minWidth,
+	maxWidth: computedMaxWidth.value,
+	minWidth: computedMinWidth.value,
 	rail: props.rail,
 	railWidth: props.railWidth,
 	resizedWidth,
@@ -245,20 +247,65 @@ function drawerResize(e: MouseEvent): void {
 
 	resizedWidth.value = useConvertToUnit({ str: width }) || undefined;
 
-	if (!props.widthSnapBack) {
-		resizedWidth.value = checkMaxMinWidth(resizedWidth.value);
-	}
-
 	document.body.style.cursor = 'grabbing';
 
 	emitEvent('handle:drag', e);
 }
 
 
+watch(() => props.modelValue, (val) => {
+	emit('update:modelValue', val);
+
+	if (!val) {
+		emit('close');
+		return;
+	}
+});
+
+const computedMaxWidth = computed(() => {
+	if (props.maxWidth === '100%') {
+		return window.innerWidth;
+	}
+
+	if (String(props.maxWidth).includes('%')) {
+		const percent = parseInt(String(props.maxWidth).replace('%', ''));
+
+		return (window.innerWidth * percent) / 100;
+	}
+
+	return props.maxWidth;
+});
+
+const computedMinWidth = computed(() => {
+	if (props.minWidth === '100%') {
+		return window.innerWidth;
+	}
+
+	if (String(props.minWidth).includes('%')) {
+		const percent = parseInt(String(props.minWidth).replace('%', ''));
+
+		return (window.innerWidth * percent) / 100;
+	}
+
+	return props.minWidth;
+});
+
+
 function checkMaxMinWidth<T>(width: T): T {
-	let returnWidth = useConvertToNumber(width as string | number) as T;
-	const maxWidth = useConvertToNumber(props.maxWidth) as T;
-	const minWidth = useConvertToNumber(props.minWidth) as T;
+	let widthValue = width as string | number;
+
+	// Make sure the value is not exceeding min/max boundaries //
+	if (parseInt(widthValue as string) >= parseInt(computedMaxWidth.value as string)) {
+		widthValue = parseInt(computedMaxWidth.value as string);
+	}
+
+	if (parseInt(widthValue as string) <= parseInt(computedMinWidth.value as string)) {
+		widthValue = parseInt(computedMinWidth.value as string);
+	}
+
+	let returnWidth = useConvertToNumber(widthValue as string | number) as T;
+	const maxWidth = useConvertToNumber(computedMaxWidth.value) as T;
+	const minWidth = useConvertToNumber(computedMinWidth.value) as T;
 
 	if (returnWidth >= maxWidth) {
 		returnWidth = maxWidth as T;
@@ -326,6 +373,12 @@ function handleMouseUp(e: MouseEvent): void {
 
 	document.body.style.cursor = '';
 
+	const widthVal = resizedWidth.value as string;
+
+	if (widthVal.includes('-')) {
+		resizedWidth.value = computedMinWidth.value;
+	}
+
 	resizedWidth.value = checkMaxMinWidth(resizedWidth.value);
 	resizedWidth.value = useConvertToUnit({ str: resizedWidth.value as string }) || undefined;
 
@@ -349,12 +402,14 @@ function handleMouseUp(e: MouseEvent): void {
 
 // -------------------------------------------------- Misc Events //
 function emitEvent(name: EmitEventNames, e: Event | MouseEvent): void {
+	const widthInt = parseInt(checkMaxMinWidth(resizedWidth.value as string)) ?? 0 as number;
+
 	const drawerData = {
 		e,
 		eventName: name,
-		offsetWidth: resizedWidth.value,
-		resizedWidth: resizedWidth.value,
-		width: resizedWidth.value,
+		offsetWidth: `${window.innerWidth - widthInt}px`,
+		resizedWidth: `${widthInt}px`,
+		width: `${widthInt}px`,
 	};
 
 	emit(name, drawerData);
