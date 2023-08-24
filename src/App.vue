@@ -6,6 +6,70 @@
 			@updated-drawer="toggleDrawer"
 		/>
 
+		<VResizeDrawer
+			v-model="gridDrawer"
+			:absolute="gridDrawerOptions.absolute"
+			:color="gridDrawerOptions.color"
+			:elevation="gridDrawerOptions.elevation"
+			:location="gridDrawerOptions.location"
+			:max-width="gridDrawerOptions.maxWidth"
+			:min-width="gridDrawerOptions.minWidth"
+			:save-width="gridDrawerOptions.saveWidth"
+			:scrim="false"
+			style="z-index: 9999;"
+			:temporary="gridDrawerOptions.temporary"
+			:theme="drawerOptions.theme"
+			:width="gridDrawerWidth"
+			:width-snap-back="gridDrawerOptions.widthSnapBack"
+			@handle:dblclick="gridHandleDoubleClick"
+			@handle:drag="gridHandleDrag"
+		>
+			<v-container
+				class="grid-drawer-width position-fixed bg-surface elevation-5"
+				fluid
+			>
+				<v-row>
+					<v-col
+						class="text-center "
+						cols="12"
+					>
+						{{ computedWidth }}
+
+						<div class="float-right">
+							<v-btn
+								icon
+								size="x-small"
+								@click="gridDrawer = false"
+							><v-icon icon="mdi:mdi-close"></v-icon></v-btn>
+						</div>
+					</v-col>
+				</v-row>
+			</v-container>
+
+			<v-container class="bg-surface-variant pt-16">
+				<v-row
+					class="pt-5"
+					no-gutters
+				>
+					<v-col
+						v-for="n in 12"
+						:key="n"
+						class="v-col-xs-12"
+						lg="3"
+						md="4"
+						sm="6"
+					>
+						<v-sheet class="pa-2 ma-2">
+							<div class="d-none d-md-none d-sm-none d-xs-none d-lg-flex">.v-col-lg-3</div>
+							<div class="d-none d-lg-none d-sm-none d-xs-none d-md-flex">.v-col-md-4</div>
+							<div class="d-none d-xs-none d-md-none d-sm-flex">.v-col-sm-6</div>
+							<div class="d-none d-xs-flex">.v-col-xs-12</div>
+						</v-sheet>
+					</v-col>
+				</v-row>
+			</v-container>
+		</VResizeDrawer>
+
 		<!-- ====================================================== Navigation Drawer -->
 		<VResizeDrawer
 			v-model="drawer"
@@ -98,6 +162,7 @@
 			<v-container class="px-10">
 				<DocsPage
 					:codeBlockOptions="codeBlockSettings"
+					@toggleGridDrawer="gridDrawer = !gridDrawer"
 					@updateOptions="updateOptions($event)"
 				/>
 			</v-container>
@@ -152,6 +217,20 @@ const drawerOptions = ref({
 	touchless: false,
 	width: undefined,
 });
+const gridDrawer = ref(false);
+const gridDrawerOptions = ref({
+	absolute: false,
+	color: '',
+	elevation: 0,
+	location: 'right',
+	maxWidth: '100%',
+	minWidth: '256px',
+	saveWidth: false,
+	temporary: true,
+	widthSnapBack: true,
+});
+const gridDrawerWidth = ref(`${window.innerWidth / 4}px`);
+const computedWidth = ref(gridDrawerWidth.value);
 
 const codeBlockPlugin = 'prismjs';
 const codeBlockLightTheme = 'tomorrow';
@@ -223,11 +302,11 @@ function handleClick(evt) {
 function handleDoubleClick(evt) {
 	eventTriggered('handleDoubleClick', evt);
 
-	updateDrawerOffset(evt.offsetWidth);
+	updateDrawerOffset(evt.resizedWidth);
 }
 
 function handleDrag(evt) {
-	updateDrawerOffset(evt.offsetWidth);
+	updateDrawerOffset(evt.resizedWidth);
 }
 
 function handleMousedown(evt) {
@@ -237,7 +316,7 @@ function handleMousedown(evt) {
 function handleMouseup(evt) {
 	eventTriggered('handleMouseup', evt);
 
-	updateDrawerOffset(evt.offsetWidth);
+	updateDrawerOffset(evt.resizedWidth);
 }
 
 function toggleDrawer() {
@@ -250,6 +329,14 @@ function updateDrawerOffset(val) {
 
 function updateOptions(options) {
 	drawerOptions.value = options;
+}
+
+function gridHandleDrag(evt) {
+	computedWidth.value = evt.width;
+}
+
+function gridHandleDoubleClick(evt) {
+	computedWidth.value = evt.width;
 }
 </script>
 
