@@ -84,7 +84,7 @@
 	<GridSection @toggle-grid-drawer="toggleGridDrawer" />
 
 	<!-- Events -->
-	<EventsSection />
+	<EventsSection :codeBlockOptions="codeBlockOptions" />
 
 	<!-- Slots -->
 	<SlotsSection />

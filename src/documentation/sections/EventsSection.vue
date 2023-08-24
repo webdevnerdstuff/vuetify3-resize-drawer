@@ -30,6 +30,7 @@
 					:headers="headers"
 					hide-default-footer
 					:items="items"
+					items-per-page="25"
 					:search="search"
 				>
 					<template #item="{ item }">
@@ -50,11 +51,23 @@
 								</span>
 							</td>
 
-							<td>{{ item.raw.desc }}</td>
+							<td v-html="item.raw.desc"></td>
 						</tr>
 					</template>
 				</v-data-table>
 			</v-card>
+		</v-col>
+
+		<v-col cols="12">
+			<CodeBlock
+				:code="responseCode"
+				:highlightjs="codeBlockSettings.plugin === 'highlightjs'"
+				label="Mouse and Touch Events response object:"
+				lang="typescript"
+				:prismjs="codeBlockSettings.plugin === 'prismjs'"
+				:theme="codeBlockSettings.theme"
+			>
+			</CodeBlock>
 		</v-col>
 	</v-row>
 </template>
@@ -63,7 +76,16 @@
 <script setup>
 import { inject, ref } from 'vue';
 
+
+const props = defineProps({
+	codeBlockOptions: {
+		required: true,
+		type: Object,
+	},
+});
+
 const classes = inject('classes');
+const codeBlockSettings = computed(() => props.codeBlockOptions);
 
 const headers = [
 	{
@@ -83,27 +105,24 @@ const headers = [
 	},
 ];
 const items = [
-
-	// Drawer Events //
 	{
 		desc: 'Emits event object when the drawer is closed.',
 		name: 'close',
 	},
 	{
-		desc: 'Emits event object when transition is complete.',
-		name: 'transitionend',
+		desc: 'Emits event when mouse enters the drawer.',
+		name: 'drawer:mouseenter',
 	},
 	{
-		desc: 'Event that is emitted when the component\'s model changes',
-		name: 'update:modelValue',
+		desc: 'Emits event when mouse leaves the drawer.',
+		name: 'drawer:mouseleave',
 	},
-	// Handle Events //
 	{
 		desc: 'Emits event object when handle is clicked.',
 		name: 'handle:click',
 	},
 	{
-		desc: 'Emits event object when handle is double clicked.',
+		desc: 'Emits event object when handle is double clicked, and resets the drawer width to it\'s original width. <span class="text-danger">*</span> Does not work on touch devices.',
 		name: 'handle:dblclick',
 	},
 	{
@@ -118,7 +137,34 @@ const items = [
 		desc: 'Emits event object when mouse up on handle.',
 		name: 'handle:mouseup',
 	},
-
+	{
+		desc: 'Emits event object when touch has ended on handle.',
+		name: 'handle:touchend',
+	},
+	{
+		desc: 'Emits event object when handle is dragged.',
+		name: 'handle:touchmove',
+	},
+	{
+		desc: 'Emits event object when touch has started on handle.',
+		name: 'handle:touchstart',
+	},
+	{
+		desc: 'Emits event object when transition is complete.',
+		name: 'transitionend',
+	},
+	{
+		desc: 'Event that is emitted when the component\'s model changes',
+		name: 'update:modelValue',
+	},
 ];
 const search = ref('');
+
+const responseCode = `{
+  e: MouseEvent | TouchEvent,
+  eventName: string,
+  offsetWidth: string,
+  resizedWidth: string,
+  width: string,
+}`;
 </script>
