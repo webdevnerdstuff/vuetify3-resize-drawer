@@ -1,12 +1,21 @@
 # Change Log
 All notable changes to the "vuetify3-resize-drawer" plugin will be documented in this file.
 
-## v2.0.4
+## v2.1.0
 TBD
 [main] (@webdevnerdstuff)
 * Add @container classes to provide Vuetify grid class support for the drawer content, enhancing responsiveness without being constrained by screen size.
+* Add Grid System section to documentation
+* Fix offsetWidth value that was returning the resized value (possible breaking change if you used emitted events to get the offsetWidth value)
+* Fix issue with resized values being negative, returning positive values
+* Fix width values that passed min/max width boundaries
+* Fix issue with incorrect widths when min/max values set as percentage
+* Fix issue with widthSnapBack prop preventing drawer resizing
+* Fix `close` event not being emitted when drawer is closed
+* Fix `update:modelValue` event not being emitted when model value was updated
 * Update Vuetify package to v3.3.14
 * Update other packages to latest versions
+* Update Playground template to include grid drawer for testing
 
 ## v2.0.3
 08-01-2023
