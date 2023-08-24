@@ -1,7 +1,11 @@
 <template>
 	<v-app id="home">
 		<!-- ====================================================== Playground -->
-		<PlaygroundPage @updated="updateSettings" />
+		<PlaygroundPage
+			:grid-drawer="gridDrawer"
+			@gridDrawerClosed="gridDrawer = false"
+			@updated="updateSettings"
+		/>
 
 		<!-- ====================================================== Main Container -->
 		<v-main
@@ -32,6 +36,18 @@
 									</v-col>
 								</v-row>
 							</v-container>
+						</v-col>
+					</v-row>
+
+					<v-row>
+						<v-col
+							class="d-flex justify-center"
+							cols="12"
+						>
+							<v-btn
+								size="small"
+								@click="gridDrawer = !gridDrawer"
+							>Toggle Grid Drawer</v-btn>
 						</v-col>
 					</v-row>
 				</v-container>
@@ -82,6 +98,7 @@ const drawerOptions = ref({
 	width: undefined,
 	widthSnapBack: true,
 });
+const gridDrawer = ref(false);
 
 provide('links', store.links);
 

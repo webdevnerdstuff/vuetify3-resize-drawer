@@ -45,8 +45,8 @@
 		@input="drawerInput"
 	>
 		<!-- <template #handle>
-			<v-icon size="x-small">mdi mdi-cog</v-icon>
-		</template> -->
+      <v-icon size="x-small">mdi mdi-cog</v-icon>
+    </template> -->
 
 		<v-list>
 			<v-list-item>
@@ -58,6 +58,62 @@
 
 		<MenuComponent />
 	</VResizeDrawer>
+
+	<!-- ====================================================== Grid Drawer -->
+	<VResizeDrawer
+		:absolute="gridDrawerOptions.absolute"
+		:color="gridDrawerOptions.color"
+		:dark="gridDrawerOptions.dark"
+		:elevation="gridDrawerOptions.elevation"
+		location="right"
+		:min-width="gridDrawerOptions.minWidth"
+		:model-value="gridDrawer"
+		:resizable="gridDrawerOptions.resizable"
+		:save-width="false"
+		:theme="drawerOptions.theme"
+		:width="gridDrawerWidth"
+		:width-snap-back="gridDrawerOptions.widthSnapBack"
+		@close="gridDrawerClose"
+		@handle:dblclick="gridHandleDoubleClick"
+		@handle:drag="gridHandleDrag"
+	>
+
+		<v-container
+			class="grid-drawer-width position-fixed bg-surface elevation-5"
+			fluid
+		>
+			<v-row>
+				<v-col
+					class="text-center "
+					cols="12"
+				>
+					{{ computedWidth }}
+				</v-col>
+			</v-row>
+		</v-container>
+
+		<v-container class="bg-surface-variant pt-16">
+			<v-row no-gutters>
+				<v-col
+					v-for="n in 12"
+					:key="n"
+					class="v-col-xs-12"
+					lg="3"
+					md="4"
+					sm="6"
+				>
+					<v-sheet class="pa-2 ma-2">
+						<div class="d-none d-md-none d-sm-none d-xs-none d-lg-flex">.v-col-lg-3</div>
+						<div class="d-none d-lg-none d-sm-none d-xs-none d-md-flex">.v-col-md-4</div>
+						<div class="d-none d-xs-none d-md-none d-sm-flex">.v-col-sm-6</div>
+						<div class="d-none d-xs-flex">.v-col-xs-12</div>
+					</v-sheet>
+				</v-col>
+			</v-row>
+		</v-container>
+
+		<VuetifyGridExamples />
+	</VResizeDrawer>
 </template>
 
 
@@ -65,6 +121,14 @@
 import { onMounted, provide, ref } from 'vue';
 import AppBar from '@/documentation/layout/AppBar.vue';
 import MenuComponent from '@/documentation/components/MenuComponent.vue';
+import VuetifyGridExamples from '@/documentation/components/VuetifyGridExamples.vue';
+
+defineProps({
+	gridDrawer: {
+		default: false,
+		type: Boolean,
+	},
+});
 
 
 const drawerOptions = ref({
@@ -97,9 +161,9 @@ const drawerOptions = ref({
 	widthSnapBack: true,
 });
 
-
 const drawer = ref(true);
 const drawerOffset = ref('256px');
+
 
 function drawerClose() {
 	drawer.value = false;
@@ -126,11 +190,11 @@ function handleClick(evt) {
 function handleDoubleClick(evt) {
 	eventTriggered('handleDoubleClick', evt);
 
-	updateDrawerOffset(evt.offsetWidth);
+	updateDrawerOffset(evt.resizedWidth);
 }
 
 function handleDrag(evt) {
-	updateDrawerOffset(evt.offsetWidth);
+	updateDrawerOffset(evt.resizedWidth);
 }
 
 function handleMousedown(evt) {
@@ -140,16 +204,29 @@ function handleMousedown(evt) {
 function handleMouseup(evt) {
 	eventTriggered('handleMouseup', evt);
 
-	updateDrawerOffset(evt.offsetWidth);
+	updateDrawerOffset(evt.resizedWidth);
 }
 
 function toggleDrawer() {
 	drawer.value = !drawer.value;
 }
 
+// Grid Drawer //
+const gridDrawerOptions = ref({
+	absolute: false,
+	color: '',
+	elevation: 0,
+	location: 'right',
+	maxWidth: '100%',
+	minWidth: '256px',
+	saveWidth: false,
+	temporary: true,
+	widthSnapBack: true,
+});
+
 
 // ? Leave these functions ? //
-const emit = defineEmits(['updated']);
+const emit = defineEmits(['gridDrawerClosed', 'updated']);
 
 onMounted(() => {
 	getLocalStorage();
@@ -157,8 +234,13 @@ onMounted(() => {
 
 provide('drawerOptions', drawerOptions);
 
+const gridDrawerWidth = ref(`${window.innerWidth / 4}px`);
+const computedWidth = ref(gridDrawerWidth.value);
+
+
 function getLocalStorage() {
-	updateDrawerOffset(localStorage.getItem(drawerOptions.value.storageName) || drawerOffset.value);
+	const width = localStorage.getItem(drawerOptions.value.storageName) || drawerOffset.value;
+	updateDrawerOffset(width);
 }
 
 function eventTriggered(eventName, eventValue = null) {
@@ -178,7 +260,23 @@ function updateTheme(val) {
 	drawerOptions.value.theme = val;
 	drawerOptions.value.dark = val === 'dark';
 }
+
+// Grid Drawer //
+function gridDrawerClose() {
+	emit('gridDrawerClosed');
+}
+
+function gridHandleDrag(evt) {
+	computedWidth.value = evt.width;
+}
+
+function gridHandleDoubleClick(evt) {
+	computedWidth.value = evt.width;
+}
 </script>
 
 <style lang="scss">
+.grid-drawer-width {
+	z-index: 9999;
+}
 </style>
