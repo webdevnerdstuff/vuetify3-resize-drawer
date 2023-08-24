@@ -83,18 +83,19 @@ const headers = [
 	},
 ];
 const items = [
+
 	// Drawer Events //
+	{
+		desc: 'Emits event object when the drawer is closed.',
+		name: 'close',
+	},
 	{
 		desc: 'Emits event object when transition is complete.',
 		name: 'transitionend',
 	},
 	{
-		desc: 'The updated bound model',
-		name: 'input',
-	},
-	{
-		desc: 'Emits event object when the drawer is closed.',
-		name: 'close',
+		desc: 'Event that is emitted when the component\'s model changes',
+		name: 'update:modelValue',
 	},
 	// Handle Events //
 	{
@@ -117,6 +118,7 @@ const items = [
 		desc: 'Emits event object when mouse up on handle.',
 		name: 'handle:mouseup',
 	},
+
 ];
 const search = ref('');
 </script>

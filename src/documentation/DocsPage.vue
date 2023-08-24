@@ -80,12 +80,14 @@
 	<!-- Props -->
 	<PropsSection @updateOptions="updatedOptions" />
 
+	<!-- Grid -->
+	<GridSection @toggle-grid-drawer="toggleGridDrawer" />
+
 	<!-- Events -->
 	<EventsSection />
 
 	<!-- Slots -->
 	<SlotsSection />
-
 
 	<!-- SASS Variables -->
 	<SassVariablesSection />
@@ -115,6 +117,7 @@ import {
 	DescriptionSection,
 	EventsSection,
 	ExampleSection,
+	GridSection,
 	LegalSection,
 	LicenseSection,
 	PlaygroundSection,
@@ -124,7 +127,10 @@ import {
 	UsageSection,
 } from '@/documentation/sections';
 
-const emit = defineEmits(['updateOptions']);
+const emit = defineEmits([
+	'toggleGridDrawer',
+	'updateOptions',
+]);
 
 const props = defineProps({
 	codeBlockOptions: {
@@ -150,9 +156,13 @@ provide('classes', classes);
 function updatedOptions(event) {
 	emit('updateOptions', event);
 }
+
+function toggleGridDrawer() {
+	emit('toggleGridDrawer');
+}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 :deep(code) {
 	&.ic {
 		background-color: rgba(255, 255, 255, 0.1) !important;
@@ -162,9 +172,17 @@ function updatedOptions(event) {
 		padding: 0.2em 0.4em;
 	}
 }
-</style>
 
-<style lang="scss">
+code {
+	&.ic {
+		background-color: rgba(255, 255, 255, 0.1) !important;
+		border-radius: 3px;
+		font-size: 85%;
+		font-weight: normal;
+		padding: 0.2em 0.4em;
+	}
+}
+
 .v-theme--light {
 	code {
 		&.ic {
