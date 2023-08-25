@@ -1,1 +1,1 @@
-export { default as VResizeDrawer } from '../../src/plugin/VResizeDrawer.vue';
+export { default as VResizeDrawer } from '../plugin/VResizeDrawer.vue';
