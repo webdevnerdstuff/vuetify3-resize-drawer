@@ -8,6 +8,7 @@ TBD
 * Add Grid System section to documentation
 * Add touch support for mobile devices
 * Add emitted events for `drawer:mouseenter`, `drawer:mouseleave`, `handle:touchend`, `handle:touchmove`, and `handle:touchstart`
+* Add `touchless` support to hide handle on mobile devices. This prop does not function the same as the prop which is not supported.
 * Fix offsetWidth value that was returning the resized value (possible breaking change if you used emitted events to get the offsetWidth value)
 * Fix issue with resized values being negative, returning positive values
 * Fix width values that passed min/max width boundaries
