@@ -22,6 +22,7 @@ export const AllProps: Props = {
 	storageType: 'local',
 	tag: 'nav',
 	theme: 'light',
+	touchless: false,
 	width: 256,
 	widthSnapBack: true,
 };
