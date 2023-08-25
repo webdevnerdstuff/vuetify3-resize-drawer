@@ -1,6 +1,7 @@
 <template>
 	<!-- ====================================================== App Bar -->
 	<AppBar
+		is-playground
 		@changed-theme="updateTheme"
 		@updated-drawer="toggleDrawer"
 	/>
@@ -37,12 +38,13 @@
 		:width="drawerOptions.width"
 		:width-snap-back="drawerOptions.widthSnapBack"
 		@close="drawerClose"
+		@drawer:mouseenter="drawerMouseenter"
+		@drawer:mouseleave="drawerMouseleave"
 		@handle:click="handleClick"
 		@handle:dblclick="handleDoubleClick"
 		@handle:drag="handleDrag"
 		@handle:mousedown="handleMousedown"
 		@handle:mouseup="handleMouseup"
-		@input="drawerInput"
 	>
 		<!-- <template #handle>
       <v-icon size="x-small">mdi mdi-cog</v-icon>
@@ -56,7 +58,7 @@
 
 		<v-divider></v-divider>
 
-		<MenuComponent />
+		<!-- <MenuComponent /> -->
 	</VResizeDrawer>
 
 	<!-- ====================================================== Grid Drawer -->
@@ -112,7 +114,7 @@
 			</v-row>
 		</v-container>
 
-		<VuetifyGridExamples />
+		<!-- <VuetifyGridExamples /> -->
 	</VResizeDrawer>
 </template>
 
@@ -120,8 +122,8 @@
 <script setup>
 import { onMounted, provide, ref } from 'vue';
 import AppBar from '@/documentation/layout/AppBar.vue';
-import MenuComponent from '@/documentation/components/MenuComponent.vue';
-import VuetifyGridExamples from '@/documentation/components/VuetifyGridExamples.vue';
+// import MenuComponent from '@/documentation/components/MenuComponent.vue';
+// import VuetifyGridExamples from '@/documentation/components/VuetifyGridExamples.vue';
 
 defineProps({
 	gridDrawer: {
@@ -144,7 +146,7 @@ const drawerOptions = ref({
 	handleIconSize: 'x-small',
 	handlePosition: 'center',
 	location: 'left',
-	maxWidth: '500px',
+	maxWidth: '100%',
 	minWidth: '256px',
 	rail: false,
 	railWidth: 56,
@@ -169,19 +171,13 @@ function drawerClose() {
 	drawer.value = false;
 }
 
-function drawerInput(val) {
-
-	if (val) {
-		getLocalStorage();
-		emit('updated', drawerOptions.value);
-		return false;
-	}
-
-	drawerOffset.value = 0;
-	emit('updated', drawerOptions.value);
-	return false;
+function drawerMouseenter(evt) {
+	eventTriggered('drawerMouseneter', evt);
 }
 
+function drawerMouseleave(evt) {
+	eventTriggered('drawerMouseleave', evt);
+}
 
 function handleClick(evt) {
 	eventTriggered('handleClick', evt);
@@ -220,7 +216,7 @@ const gridDrawerOptions = ref({
 	maxWidth: '100%',
 	minWidth: '256px',
 	saveWidth: false,
-	temporary: true,
+	temporary: false,
 	widthSnapBack: true,
 });
 
@@ -234,7 +230,7 @@ onMounted(() => {
 
 provide('drawerOptions', drawerOptions);
 
-const gridDrawerWidth = ref(`${window.innerWidth / 4}px`);
+const gridDrawerWidth = ref('256px');
 const computedWidth = ref(gridDrawerWidth.value);
 
 
@@ -244,6 +240,7 @@ function getLocalStorage() {
 }
 
 function eventTriggered(eventName, eventValue = null) {
+	// console.log(eventName, eventValue);
 	return { eventName, eventValue };
 }
 
