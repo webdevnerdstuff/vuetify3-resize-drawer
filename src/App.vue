@@ -6,6 +6,7 @@
 			@updated-drawer="toggleDrawer"
 		/>
 
+		<!-- ====================================================== Grid Drawer -->
 		<VResizeDrawer
 			v-model="gridDrawer"
 			:absolute="gridDrawerOptions.absolute"
@@ -229,7 +230,7 @@ const gridDrawerOptions = ref({
 	temporary: true,
 	widthSnapBack: true,
 });
-const gridDrawerWidth = ref(`${window.innerWidth / 4}px`);
+const gridDrawerWidth = ref('256px');
 const computedWidth = ref(gridDrawerWidth.value);
 
 const codeBlockPlugin = 'prismjs';
