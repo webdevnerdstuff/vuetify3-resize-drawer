@@ -484,6 +484,12 @@ const propsSupported = reactive({
 			type: 'string',
 		},
 		{
+			default: 'false',
+			desc: 'Hides the resize handle on mobile devices. <br /><span class="text-danger">*</span> The <code class="ic">touchless</code> prop does not function the same as the <code class="ic">v-navigation-drawer</code> prop which is not supported',
+			name: 'touchless',
+			type: 'boolean',
+		},
+		{
 			default: 'true',
 			desc: 'Determines if the width of he navigation drawer should snap back if the <code class="ic">min-width</code> or <code class="ic">max-width</code> prop values pass their respective thresholds',
 			name: 'width-snap-back',
@@ -537,11 +543,6 @@ const propsNotSupported = reactive({
 			name: 'rail-width',
 			notes: 'The <code class="ic">rail-width</code> prop for use with the <code class="ic">rail</code> prop will work, but the resizable functionality is disabled',
 			status: 'partial support',
-		},
-		{
-			name: 'touchless',
-			notes: 'Drawer does not function like it should with <code class="ic">touchless</code> enabled',
-			status: '',
 		},
 	],
 });

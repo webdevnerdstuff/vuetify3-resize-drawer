@@ -6,7 +6,7 @@
 		fixed
 	>
 		<v-app-bar-nav-icon
-			class="nav-drawer-btn me-2 ms-3"
+			class="nav-drawer-btn me-1 ms-3"
 			:height="iconSize.height"
 			:width="iconSize.width"
 			@click.stop="toggleDrawer"
@@ -16,7 +16,7 @@
 
 		<v-app-bar-nav-icon
 			v-if="isPlayground"
-			class="nav-drawer-btn "
+			class="nav-drawer-btn me-2 ms-1"
 			:height="iconSize.height"
 			:href="`/${store.storageName}/`"
 			:width="iconSize.width"
@@ -24,7 +24,7 @@
 			<v-icon icon="mdi:mdi-home"></v-icon>
 		</v-app-bar-nav-icon>
 
-		<div class="site-title">Vuetify Resize Drawer</div>
+		<div class="site-title ms-1">Vuetify Resize Drawer</div>
 
 		<v-spacer></v-spacer>
 
@@ -54,6 +54,7 @@
 		</v-select>
 
 		<v-btn
+			v-if="isSmAndUp"
 			class="me-2"
 			:height="iconSize.height"
 			:href="links.discord"
@@ -109,7 +110,7 @@
 import { onMounted, ref } from 'vue';
 import { useCoreStore } from '@/stores/index';
 import { useMenuStore } from '@/stores/menu';
-import { useTheme } from 'vuetify';
+import { useDisplay, useTheme } from 'vuetify';
 
 const emit = defineEmits(['changedTheme', 'updatedDrawer']);
 
@@ -127,7 +128,9 @@ onMounted(() => {
 const menuStore = useMenuStore();
 const store = useCoreStore();
 const theme = useTheme();
+const { smAndUp } = useDisplay();
 
+const isSmAndUp = computed(() => smAndUp.value);
 const links = store.links;
 const themeName = ref('dark');
 const drawer = ref(true);

@@ -9,7 +9,7 @@ export type Classes = {
 	[key: string]: boolean | undefined;
 };
 
-export type EmitEventNames = 'handle:click' | 'handle:dblclick' | 'handle:drag' | 'handle:mousedown' | 'handle:mouseup';
+export type EmitEventNames = 'handle:click' | 'handle:dblclick' | 'handle:drag' | 'handle:mousedown' | 'handle:mouseup' | 'handle:touchend' | 'handle:touchmove' | 'handle:touchstart';
 export type StorageType = 'local' | 'session';
 export type HandlePositions = 'bottom' | 'border' | 'center' | 'top';
 export type DrawerLocations = 'end' | 'start' | 'left' | 'right' | undefined;
@@ -45,6 +45,7 @@ export interface Props {
 	storageType?: StorageType;
 	tag?: VNavigationDrawer['$props']['tag'];
 	temporary?: VNavigationDrawer['$props']['temporary'];
+	touchless?: boolean | undefined;
 	theme?: VNavigationDrawer['$props']['theme'];
 	width?: VNavigationDrawer['$props']['width'];
 	widthSnapBack?: boolean | undefined;
