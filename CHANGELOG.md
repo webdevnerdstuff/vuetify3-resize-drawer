@@ -2,7 +2,7 @@
 All notable changes to the "vuetify3-resize-drawer" plugin will be documented in this file.
 
 ## v2.1.0
-TBD
+08-24-2023
 [main] (@webdevnerdstuff)
 * Add @container classes to provide Vuetify grid class support for the drawer content, enhancing responsiveness without being constrained by screen size.
 * Add Grid System section to documentation
