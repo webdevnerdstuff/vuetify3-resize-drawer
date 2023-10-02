@@ -103,7 +103,20 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: globalThis.PropType<boolean>;
         default: boolean | undefined;
     };
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("handle:click" | "handle:dblclick" | "handle:drag" | "handle:mousedown" | "handle:mouseup" | "handle:touchend" | "handle:touchmove" | "handle:touchstart" | "close" | "drawer:mouseenter" | "drawer:mouseleave" | "update:modelValue")[], "handle:click" | "handle:dblclick" | "handle:drag" | "handle:mousedown" | "handle:mouseup" | "handle:touchend" | "handle:touchmove" | "handle:touchstart" | "close" | "drawer:mouseenter" | "drawer:mouseleave" | "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
+    "handle:click": (...args: any[]) => void;
+    "handle:dblclick": (...args: any[]) => void;
+    "handle:drag": (...args: any[]) => void;
+    "handle:mousedown": (...args: any[]) => void;
+    "handle:mouseup": (...args: any[]) => void;
+    "handle:touchend": (...args: any[]) => void;
+    "handle:touchmove": (...args: any[]) => void;
+    "handle:touchstart": (...args: any[]) => void;
+    close: (...args: any[]) => void;
+    "drawer:mouseenter": (...args: any[]) => void;
+    "drawer:mouseleave": (...args: any[]) => void;
+    "update:modelValue": (...args: any[]) => void;
+}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     theme: {
         type: globalThis.PropType<string>;
         default: string | undefined;
