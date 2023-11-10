@@ -28,11 +28,11 @@ export const useDrawerStyles: UseDrawerStyles = (options) => {
 
 	if (!widthSnapBack) {
 		if (parseInt(widthValue as string) >= parseInt(maxWidth as string)) {
-			widthValue = maxWidth;
+			widthValue = parseInt(maxWidth as string);
 		}
 
 		if (parseInt(widthValue as string) <= parseInt(minWidth as string)) {
-			widthValue = minWidth;
+			widthValue = parseInt(minWidth as string);
 		}
 	}
 

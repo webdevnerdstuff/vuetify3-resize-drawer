@@ -1,8 +1,8 @@
-import { Fragment as lt, reactive as Dt, computed as g, watchEffect as st, toRefs as Et, warn as kt, watch as ae, onScopeDispose as At, effectScope as Wt, ref as Q, unref as W, provide as Ve, inject as re, shallowRef as Z, defineComponent as ut, getCurrentInstance as $t, onDeactivated as xt, onActivated as Mt, onBeforeUnmount as Me, toRaw as zt, isRef as fe, onMounted as Be, readonly as Lt, createVNode as M, mergeProps as Ee, toRef as Ie, Text as It, nextTick as Nt, onBeforeMount as Pt, Transition as Vt, mergeDefaults as Ot, useSlots as Rt, onUnmounted as Tt, openBlock as Fe, createBlock as Ye, withCtx as Gt, createElementBlock as Ue, normalizeClass as qe, normalizeStyle as Xe, renderSlot as be, createCommentVNode as Se } from "vue";
-import { useTheme as _t } from "vuetify";
+import { Fragment as Bt, reactive as Gt, computed as y, watchEffect as Et, toRefs as jt, warn as _t, ref as _, unref as A, provide as Me, inject as J, shallowRef as j, defineComponent as kt, getCurrentInstance as Ht, onDeactivated as Yt, onActivated as Ut, onBeforeUnmount as Oe, watch as U, onScopeDispose as qt, effectScope as Xt, toRaw as Kt, isRef as me, onMounted as Ae, readonly as Zt, createVNode as M, mergeProps as Ie, toRef as _e, Text as Jt, nextTick as Qt, onBeforeMount as en, Transition as tn, mergeDefaults as nn, useSlots as on, onUnmounted as an, openBlock as Ce, createBlock as Qe, withCtx as rn, createElementBlock as et, normalizeClass as tt, normalizeStyle as nt, renderSlot as De, createCommentVNode as Be } from "vue";
+import { useTheme as ln, useDisplay as sn } from "vuetify";
 /**
  * @name vuetify3-resize-drawer
- * @version 2.0.3
+ * @version 2.1.1
  * @description The vuetify-resize-drawer component extends the functionality of the v-navigation-drawer so that it is resizable by the user.
  * @author WebDevNerdStuff & Bunnies... lots and lots of bunnies! <webdevnerdstuff@gmail.com> (https://webdevnerdstuff.com)
  * @copyright Copyright 2023, WebDevNerdStuff
@@ -10,296 +10,369 @@ import { useTheme as _t } from "vuetify";
  * @repository https://github.com/webdevnerdstuff/vuetify3-resize-drawer
  * @license MIT License
  */
-function T(e, n) {
-  return (t) => Object.keys(e).reduce((a, o) => {
-    const v = typeof e[o] == "object" && e[o] != null && !Array.isArray(e[o]) ? e[o] : { type: e[o] };
-    return a[o] = t && o in t ? { ...v, default: t[o] } : v, n && !a[o].source && (a[o].source = n), a;
+function N(e, n) {
+  return (t) => Object.keys(e).reduce((o, r) => {
+    const d = typeof e[r] == "object" && e[r] != null && !Array.isArray(e[r]) ? e[r] : { type: e[r] };
+    return o[r] = t && r in t ? { ...d, default: t[r] } : d, n && !o[r].source && (o[r].source = n), o;
   }, {});
 }
-const ct = T({ class: [String, Array], style: { type: [String, Array, Object], default: null } }, "component");
-function Ke(e, n, t) {
-  (function(a, o) {
-    if (o.has(a))
+const Wt = N({ class: [String, Array], style: { type: [String, Array, Object], default: null } }, "component");
+function ot(e, n, t) {
+  (function(o, r) {
+    if (r.has(o))
       throw new TypeError("Cannot initialize the same private elements twice on an object");
   })(e, n), n.set(e, t);
 }
-function jt(e, n, t) {
-  return function(a, o, v) {
-    if (o.set)
-      o.set.call(a, v);
+function un(e, n, t) {
+  return function(o, r, d) {
+    if (r.set)
+      r.set.call(o, d);
     else {
-      if (!o.writable)
+      if (!r.writable)
         throw new TypeError("attempted to set read only private field");
-      o.value = v;
+      r.value = d;
     }
-  }(e, dt(e, n, "set"), t), t;
+  }(e, At(e, n, "set"), t), t;
 }
-function oe(e, n) {
-  return function(t, a) {
-    return a.get ? a.get.call(t) : a.value;
-  }(e, dt(e, n, "get"));
+function Z(e, n) {
+  return function(t, o) {
+    return o.get ? o.get.call(t) : o.value;
+  }(e, At(e, n, "get"));
 }
-function dt(e, n, t) {
+function At(e, n, t) {
   if (!n.has(e))
     throw new TypeError("attempted to " + t + " private field on non-instance");
   return n.get(e);
 }
-function me(e) {
+function le(e) {
   let n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "px";
   return e == null || e === "" ? void 0 : isNaN(+e) ? String(e) : isFinite(+e) ? `${Number(e)}${n}` : void 0;
 }
-function Ze(e) {
+function at(e) {
   return e !== null && typeof e == "object" && !Array.isArray(e);
 }
-function he() {
+function Re(e, n) {
+  return n.every((t) => e.hasOwnProperty(t));
+}
+function rt(e, n) {
+  return e + (arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : "0").repeat(Math.max(0, n - e.length));
+}
+function se() {
   let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, t = arguments.length > 2 ? arguments[2] : void 0;
-  const a = {};
-  for (const o in e)
-    a[o] = e[o];
-  for (const o in n) {
-    const v = e[o], d = n[o];
-    Ze(v) && Ze(d) ? a[o] = he(v, d, t) : Array.isArray(v) && Array.isArray(d) && t ? a[o] = t(v, d) : a[o] = d;
+  const o = {};
+  for (const r in e)
+    o[r] = e[r];
+  for (const r in n) {
+    const d = e[r], m = n[r];
+    at(d) && at(m) ? o[r] = se(d, m, t) : Array.isArray(d) && Array.isArray(m) && t ? o[r] = t(d, m) : o[r] = m;
   }
-  return a;
+  return o;
 }
-function vt(e) {
-  return e.map((n) => n.type === lt ? vt(n.children) : n).flat();
+function $t(e) {
+  return e.map((n) => n.type === Bt ? $t(n.children) : n).flat();
 }
-function ie() {
+function Q() {
   let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "";
-  if (ie.cache.has(e))
-    return ie.cache.get(e);
+  if (Q.cache.has(e))
+    return Q.cache.get(e);
   const n = e.replace(/[^a-z]/gi, "-").replace(/\B([A-Z])/g, "-$1").toLowerCase();
-  return ie.cache.set(e, n), n;
+  return Q.cache.set(e, n), n;
 }
-ie.cache = /* @__PURE__ */ new Map();
-var Ce = /* @__PURE__ */ new WeakMap(), ce = /* @__PURE__ */ new WeakMap();
-class Ht {
+Q.cache = /* @__PURE__ */ new Map();
+var Ee = /* @__PURE__ */ new WeakMap(), oe = /* @__PURE__ */ new WeakMap();
+class cn {
   constructor(n) {
-    Ke(this, Ce, { writable: !0, value: [] }), Ke(this, ce, { writable: !0, value: 0 }), this.size = n;
+    ot(this, Ee, { writable: !0, value: [] }), ot(this, oe, { writable: !0, value: 0 }), this.size = n;
   }
   push(n) {
-    oe(this, Ce)[oe(this, ce)] = n, jt(this, ce, (oe(this, ce) + 1) % this.size);
+    Z(this, Ee)[Z(this, oe)] = n, un(this, oe, (Z(this, oe) + 1) % this.size);
   }
   values() {
-    return oe(this, Ce).slice(oe(this, ce)).concat(oe(this, Ce).slice(0, oe(this, ce)));
+    return Z(this, Ee).slice(Z(this, oe)).concat(Z(this, Ee).slice(0, Z(this, oe)));
   }
+}
+function xt(e) {
+  const n = Gt({}), t = y(e);
+  return Et(() => {
+    for (const o in t.value)
+      n[o] = t.value[o];
+  }, { flush: "sync" }), jt(n);
+}
+const ae = 2.4, it = 0.2126729, lt = 0.7151522, st = 0.072175, dn = 0.55, vn = 0.58, hn = 0.57, mn = 0.62, ke = 0.03, ut = 1.45, pn = 5e-4, gn = 1.25, fn = 1.25, ct = 0.078, dt = 12.82051282051282, We = 0.06, vt = 1e-3;
+function ht(e, n) {
+  const t = (e.r / 255) ** ae, o = (e.g / 255) ** ae, r = (e.b / 255) ** ae, d = (n.r / 255) ** ae, m = (n.g / 255) ** ae, u = (n.b / 255) ** ae;
+  let s, g = t * it + o * lt + r * st, l = d * it + m * lt + u * st;
+  if (g <= ke && (g += (ke - g) ** ut), l <= ke && (l += (ke - l) ** ut), Math.abs(l - g) < pn)
+    return 0;
+  if (l > g) {
+    const f = (l ** dn - g ** vn) * gn;
+    s = f < vt ? 0 : f < ct ? f - f * dt * We : f - We;
+  } else {
+    const f = (l ** mn - g ** hn) * fn;
+    s = f > -vt ? 0 : f > -ct ? f - f * dt * We : f + We;
+  }
+  return 100 * s;
+}
+function $e(e) {
+  _t(`Vuetify: ${e}`);
 }
 function mt(e) {
-  const n = Dt({}), t = g(e);
-  return st(() => {
-    for (const a in t.value)
-      n[a] = t.value[a];
-  }, { flush: "sync" }), Et(n);
-}
-function Qe(e) {
   return !!e && /^(#|var\(--|(rgb|hsl)a?\()/.test(e);
 }
-function ht(e, n) {
-  let t;
-  function a() {
-    t = Wt(), t.run(() => n.length ? n(() => {
-      t == null || t.stop(), a();
-    }) : n());
+const pt = /^(?<fn>(?:rgb|hsl)a?)\((?<values>.+)\)/, yn = { rgb: (e, n, t, o) => ({ r: e, g: n, b: t, a: o }), rgba: (e, n, t, o) => ({ r: e, g: n, b: t, a: o }), hsl: (e, n, t, o) => gt({ h: e, s: n, l: t, a: o }), hsla: (e, n, t, o) => gt({ h: e, s: n, l: t, a: o }), hsv: (e, n, t, o) => pe({ h: e, s: n, v: t, a: o }), hsva: (e, n, t, o) => pe({ h: e, s: n, v: t, a: o }) };
+function he(e) {
+  if (typeof e == "number")
+    return (isNaN(e) || e < 0 || e > 16777215) && $e(`'${e}' is not a valid hex color`), { r: (16711680 & e) >> 16, g: (65280 & e) >> 8, b: 255 & e };
+  if (typeof e == "string" && pt.test(e)) {
+    const { groups: n } = e.match(pt), { fn: t, values: o } = n, r = o.split(/,\s*/).map((d) => d.endsWith("%") && ["hsl", "hsla", "hsv", "hsva"].includes(t) ? parseFloat(d) / 100 : parseFloat(d));
+    return yn[t](...r);
   }
-  ae(e, (o) => {
-    o && !t ? a() : o || (t == null || t.stop(), t = void 0);
-  }, { immediate: !0 }), At(() => {
-    t == null || t.stop();
-  });
+  if (typeof e == "string") {
+    let n = e.startsWith("#") ? e.slice(1) : e;
+    [3, 4].includes(n.length) ? n = n.split("").map((o) => o + o).join("") : [6, 8].includes(n.length) || $e(`'${e}' is not a valid hex(a) color`);
+    const t = parseInt(n, 16);
+    return (isNaN(t) || t < 0 || t > 4294967295) && $e(`'${e}' is not a valid hex(a) color`), function(o) {
+      o = function(s) {
+        return s.startsWith("#") && (s = s.slice(1)), s = s.replace(/([^0-9a-f])/gi, "F"), (s.length === 3 || s.length === 4) && (s = s.split("").map((g) => g + g).join("")), s.length !== 6 && (s = rt(rt(s, 6), 8, "F")), s;
+      }(o);
+      let [r, d, m, u] = function(s) {
+        let g = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1;
+        const l = [];
+        let f = 0;
+        for (; f < s.length; )
+          l.push(s.substr(f, g)), f += g;
+        return l;
+      }(o, 2).map((s) => parseInt(s, 16));
+      return u = u === void 0 ? u : u / 255, { r, g: d, b: m, a: u };
+    }(n);
+  }
+  if (typeof e == "object") {
+    if (Re(e, ["r", "g", "b"]))
+      return e;
+    if (Re(e, ["h", "s", "l"]))
+      return pe(Mt(e));
+    if (Re(e, ["h", "s", "v"]))
+      return pe(e);
+  }
+  throw new TypeError(`Invalid color: ${e == null ? e : String(e) || e.constructor.name}
+Expected #hex, #hexa, rgb(), rgba(), hsl(), hsla(), object or number`);
 }
-const Oe = Symbol.for("vuetify:defaults");
-function Re() {
-  const e = re(Oe);
+function pe(e) {
+  const { h: n, s: t, v: o, a: r } = e, d = (u) => {
+    const s = (u + n / 60) % 6;
+    return o - o * t * Math.max(Math.min(s, 4 - s, 1), 0);
+  }, m = [d(5), d(3), d(1)].map((u) => Math.round(255 * u));
+  return { r: m[0], g: m[1], b: m[2], a: r };
+}
+function gt(e) {
+  return pe(Mt(e));
+}
+function Mt(e) {
+  const { h: n, s: t, l: o, a: r } = e, d = o + t * Math.min(o, 1 - o);
+  return { h: n, s: d === 0 ? 0 : 2 - 2 * o / d, v: d, a: r };
+}
+const ze = Symbol.for("vuetify:defaults");
+function Ue() {
+  const e = J(ze);
   if (!e)
     throw new Error("[Vuetify] Could not find defaults instance");
   return e;
 }
-function pt(e, n) {
-  const t = Re(), a = Q(e), o = g(() => {
-    if (W(n == null ? void 0 : n.disabled))
-      return t.value;
-    const v = W(n == null ? void 0 : n.scoped), d = W(n == null ? void 0 : n.reset), s = W(n == null ? void 0 : n.root);
-    let l = he(a.value, { prev: t.value });
-    if (v)
-      return l;
-    if (d || s) {
-      const h = Number(d || 1 / 0);
-      for (let i = 0; i <= h && l && "prev" in l; i++)
-        l = l.prev;
-      return l && typeof s == "string" && s in l && (l = he(he(l, { prev: l }), l[s])), l;
-    }
-    return l.prev ? he(l.prev, l) : l;
-  });
-  return Ve(Oe, o), o;
-}
-function Yt() {
-  let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, n = arguments.length > 1 ? arguments[1] : void 0, t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : Re();
-  const a = U("useDefaults");
-  if (n = n ?? a.type.name ?? a.type.__name, !n)
+function wn() {
+  let e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {}, n = arguments.length > 1 ? arguments[1] : void 0, t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : Ue();
+  const o = O("useDefaults");
+  if (n = n ?? o.type.name ?? o.type.__name, !n)
     throw new Error("[Vuetify] Could not determine component name");
-  const o = g(() => {
-    var s;
-    return (s = t.value) == null ? void 0 : s[e._as ?? n];
-  }), v = new Proxy(e, { get(s, l) {
-    var i, y, E, f;
-    const h = Reflect.get(s, l);
-    return l === "class" || l === "style" ? [(i = o.value) == null ? void 0 : i[l], h].filter((F) => F != null) : typeof l != "string" || function(F, N) {
-      var j, q;
-      return ((j = F.props) == null ? void 0 : j[N]) !== void 0 || ((q = F.props) == null ? void 0 : q[ie(N)]) !== void 0;
-    }(a.vnode, l) ? h : ((y = o.value) == null ? void 0 : y[l]) ?? ((f = (E = t.value) == null ? void 0 : E.global) == null ? void 0 : f[l]) ?? h;
-  } }), d = Z();
-  return st(() => {
-    if (o.value) {
-      const s = Object.entries(o.value).filter((l) => {
-        let [h] = l;
-        return h.startsWith(h[0].toUpperCase());
+  const r = y(() => {
+    var u;
+    return (u = t.value) == null ? void 0 : u[e._as ?? n];
+  }), d = new Proxy(e, { get(u, s) {
+    var l, f, k, S;
+    const g = Reflect.get(u, s);
+    return s === "class" || s === "style" ? [(l = r.value) == null ? void 0 : l[s], g].filter((B) => B != null) : typeof s != "string" || function(B, z) {
+      var V, R;
+      return ((V = B.props) == null ? void 0 : V[z]) !== void 0 || ((R = B.props) == null ? void 0 : R[Q(z)]) !== void 0;
+    }(o.vnode, s) ? g : ((f = r.value) == null ? void 0 : f[s]) ?? ((S = (k = t.value) == null ? void 0 : k.global) == null ? void 0 : S[s]) ?? g;
+  } }), m = j();
+  return Et(() => {
+    if (r.value) {
+      const u = Object.entries(r.value).filter((s) => {
+        let [g] = s;
+        return g.startsWith(g[0].toUpperCase());
       });
-      s.length && (d.value = Object.fromEntries(s));
-    }
-  }), { props: v, provideSubDefaults: function() {
-    ht(d, () => {
-      var s;
-      pt(he(((s = function(l) {
-        const { provides: h } = U("injectSelf");
-        if (h && l in h)
-          return h[l];
-      }(Oe)) == null ? void 0 : s.value) ?? {}, d.value));
-    });
+      m.value = u.length ? Object.fromEntries(u) : void 0;
+    } else
+      m.value = void 0;
+  }), { props: d, provideSubDefaults: function() {
+    const u = function(s) {
+      let g = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : O("injectSelf");
+      const { provides: l } = g;
+      if (l && s in l)
+        return l[s];
+    }(ze, o);
+    Me(ze, y(() => m.value ? se((u == null ? void 0 : u.value) ?? {}, m.value) : u == null ? void 0 : u.value));
   } };
 }
-function ke(e) {
+function Le(e) {
   if (e._setup = e._setup ?? e.setup, !e.name)
-    return kt("Vuetify: The component is missing an explicit name, unable to generate default prop value"), e;
+    return $e("The component is missing an explicit name, unable to generate default prop value"), e;
   if (e._setup) {
-    e.props = T(e.props ?? {}, e.name)();
+    e.props = N(e.props ?? {}, e.name)();
     const n = Object.keys(e.props);
     e.filterProps = function(t) {
-      return function(a, o, v) {
-        const d = /* @__PURE__ */ Object.create(null), s = /* @__PURE__ */ Object.create(null);
-        for (const l in a)
-          o.some((h) => h instanceof RegExp ? h.test(l) : h === l) && !(v != null && v.some((h) => h === l)) ? d[l] = a[l] : s[l] = a[l];
-        return [d, s];
+      return function(o, r, d) {
+        const m = /* @__PURE__ */ Object.create(null), u = /* @__PURE__ */ Object.create(null);
+        for (const s in o)
+          r.some((g) => g instanceof RegExp ? g.test(s) : g === s) && !(d != null && d.some((g) => g === s)) ? m[s] = o[s] : u[s] = o[s];
+        return [m, u];
       }(t, n, ["class", "style"]);
-    }, e.props._as = String, e.setup = function(t, a) {
-      const o = Re();
-      if (!o.value)
-        return e._setup(t, a);
-      const { props: v, provideSubDefaults: d } = Yt(t, t._as ?? e.name, o), s = e._setup(v, a);
-      return d(), s;
+    }, e.props._as = String, e.setup = function(t, o) {
+      const r = Ue();
+      if (!r.value)
+        return e._setup(t, o);
+      const { props: d, provideSubDefaults: m } = wn(t, t._as ?? e.name, r), u = e._setup(d, o);
+      return m(), u;
     };
   }
   return e;
 }
-function Te() {
+function qe() {
   let e = !(arguments.length > 0 && arguments[0] !== void 0) || arguments[0];
-  return (n) => (e ? ke : ut)(n);
+  return (n) => (e ? Le : kt)(n);
 }
-function U(e, n) {
-  const t = $t();
+function O(e, n) {
+  const t = Ht();
   if (!t)
     throw new Error(`[Vuetify] ${e} ${n || "must be called from inside a setup function"}`);
   return t;
 }
-function Ne() {
-  const e = U(arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "composables").type;
-  return ie((e == null ? void 0 : e.aliasName) || (e == null ? void 0 : e.name));
+function He() {
+  const e = O(arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "composables").type;
+  return Q((e == null ? void 0 : e.aliasName) || (e == null ? void 0 : e.name));
 }
-let gt = 0, De = /* @__PURE__ */ new WeakMap();
-function ft() {
-  const e = U("getUid");
-  if (De.has(e))
-    return De.get(e);
+let It = 0, xe = /* @__PURE__ */ new WeakMap();
+function zt() {
+  const e = O("getUid");
+  if (xe.has(e))
+    return xe.get(e);
   {
-    const n = gt++;
-    return De.set(e, n), n;
+    const n = It++;
+    return xe.set(e, n), n;
   }
 }
-function yt(e) {
-  U("useRender").render = e;
+function Lt(e) {
+  O("useRender").render = e;
 }
-ft.reset = () => {
-  gt = 0, De = /* @__PURE__ */ new WeakMap();
+zt.reset = () => {
+  It = 0, xe = /* @__PURE__ */ new WeakMap();
 };
-const Ut = Symbol.for("vuetify:layout"), qt = Symbol.for("vuetify:layout-item"), Xt = T({ name: { type: String }, order: { type: [Number, String], default: 0 }, absolute: Boolean }, "layout-item"), Kt = Symbol.for("vuetify:locale"), Je = Symbol.for("vuetify:theme"), wt = T({ theme: String }, "theme");
-function Ft(e) {
-  U("provideTheme");
-  const n = re(Je, null);
-  if (!n)
-    throw new Error("Could not find Vuetify theme injection");
-  const t = g(() => e.theme ?? (n == null ? void 0 : n.name.value)), a = g(() => n.isDisabled ? void 0 : `v-theme--${t.value}`), o = { ...n, name: t, themeClasses: a };
-  return Ve(Je, o), o;
-}
-const bt = T({ tag: { type: String, default: "div" } }, "tag"), Zt = T({ border: [Boolean, Number, String] }, "border");
-function St(e) {
-  return mt(() => {
-    const n = [], t = {};
-    return e.value.background && (Qe(e.value.background) ? t.backgroundColor = e.value.background : n.push(`bg-${e.value.background}`)), e.value.text && (Qe(e.value.text) ? (t.color = e.value.text, t.caretColor = e.value.text) : n.push(`text-${e.value.text}`)), { colorClasses: n, colorStyles: t };
+const Fn = Symbol.for("vuetify:layout"), bn = Symbol.for("vuetify:layout-item"), Sn = N({ name: { type: String }, order: { type: [Number, String], default: 0 }, absolute: Boolean }, "layout-item");
+function Cn(e, n) {
+  let t;
+  function o() {
+    t = Xt(), t.run(() => n.length ? n(() => {
+      t == null || t.stop(), o();
+    }) : n());
+  }
+  U(e, (r) => {
+    r && !t ? o() : r || (t == null || t.stop(), t = void 0);
+  }, { immediate: !0 }), qt(() => {
+    t == null || t.stop();
   });
 }
-function et(e, n) {
-  const t = g(() => ({ background: fe(e) ? e.value : n ? e[n] : null })), { colorClasses: a, colorStyles: o } = St(t);
-  return { backgroundColorClasses: a, backgroundColorStyles: o };
+const Dn = Symbol.for("vuetify:locale"), ft = Symbol.for("vuetify:theme"), Nt = N({ theme: String }, "theme");
+function Pt(e) {
+  O("provideTheme");
+  const n = J(ft, null);
+  if (!n)
+    throw new Error("Could not find Vuetify theme injection");
+  const t = y(() => e.theme ?? n.name.value), o = y(() => n.themes.value[t.value]), r = y(() => n.isDisabled ? void 0 : `v-theme--${t.value}`), d = { ...n, name: t, current: o, themeClasses: r };
+  return Me(ft, d), d;
 }
-const Qt = T({ elevation: { type: [Number, String], validator(e) {
+const Vt = N({ tag: { type: String, default: "div" } }, "tag"), Bn = N({ border: [Boolean, Number, String] }, "border");
+function Tt(e) {
+  return xt(() => {
+    const n = [], t = {};
+    if (e.value.background)
+      if (mt(e.value.background)) {
+        if (t.backgroundColor = e.value.background, !e.value.text) {
+          const o = he(e.value.background);
+          if (o.a == null || o.a === 1) {
+            const r = function(d) {
+              const m = Math.abs(ht(he(0), he(d)));
+              return Math.abs(ht(he(16777215), he(d))) > Math.min(m, 50) ? "#fff" : "#000";
+            }(o);
+            t.color = r, t.caretColor = r;
+          }
+        }
+      } else
+        n.push(`bg-${e.value.background}`);
+    return e.value.text && (mt(e.value.text) ? (t.color = e.value.text, t.caretColor = e.value.text) : n.push(`text-${e.value.text}`)), { colorClasses: n, colorStyles: t };
+  });
+}
+function yt(e, n) {
+  const t = y(() => ({ background: me(e) ? e.value : n ? e[n] : null })), { colorClasses: o, colorStyles: r } = Tt(t);
+  return { backgroundColorClasses: o, backgroundColorStyles: r };
+}
+const En = N({ elevation: { type: [Number, String], validator(e) {
   const n = parseInt(e);
   return !isNaN(n) && n >= 0 && n <= 24;
-} } }, "elevation"), Jt = T({ rounded: { type: [Boolean, Number, String], default: void 0 } }, "rounded"), Ct = [String, Function, Object, Array], en = Symbol.for("vuetify:icons"), Ae = T({ icon: { type: Ct }, tag: { type: String, required: !0 } }, "icon"), tt = Te()({ name: "VComponentIcon", props: Ae(), setup(e, n) {
+} } }, "elevation"), kn = N({ rounded: { type: [Boolean, Number, String], default: void 0 } }, "rounded"), Ot = [String, Function, Object, Array], Wn = Symbol.for("vuetify:icons"), Ne = N({ icon: { type: Ot }, tag: { type: String, required: !0 } }, "icon"), wt = qe()({ name: "VComponentIcon", props: Ne(), setup(e, n) {
   let { slots: t } = n;
   return () => {
-    const a = e.icon;
+    const o = e.icon;
     return M(e.tag, null, { default: () => {
-      var o;
-      return [e.icon ? M(a, null, null) : (o = t.default) == null ? void 0 : o.call(t)];
+      var r;
+      return [e.icon ? M(o, null, null) : (r = t.default) == null ? void 0 : r.call(t)];
     } });
   };
-} }), tn = ke({ name: "VSvgIcon", inheritAttrs: !1, props: Ae(), setup(e, n) {
+} }), An = Le({ name: "VSvgIcon", inheritAttrs: !1, props: Ne(), setup(e, n) {
   let { attrs: t } = n;
-  return () => M(e.tag, Ee(t, { style: null }), { default: () => [M("svg", { class: "v-icon__svg", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", role: "img", "aria-hidden": "true" }, [Array.isArray(e.icon) ? e.icon.map((a) => Array.isArray(a) ? M("path", { d: a[0], "fill-opacity": a[1] }, null) : M("path", { d: a }, null)) : M("path", { d: e.icon }, null)])] });
+  return () => M(e.tag, Ie(t, { style: null }), { default: () => [M("svg", { class: "v-icon__svg", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", role: "img", "aria-hidden": "true" }, [Array.isArray(e.icon) ? e.icon.map((o) => Array.isArray(o) ? M("path", { d: o[0], "fill-opacity": o[1] }, null) : M("path", { d: o }, null)) : M("path", { d: e.icon }, null)])] });
 } });
-ke({ name: "VLigatureIcon", props: Ae(), setup: (e) => () => M(e.tag, null, { default: () => [e.icon] }) }), ke({ name: "VClassIcon", props: Ae(), setup: (e) => () => M(e.tag, { class: e.icon }, null) });
-const nn = ["x-small", "small", "default", "large", "x-large"], on = T({ size: { type: [String, Number], default: "default" } }, "size"), an = T({ color: String, start: Boolean, end: Boolean, icon: Ct, ...ct(), ...on(), ...bt({ tag: "i" }), ...wt() }, "VIcon"), rn = Te()({ name: "VIcon", props: an(), setup(e, n) {
-  let { attrs: t, slots: a } = n;
-  const o = Q(), { themeClasses: v } = Ft(e), { iconData: d } = ((i) => {
-    const y = re(en);
-    if (!y)
+Le({ name: "VLigatureIcon", props: Ne(), setup: (e) => () => M(e.tag, null, { default: () => [e.icon] }) }), Le({ name: "VClassIcon", props: Ne(), setup: (e) => () => M(e.tag, { class: e.icon }, null) });
+const $n = ["x-small", "small", "default", "large", "x-large"], xn = N({ size: { type: [String, Number], default: "default" } }, "size"), Mn = N({ color: String, start: Boolean, end: Boolean, icon: Ot, ...Wt(), ...xn(), ...Vt({ tag: "i" }), ...Nt() }, "VIcon"), In = qe()({ name: "VIcon", props: Mn(), setup(e, n) {
+  let { attrs: t, slots: o } = n;
+  const r = _(), { themeClasses: d } = Pt(e), { iconData: m } = ((l) => {
+    const f = J(Wn);
+    if (!f)
       throw new Error("Missing Vuetify Icons provide!");
-    return { iconData: g(() => {
-      var j;
-      const E = W(i);
-      if (!E)
-        return { component: tt };
-      let f = E;
-      if (typeof f == "string" && (f = f.trim(), f.startsWith("$") && (f = (j = y.aliases) == null ? void 0 : j[f.slice(1)])), !f)
-        throw new Error(`Could not find aliased icon "${E}"`);
-      if (Array.isArray(f))
-        return { component: tn, icon: f };
-      if (typeof f != "string")
-        return { component: tt, icon: f };
-      const F = Object.keys(y.sets).find((q) => typeof f == "string" && f.startsWith(`${q}:`)), N = F ? f.slice(F.length + 1) : f;
-      return { component: y.sets[F ?? y.defaultSet].component, icon: N };
+    return { iconData: y(() => {
+      var V;
+      const k = A(l);
+      if (!k)
+        return { component: wt };
+      let S = k;
+      if (typeof S == "string" && (S = S.trim(), S.startsWith("$") && (S = (V = f.aliases) == null ? void 0 : V[S.slice(1)])), !S)
+        throw new Error(`Could not find aliased icon "${k}"`);
+      if (Array.isArray(S))
+        return { component: An, icon: S };
+      if (typeof S != "string")
+        return { component: wt, icon: S };
+      const B = Object.keys(f.sets).find((R) => typeof S == "string" && S.startsWith(`${R}:`)), z = B ? S.slice(B.length + 1) : S;
+      return { component: f.sets[B ?? f.defaultSet].component, icon: z };
     }) };
-  })(g(() => o.value || e.icon)), { sizeClasses: s } = function(i) {
-    let y = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : Ne();
-    return mt(() => {
-      let E, f;
-      var F, N;
-      return F = nn, N = i.size, F.includes(N) ? E = `${y}--size-${i.size}` : i.size && (f = { width: me(i.size), height: me(i.size) }), { sizeClasses: E, sizeStyles: f };
+  })(y(() => r.value || e.icon)), { sizeClasses: u } = function(l) {
+    let f = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : He();
+    return xt(() => {
+      let k, S;
+      var B, z;
+      return B = $n, z = l.size, B.includes(z) ? k = `${f}--size-${l.size}` : l.size && (S = { width: le(l.size), height: le(l.size) }), { sizeClasses: k, sizeStyles: S };
     });
-  }(e), { textColorClasses: l, textColorStyles: h } = function(i, y) {
-    const E = g(() => ({ text: fe(i) ? i.value : y ? i[y] : null })), { colorClasses: f, colorStyles: F } = St(E);
-    return { textColorClasses: f, textColorStyles: F };
-  }(Ie(e, "color"));
-  return yt(() => {
-    var y, E;
-    const i = (y = a.default) == null ? void 0 : y.call(a);
-    return i && (o.value = (E = vt(i).filter((f) => f.type === It && f.children && typeof f.children == "string")[0]) == null ? void 0 : E.children), M(d.value.component, { tag: e.tag, icon: d.value.icon, class: ["v-icon", "notranslate", v.value, s.value, l.value, { "v-icon--clickable": !!t.onClick, "v-icon--start": e.start, "v-icon--end": e.end }, e.class], style: [s.value ? void 0 : { fontSize: me(e.size), height: me(e.size), width: me(e.size) }, h.value, e.style], role: t.onClick ? "button" : void 0, "aria-hidden": !t.onClick }, { default: () => [i] });
+  }(e), { textColorClasses: s, textColorStyles: g } = function(l, f) {
+    const k = y(() => ({ text: me(l) ? l.value : f ? l[f] : null })), { colorClasses: S, colorStyles: B } = Tt(k);
+    return { textColorClasses: S, textColorStyles: B };
+  }(_e(e, "color"));
+  return Lt(() => {
+    var f, k;
+    const l = (f = o.default) == null ? void 0 : f.call(o);
+    return l && (r.value = (k = $t(l).filter((S) => S.type === Jt && S.children && typeof S.children == "string")[0]) == null ? void 0 : k.children), M(m.value.component, { tag: e.tag, icon: m.value.icon, class: ["v-icon", "notranslate", d.value, u.value, s.value, { "v-icon--clickable": !!t.onClick, "v-icon--start": e.start, "v-icon--end": e.end }, e.class], style: [u.value ? void 0 : { fontSize: le(e.size), height: le(e.size), width: le(e.size) }, g.value, e.style], role: t.onClick ? "button" : void 0, "aria-hidden": !t.onClick }, { default: () => [l] });
   }), {};
-} }), ln = Symbol.for("vuetify:display"), sn = 100, un = 20;
-function nt(e) {
+} }), zn = Symbol.for("vuetify:display"), Ln = 100, Nn = 20;
+function Ft(e) {
   return (e < 0 ? -1 : 1) * Math.sqrt(Math.abs(e)) * 1.41421356237;
 }
-function ot(e) {
+function bt(e) {
   if (e.length < 2)
     return 0;
   if (e.length === 2)
@@ -308,401 +381,462 @@ function ot(e) {
   for (let t = e.length - 1; t > 0; t--) {
     if (e[t].t === e[t - 1].t)
       continue;
-    const a = nt(n), o = (e[t].d - e[t - 1].d) / (e[t].t - e[t - 1].t);
-    n += (o - a) * Math.abs(o), t === e.length - 1 && (n *= 0.5);
+    const o = Ft(n), r = (e[t].d - e[t - 1].d) / (e[t].t - e[t - 1].t);
+    n += (r - o) * Math.abs(r), t === e.length - 1 && (n *= 0.5);
   }
-  return 1e3 * nt(n);
+  return 1e3 * Ft(n);
 }
-function cn() {
+function Pn() {
   const e = {};
   return { addMovement: function(n) {
     Array.from(n.changedTouches).forEach((t) => {
-      (e[t.identifier] ?? (e[t.identifier] = new Ht(un))).push([n.timeStamp, t]);
+      (e[t.identifier] ?? (e[t.identifier] = new cn(Nn))).push([n.timeStamp, t]);
     });
   }, endTouch: function(n) {
     Array.from(n.changedTouches).forEach((t) => {
       delete e[t.identifier];
     });
   }, getVelocity: function(n) {
-    var d;
-    const t = (d = e[n]) == null ? void 0 : d.values().reverse();
+    var m;
+    const t = (m = e[n]) == null ? void 0 : m.values().reverse();
     if (!t)
       throw new Error(`No samples for touch id ${n}`);
-    const a = t[0], o = [], v = [];
-    for (const s of t) {
-      if (a[0] - s[0] > sn)
+    const o = t[0], r = [], d = [];
+    for (const u of t) {
+      if (o[0] - u[0] > Ln)
         break;
-      o.push({ t: s[0], d: s[1].clientX }), v.push({ t: s[0], d: s[1].clientY });
+      r.push({ t: u[0], d: u[1].clientX }), d.push({ t: u[0], d: u[1].clientY });
     }
-    return { x: ot(o), y: ot(v), get direction() {
-      const { x: s, y: l } = this, [h, i] = [Math.abs(s), Math.abs(l)];
-      return h > i && s >= 0 ? "right" : h > i && s <= 0 ? "left" : i > h && l >= 0 ? "down" : i > h && l <= 0 ? "up" : function() {
+    return { x: bt(r), y: bt(d), get direction() {
+      const { x: u, y: s } = this, [g, l] = [Math.abs(u), Math.abs(s)];
+      return g > l && u >= 0 ? "right" : g > l && u <= 0 ? "left" : l > g && s >= 0 ? "down" : l > g && s <= 0 ? "up" : function() {
         throw new Error();
       }();
     } };
   } };
 }
-function de() {
+function re() {
   throw new Error();
 }
-const dn = ["start", "end", "left", "right", "top", "bottom"], vn = T({ color: String, disableResizeWatcher: Boolean, disableRouteWatcher: Boolean, expandOnHover: Boolean, floating: Boolean, modelValue: { type: Boolean, default: null }, permanent: Boolean, rail: { type: Boolean, default: null }, railWidth: { type: [Number, String], default: 56 }, scrim: { type: [Boolean, String], default: !0 }, image: String, temporary: Boolean, touchless: Boolean, width: { type: [Number, String], default: 256 }, location: { type: String, default: "start", validator: (e) => dn.includes(e) }, sticky: Boolean, ...Zt(), ...ct(), ...Qt(), ...Xt(), ...Jt(), ...bt({ tag: "nav" }), ...wt() }, "VNavigationDrawer"), mn = Te()({ name: "VNavigationDrawer", props: vn(), emits: { "update:modelValue": (e) => !0, "update:rail": (e) => !0 }, setup(e, n) {
-  var P, I;
-  let { attrs: t, emit: a, slots: o } = n;
-  const { isRtl: v } = function() {
-    const r = re(Kt);
-    if (!r)
+const Vn = ["start", "end", "left", "right", "top", "bottom"], Tn = N({ color: String, disableResizeWatcher: Boolean, disableRouteWatcher: Boolean, expandOnHover: Boolean, floating: Boolean, modelValue: { type: Boolean, default: null }, permanent: Boolean, rail: { type: Boolean, default: null }, railWidth: { type: [Number, String], default: 56 }, scrim: { type: [Boolean, String], default: !0 }, image: String, temporary: Boolean, touchless: Boolean, width: { type: [Number, String], default: 256 }, location: { type: String, default: "start", validator: (e) => Vn.includes(e) }, sticky: Boolean, ...Bn(), ...Wt(), ...En(), ...Sn(), ...kn(), ...Vt({ tag: "nav" }), ...Nt() }, "VNavigationDrawer"), On = qe()({ name: "VNavigationDrawer", props: Tn(), emits: { "update:modelValue": (e) => !0, "update:rail": (e) => !0 }, setup(e, n) {
+  var de, ve;
+  let { attrs: t, emit: o, slots: r } = n;
+  const { isRtl: d } = function() {
+    const v = J(Dn);
+    if (!v)
       throw new Error("[Vuetify] Could not find injected rtl instance");
-    return { isRtl: r.isRtl, rtlClasses: r.rtlClasses };
-  }(), { themeClasses: d } = Ft(e), { borderClasses: s } = function(r) {
-    let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : Ne();
-    return { borderClasses: g(() => {
-      const S = fe(r) ? r.value : r.border, w = [];
-      if (S === !0 || S === "")
-        w.push(`${u}--border`);
-      else if (typeof S == "string" || S === 0)
-        for (const B of String(S).split(" "))
-          w.push(`border-${B}`);
-      return w;
+    return { isRtl: v.isRtl, rtlClasses: v.rtlClasses };
+  }(), { themeClasses: m } = Pt(e), { borderClasses: u } = function(v) {
+    let h = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : He();
+    return { borderClasses: y(() => {
+      const w = me(v) ? v.value : v.border, a = [];
+      if (w === !0 || w === "")
+        a.push(`${h}--border`);
+      else if (typeof w == "string" || w === 0)
+        for (const c of String(w).split(" "))
+          a.push(`border-${c}`);
+      return a;
     }) };
-  }(e), { backgroundColorClasses: l, backgroundColorStyles: h } = et(Ie(e, "color")), { elevationClasses: i } = function(r) {
-    return { elevationClasses: g(() => {
-      const u = fe(r) ? r.value : r.elevation, S = [];
-      return u == null || S.push(`elevation-${u}`), S;
+  }(e), { backgroundColorClasses: s, backgroundColorStyles: g } = yt(_e(e, "color")), { elevationClasses: l } = function(v) {
+    return { elevationClasses: y(() => {
+      const h = me(v) ? v.value : v.elevation, w = [];
+      return h == null || w.push(`elevation-${h}`), w;
     }) };
-  }(e), { mobile: y } = function() {
-    const r = re(ln);
-    if (!r)
+  }(e), { mobile: f } = function() {
+    const v = J(zn);
+    if (!v)
       throw new Error("Could not find Vuetify display injection");
-    return r;
-  }(), { roundedClasses: E } = function(r) {
-    let u = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : Ne();
-    return { roundedClasses: g(() => {
-      const S = fe(r) ? r.value : r.rounded, w = [];
-      if (S === !0 || S === "")
-        w.push(`${u}--rounded`);
-      else if (typeof S == "string" || S === 0)
-        for (const B of String(S).split(" "))
-          w.push(`rounded-${B}`);
-      return w;
+    return v;
+  }(), { roundedClasses: k } = function(v) {
+    let h = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : He();
+    return { roundedClasses: y(() => {
+      const w = me(v) ? v.value : v.rounded, a = [];
+      if (w === !0 || w === "")
+        a.push(`${h}--rounded`);
+      else if (typeof w == "string" || w === 0)
+        for (const c of String(w).split(" "))
+          a.push(`rounded-${c}`);
+      return a;
     }) };
-  }(e), f = (I = (P = U("useRouter")) == null ? void 0 : P.proxy) == null ? void 0 : I.$router, F = function(r, u, S) {
-    let w = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : (C) => C, B = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : (C) => C;
-    const m = U("useProxiedModel"), z = Q(r[u] !== void 0 ? r[u] : S), H = ie(u), Y = g(H !== u ? () => {
-      var C, A, L, R;
-      return r[u], !(!((C = m.vnode.props) != null && C.hasOwnProperty(u)) && !((A = m.vnode.props) != null && A.hasOwnProperty(H)) || !((L = m.vnode.props) != null && L.hasOwnProperty(`onUpdate:${u}`)) && !((R = m.vnode.props) != null && R.hasOwnProperty(`onUpdate:${H}`)));
+  }(e), S = (ve = (de = O("useRouter")) == null ? void 0 : de.proxy) == null ? void 0 : ve.$router, B = function(v, h, w) {
+    let a = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : (b) => b, c = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : (b) => b;
+    const i = O("useProxiedModel"), p = _(v[h] !== void 0 ? v[h] : w), D = Q(h), F = y(D !== h ? () => {
+      var b, C, I, L;
+      return v[h], !(!((b = i.vnode.props) != null && b.hasOwnProperty(h)) && !((C = i.vnode.props) != null && C.hasOwnProperty(D)) || !((I = i.vnode.props) != null && I.hasOwnProperty(`onUpdate:${h}`)) && !((L = i.vnode.props) != null && L.hasOwnProperty(`onUpdate:${D}`)));
     } : () => {
-      var C, A;
-      return r[u], !(!((C = m.vnode.props) != null && C.hasOwnProperty(u)) || !((A = m.vnode.props) != null && A.hasOwnProperty(`onUpdate:${u}`)));
+      var b, C;
+      return v[h], !(!((b = i.vnode.props) != null && b.hasOwnProperty(h)) || !((C = i.vnode.props) != null && C.hasOwnProperty(`onUpdate:${h}`)));
     });
-    ht(() => !Y.value, () => {
-      ae(() => r[u], (C) => {
-        z.value = C;
+    Cn(() => !F.value, () => {
+      U(() => v[h], (b) => {
+        p.value = b;
       });
     });
-    const V = g({ get() {
-      const C = r[u];
-      return w(Y.value ? C : z.value);
-    }, set(C) {
-      const A = B(C), L = zt(Y.value ? r[u] : z.value);
-      L !== A && w(L) !== C && (z.value = A, m == null || m.emit(`update:${u}`, A));
+    const E = y({ get() {
+      const b = v[h];
+      return a(F.value ? b : p.value);
+    }, set(b) {
+      const C = c(b), I = Kt(F.value ? v[h] : p.value);
+      I !== C && a(I) !== b && (p.value = C, i == null || i.emit(`update:${h}`, C));
     } });
-    return Object.defineProperty(V, "externalValue", { get: () => Y.value ? r[u] : z.value }), V;
-  }(e, "modelValue", null, (r) => !!r), { ssrBootStyles: N } = function() {
-    const r = Z(!1);
-    return Be(() => {
+    return Object.defineProperty(E, "externalValue", { get: () => F.value ? v[h] : p.value }), E;
+  }(e, "modelValue", null, (v) => !!v), { ssrBootStyles: z } = function() {
+    const v = j(!1);
+    return Ae(() => {
       window.requestAnimationFrame(() => {
-        r.value = !0;
+        v.value = !0;
       });
-    }), { ssrBootStyles: g(() => r.value ? void 0 : { transition: "none !important" }), isBooted: Lt(r) };
-  }(), { scopeId: j } = function() {
-    const r = U("useScopeId").vnode.scopeId;
-    return { scopeId: r ? { [r]: "" } : void 0 };
-  }(), q = Q(), te = Z(!1), pe = g(() => e.rail && e.expandOnHover && te.value ? Number(e.width) : Number(e.rail ? e.railWidth : e.width)), le = g(() => function(r, u) {
-    return r === "start" ? u ? "right" : "left" : r === "end" ? u ? "left" : "right" : r;
-  }(e.location, v.value)), G = g(() => !e.permanent && (y.value || e.temporary)), se = g(() => e.sticky && !G.value && le.value !== "bottom");
-  e.expandOnHover && e.rail != null && ae(te, (r) => a("update:rail", !r)), e.disableResizeWatcher || ae(G, (r) => !e.permanent && Nt(() => F.value = !r)), !e.disableRouteWatcher && f && ae(f.currentRoute, () => G.value && (F.value = !1)), ae(() => e.permanent, (r) => {
-    r && (F.value = !0);
-  }), Pt(() => {
-    e.modelValue != null || G.value || (F.value = e.permanent || !y.value);
+    }), { ssrBootStyles: y(() => v.value ? void 0 : { transition: "none !important" }), isBooted: Zt(v) };
+  }(), { scopeId: V } = function() {
+    const v = O("useScopeId").vnode.scopeId;
+    return { scopeId: v ? { [v]: "" } : void 0 };
+  }(), R = _(), q = j(!1), ue = y(() => e.rail && e.expandOnHover && q.value ? Number(e.width) : Number(e.rail ? e.railWidth : e.width)), ee = y(() => function(v, h) {
+    return v === "start" ? h ? "right" : "left" : v === "end" ? h ? "left" : "right" : v;
+  }(e.location, d.value)), T = y(() => !e.permanent && (f.value || e.temporary)), ce = y(() => e.sticky && !T.value && ee.value !== "bottom");
+  e.expandOnHover && e.rail != null && U(q, (v) => o("update:rail", !v)), e.disableResizeWatcher || U(T, (v) => !e.permanent && Qt(() => B.value = !v)), !e.disableRouteWatcher && S && U(S.currentRoute, () => T.value && (B.value = !1)), U(() => e.permanent, (v) => {
+    v && (B.value = !0);
+  }), en(() => {
+    e.modelValue != null || T.value || (B.value = e.permanent || !f.value);
   });
-  const { isDragging: X, dragProgress: ge, dragStyles: We } = function(r) {
-    let { isActive: u, isTemporary: S, width: w, touchless: B, position: m } = r;
-    Be(() => {
-      window.addEventListener("touchstart", _e, { passive: !0 }), window.addEventListener("touchmove", je, { passive: !1 }), window.addEventListener("touchend", He, { passive: !0 });
-    }), Me(() => {
-      window.removeEventListener("touchstart", _e), window.removeEventListener("touchmove", je), window.removeEventListener("touchend", He);
+  const { isDragging: X, dragProgress: ge, dragStyles: fe } = function(v) {
+    let { isActive: h, isTemporary: w, width: a, touchless: c, position: i } = v;
+    Ae(() => {
+      window.addEventListener("touchstart", Ke, { passive: !0 }), window.addEventListener("touchmove", Ze, { passive: !1 }), window.addEventListener("touchend", Je, { passive: !0 });
+    }), Oe(() => {
+      window.removeEventListener("touchstart", Ke), window.removeEventListener("touchmove", Ze), window.removeEventListener("touchend", Je);
     });
-    const z = g(() => ["left", "right"].includes(m.value)), { addMovement: H, endTouch: Y, getVelocity: V } = cn();
-    let C = !1;
-    const A = Z(!1), L = Z(0), R = Z(0);
-    let ne;
-    function xe(k, $) {
-      return (m.value === "left" ? k : m.value === "right" ? document.documentElement.clientWidth - k : m.value === "top" ? k : m.value === "bottom" ? document.documentElement.clientHeight - k : de()) - ($ ? w.value : 0);
+    const p = y(() => ["left", "right"].includes(i.value)), { addMovement: D, endTouch: F, getVelocity: E } = Pn();
+    let b = !1;
+    const C = j(!1), I = j(0), L = j(0);
+    let K;
+    function Te(W, $) {
+      return (i.value === "left" ? W : i.value === "right" ? document.documentElement.clientWidth - W : i.value === "top" ? W : i.value === "bottom" ? document.documentElement.clientHeight - W : re()) - ($ ? a.value : 0);
     }
-    function Ge(k) {
+    function Xe(W) {
       let $ = !(arguments.length > 1 && arguments[1] !== void 0) || arguments[1];
-      const x = m.value === "left" ? (k - R.value) / w.value : m.value === "right" ? (document.documentElement.clientWidth - k - R.value) / w.value : m.value === "top" ? (k - R.value) / w.value : m.value === "bottom" ? (document.documentElement.clientHeight - k - R.value) / w.value : de();
+      const x = i.value === "left" ? (W - L.value) / a.value : i.value === "right" ? (document.documentElement.clientWidth - W - L.value) / a.value : i.value === "top" ? (W - L.value) / a.value : i.value === "bottom" ? (document.documentElement.clientHeight - W - L.value) / a.value : re();
       return $ ? Math.max(0, Math.min(1, x)) : x;
     }
-    function _e(k) {
-      if (B.value)
+    function Ke(W) {
+      if (c.value)
         return;
-      const $ = k.changedTouches[0].clientX, x = k.changedTouches[0].clientY, K = m.value === "left" ? $ < 25 : m.value === "right" ? $ > document.documentElement.clientWidth - 25 : m.value === "top" ? x < 25 : m.value === "bottom" ? x > document.documentElement.clientHeight - 25 : de(), ee = u.value && (m.value === "left" ? $ < w.value : m.value === "right" ? $ > document.documentElement.clientWidth - w.value : m.value === "top" ? x < w.value : m.value === "bottom" ? x > document.documentElement.clientHeight - w.value : de());
-      (K || ee || u.value && S.value) && (C = !0, ne = [$, x], R.value = xe(z.value ? $ : x, u.value), L.value = Ge(z.value ? $ : x), Y(k), H(k));
+      const $ = W.changedTouches[0].clientX, x = W.changedTouches[0].clientY, G = i.value === "left" ? $ < 25 : i.value === "right" ? $ > document.documentElement.clientWidth - 25 : i.value === "top" ? x < 25 : i.value === "bottom" ? x > document.documentElement.clientHeight - 25 : re(), Y = h.value && (i.value === "left" ? $ < a.value : i.value === "right" ? $ > document.documentElement.clientWidth - a.value : i.value === "top" ? x < a.value : i.value === "bottom" ? x > document.documentElement.clientHeight - a.value : re());
+      (G || Y || h.value && w.value) && (b = !0, K = [$, x], L.value = Te(p.value ? $ : x, h.value), I.value = Xe(p.value ? $ : x), F(W), D(W));
     }
-    function je(k) {
-      const $ = k.changedTouches[0].clientX, x = k.changedTouches[0].clientY;
-      if (C) {
-        if (!k.cancelable)
-          return void (C = !1);
-        const ee = Math.abs($ - ne[0]), we = Math.abs(x - ne[1]);
-        (z.value ? ee > we && ee > 3 : we > ee && we > 3) ? (A.value = !0, C = !1) : (z.value ? we : ee) > 3 && (C = !1);
+    function Ze(W) {
+      const $ = W.changedTouches[0].clientX, x = W.changedTouches[0].clientY;
+      if (b) {
+        if (!W.cancelable)
+          return void (b = !1);
+        const Y = Math.abs($ - K[0]), Se = Math.abs(x - K[1]);
+        (p.value ? Y > Se && Y > 3 : Se > Y && Se > 3) ? (C.value = !0, b = !1) : (p.value ? Se : Y) > 3 && (b = !1);
       }
-      if (!A.value)
+      if (!C.value)
         return;
-      k.preventDefault(), H(k);
-      const K = Ge(z.value ? $ : x, !1);
-      L.value = Math.max(0, Math.min(1, K)), K > 1 ? R.value = xe(z.value ? $ : x, !0) : K < 0 && (R.value = xe(z.value ? $ : x, !1));
+      W.preventDefault(), D(W);
+      const G = Xe(p.value ? $ : x, !1);
+      I.value = Math.max(0, Math.min(1, G)), G > 1 ? L.value = Te(p.value ? $ : x, !0) : G < 0 && (L.value = Te(p.value ? $ : x, !1));
     }
-    function He(k) {
-      if (C = !1, !A.value)
+    function Je(W) {
+      if (b = !1, !C.value)
         return;
-      H(k), A.value = !1;
-      const $ = V(k.changedTouches[0].identifier), x = Math.abs($.x), K = Math.abs($.y), ee = z.value ? x > K && x > 400 : K > x && K > 3;
-      u.value = ee ? $.direction === ({ left: "right", right: "left", top: "down", bottom: "up" }[m.value] || de()) : L.value > 0.5;
+      D(W), C.value = !1;
+      const $ = E(W.changedTouches[0].identifier), x = Math.abs($.x), G = Math.abs($.y), Y = p.value ? x > G && x > 400 : G > x && G > 3;
+      h.value = Y ? $.direction === ({ left: "right", right: "left", top: "down", bottom: "up" }[i.value] || re()) : I.value > 0.5;
     }
-    const Bt = g(() => A.value ? { transform: m.value === "left" ? `translateX(calc(-100% + ${L.value * w.value}px))` : m.value === "right" ? `translateX(calc(100% - ${L.value * w.value}px))` : m.value === "top" ? `translateY(calc(-100% + ${L.value * w.value}px))` : m.value === "bottom" ? `translateY(calc(100% - ${L.value * w.value}px))` : de(), transition: "none" } : void 0);
-    return { isDragging: A, dragProgress: L, dragStyles: Bt };
-  }({ isActive: F, isTemporary: G, width: pe, touchless: Ie(e, "touchless"), position: le }), $e = g(() => {
-    const r = G.value ? 0 : e.rail && e.expandOnHover ? Number(e.railWidth) : pe.value;
-    return X.value ? r * ge.value : r;
-  }), { layoutItemStyles: ye, layoutItemScrimStyles: ue } = function(r) {
-    const u = re(Ut);
-    if (!u)
+    const Rt = y(() => C.value ? { transform: i.value === "left" ? `translateX(calc(-100% + ${I.value * a.value}px))` : i.value === "right" ? `translateX(calc(100% - ${I.value * a.value}px))` : i.value === "top" ? `translateY(calc(-100% + ${I.value * a.value}px))` : i.value === "bottom" ? `translateY(calc(100% - ${I.value * a.value}px))` : re(), transition: "none" } : void 0);
+    return { isDragging: C, dragProgress: I, dragStyles: Rt };
+  }({ isActive: B, isTemporary: T, width: ue, touchless: _e(e, "touchless"), position: ee }), ye = y(() => {
+    const v = T.value ? 0 : e.rail && e.expandOnHover ? Number(e.railWidth) : ue.value;
+    return X.value ? v * ge.value : v;
+  }), { layoutItemStyles: te, layoutItemScrimStyles: ne } = function(v) {
+    const h = J(Fn);
+    if (!h)
       throw new Error("[Vuetify] Could not find injected layout");
-    const S = r.id ?? `layout-item-${ft()}`, w = U("useLayoutItem");
-    Ve(qt, { id: S });
-    const B = Z(!1);
-    xt(() => B.value = !0), Mt(() => B.value = !1);
-    const { layoutItemStyles: m, layoutItemScrimStyles: z } = u.register(w, { ...r, active: g(() => !B.value && r.active.value), id: S });
-    return Me(() => u.unregister(S)), { layoutItemStyles: m, layoutRect: u.layoutRect, layoutItemScrimStyles: z };
-  }({ id: e.name, order: g(() => parseInt(e.order, 10)), position: le, layoutSize: $e, elementSize: pe, active: g(() => F.value || X.value), disableTransitions: g(() => X.value), absolute: g(() => e.absolute || se.value && typeof J.value != "string") }), { isStuck: J, stickyStyles: c } = function(r) {
-    let { rootEl: u, isSticky: S, layoutItemStyles: w } = r;
-    const B = Z(!1), m = Z(0), z = g(() => {
-      const V = typeof B.value == "boolean" ? "top" : B.value;
-      return [S.value ? { top: "auto", bottom: "auto", height: void 0 } : void 0, B.value ? { [V]: me(m.value) } : { top: w.value.top }];
+    const w = v.id ?? `layout-item-${zt()}`, a = O("useLayoutItem");
+    Me(bn, { id: w });
+    const c = j(!1);
+    Yt(() => c.value = !0), Ut(() => c.value = !1);
+    const { layoutItemStyles: i, layoutItemScrimStyles: p } = h.register(a, { ...v, active: y(() => !c.value && v.active.value), id: w });
+    return Oe(() => h.unregister(w)), { layoutItemStyles: i, layoutRect: h.layoutRect, layoutItemScrimStyles: p };
+  }({ id: e.name, order: y(() => parseInt(e.order, 10)), position: ee, layoutSize: ye, elementSize: ue, active: y(() => B.value || X.value), disableTransitions: y(() => X.value), absolute: y(() => e.absolute || ce.value && typeof H.value != "string") }), { isStuck: H, stickyStyles: we } = function(v) {
+    let { rootEl: h, isSticky: w, layoutItemStyles: a } = v;
+    const c = j(!1), i = j(0), p = y(() => {
+      const E = typeof c.value == "boolean" ? "top" : c.value;
+      return [w.value ? { top: "auto", bottom: "auto", height: void 0 } : void 0, c.value ? { [E]: le(i.value) } : { top: a.value.top }];
     });
-    Be(() => {
-      ae(S, (V) => {
-        V ? window.addEventListener("scroll", Y, { passive: !0 }) : window.removeEventListener("scroll", Y);
+    Ae(() => {
+      U(w, (E) => {
+        E ? window.addEventListener("scroll", F, { passive: !0 }) : window.removeEventListener("scroll", F);
       }, { immediate: !0 });
-    }), Me(() => {
-      document.removeEventListener("scroll", Y);
+    }), Oe(() => {
+      window.removeEventListener("scroll", F);
     });
-    let H = 0;
-    function Y() {
-      const V = H > window.scrollY ? "up" : "down", C = u.value.getBoundingClientRect(), A = parseFloat(w.value.top ?? 0), L = window.scrollY - Math.max(0, m.value - A), R = C.height + Math.max(m.value, A) - window.scrollY - window.innerHeight, ne = parseFloat(getComputedStyle(u.value).getPropertyValue("--v-body-scroll-y")) || 0;
-      C.height < window.innerHeight - A ? (B.value = "top", m.value = A) : V === "up" && B.value === "bottom" || V === "down" && B.value === "top" ? (m.value = window.scrollY + C.top - ne, B.value = !0) : V === "down" && R <= 0 ? (m.value = 0, B.value = "bottom") : V === "up" && L <= 0 && (ne ? B.value !== "top" && (m.value = -L + ne + A, B.value = "top") : (m.value = C.top + L, B.value = "top")), H = window.scrollY;
+    let D = 0;
+    function F() {
+      const E = D > window.scrollY ? "up" : "down", b = h.value.getBoundingClientRect(), C = parseFloat(a.value.top ?? 0), I = window.scrollY - Math.max(0, i.value - C), L = b.height + Math.max(i.value, C) - window.scrollY - window.innerHeight, K = parseFloat(getComputedStyle(h.value).getPropertyValue("--v-body-scroll-y")) || 0;
+      b.height < window.innerHeight - C ? (c.value = "top", i.value = C) : E === "up" && c.value === "bottom" || E === "down" && c.value === "top" ? (i.value = window.scrollY + b.top - K, c.value = !0) : E === "down" && L <= 0 ? (i.value = 0, c.value = "bottom") : E === "up" && I <= 0 && (K ? c.value !== "top" && (i.value = -I + K + C, c.value = "top") : (i.value = b.top + I, c.value = "top")), D = window.scrollY;
     }
-    return { isStuck: B, stickyStyles: z };
-  }({ rootEl: q, isSticky: se, layoutItemStyles: ye }), p = et(g(() => typeof e.scrim == "string" ? e.scrim : null)), D = g(() => ({ ...X.value ? { opacity: 0.2 * ge.value, transition: "none" } : void 0, ...ue.value }));
-  function b() {
-    te.value = !0;
+    return { isStuck: c, stickyStyles: p };
+  }({ rootEl: R, isSticky: ce, layoutItemStyles: te }), Fe = yt(y(() => typeof e.scrim == "string" ? e.scrim : null)), Pe = y(() => ({ ...X.value ? { opacity: 0.2 * ge.value, transition: "none" } : void 0, ...ne.value }));
+  function be() {
+    q.value = !0;
   }
-  function O() {
-    te.value = !1;
+  function Ve() {
+    q.value = !1;
   }
-  return pt({ VList: { bgColor: "transparent" } }), yt(() => {
-    const r = o.image || e.image;
-    return M(lt, null, [M(e.tag, Ee({ ref: q, onMouseenter: b, onMouseleave: O, class: ["v-navigation-drawer", `v-navigation-drawer--${le.value}`, { "v-navigation-drawer--expand-on-hover": e.expandOnHover, "v-navigation-drawer--floating": e.floating, "v-navigation-drawer--is-hovering": te.value, "v-navigation-drawer--rail": e.rail, "v-navigation-drawer--temporary": G.value, "v-navigation-drawer--active": F.value, "v-navigation-drawer--sticky": se.value }, d.value, l.value, s.value, i.value, E.value, e.class], style: [h.value, ye.value, We.value, N.value, c.value, e.style] }, j, t), { default: () => {
-      var u, S, w, B;
-      return [r && M("div", { key: "image", class: "v-navigation-drawer__img" }, [o.image ? (u = o.image) == null ? void 0 : u.call(o, { image: e.image }) : M("img", { src: e.image, alt: "" }, null)]), o.prepend && M("div", { class: "v-navigation-drawer__prepend" }, [(S = o.prepend) == null ? void 0 : S.call(o)]), M("div", { class: "v-navigation-drawer__content" }, [(w = o.default) == null ? void 0 : w.call(o)]), o.append && M("div", { class: "v-navigation-drawer__append" }, [(B = o.append) == null ? void 0 : B.call(o)])];
-    } }), M(Vt, { name: "fade-transition" }, { default: () => [G.value && (X.value || F.value) && !!e.scrim && M("div", Ee({ class: ["v-navigation-drawer__scrim", p.backgroundColorClasses.value], style: [D.value, p.backgroundColorStyles.value], onClick: () => F.value = !1 }, j), null)] })]);
-  }), { isStuck: J };
-} }), _ = "v-resize-drawer";
-function Pe(e, n) {
+  return function(v, h) {
+    const w = Ue(), a = _(v), c = y(() => {
+      if (A(h == null ? void 0 : h.disabled))
+        return w.value;
+      const i = A(h == null ? void 0 : h.scoped), p = A(h == null ? void 0 : h.reset), D = A(h == null ? void 0 : h.root);
+      if (a.value == null && !(i || p || D))
+        return w.value;
+      let F = se(a.value, { prev: w.value });
+      if (i)
+        return F;
+      if (p || D) {
+        const E = Number(p || 1 / 0);
+        for (let b = 0; b <= E && F && "prev" in F; b++)
+          F = F.prev;
+        return F && typeof D == "string" && D in F && (F = se(se(F, { prev: F }), F[D])), F;
+      }
+      return F.prev ? se(F.prev, F) : F;
+    });
+    Me(ze, c);
+  }({ VList: { bgColor: "transparent" } }), Lt(() => {
+    const v = r.image || e.image;
+    return M(Bt, null, [M(e.tag, Ie({ ref: R, onMouseenter: be, onMouseleave: Ve, class: ["v-navigation-drawer", `v-navigation-drawer--${ee.value}`, { "v-navigation-drawer--expand-on-hover": e.expandOnHover, "v-navigation-drawer--floating": e.floating, "v-navigation-drawer--is-hovering": q.value, "v-navigation-drawer--rail": e.rail, "v-navigation-drawer--temporary": T.value, "v-navigation-drawer--active": B.value, "v-navigation-drawer--sticky": ce.value }, m.value, s.value, u.value, l.value, k.value, e.class], style: [g.value, te.value, fe.value, z.value, we.value, e.style] }, V, t), { default: () => {
+      var h, w, a, c;
+      return [v && M("div", { key: "image", class: "v-navigation-drawer__img" }, [r.image ? (h = r.image) == null ? void 0 : h.call(r, { image: e.image }) : M("img", { src: e.image, alt: "" }, null)]), r.prepend && M("div", { class: "v-navigation-drawer__prepend" }, [(w = r.prepend) == null ? void 0 : w.call(r)]), M("div", { class: "v-navigation-drawer__content" }, [(a = r.default) == null ? void 0 : a.call(r)]), r.append && M("div", { class: "v-navigation-drawer__append" }, [(c = r.append) == null ? void 0 : c.call(r)])];
+    } }), M(tn, { name: "fade-transition" }, { default: () => [T.value && (X.value || B.value) && !!e.scrim && M("div", Ie({ class: ["v-navigation-drawer__scrim", Fe.backgroundColorClasses.value], style: [Pe.value, Fe.backgroundColorStyles.value], onClick: () => B.value = !1 }, V), null)] })]);
+  }), { isStuck: H };
+} }), P = "v-resize-drawer", Rn = { handleBorderWidth: 8, handleColor: "primary", handleIcon: void 0, handleIconSize: "x-small", handlePosition: "center", height: void 0, location: "start", maxWidth: window.innerWidth, minWidth: 56, modelValue: !0, name: P, rail: !1, railWidth: 8, resizable: !0, saveWidth: !0, storageName: `${P}-width`, storageType: "local", tag: "nav", theme: "light", touchless: !1, width: 256, widthSnapBack: !0 };
+function Ye(e, n) {
   return e === "local" ? localStorage.getItem(n) : e === "session" ? sessionStorage.getItem(n) : "";
 }
-const ze = (e) => {
-  const { action: n = "update", resizedWidth: t, storageType: a, storageName: o, saveWidth: v, rail: d } = e;
-  if (!v || d)
+const Ge = (e) => {
+  const { action: n = "update", resizedWidth: t, storageType: o, storageName: r, saveWidth: d, rail: m } = e;
+  if (!d || m)
     return;
-  let s = t;
-  s = s ?? void 0, n === "set" && (s = Pe(a, o) ?? "", s = s || t), a === "local" && localStorage.setItem(o, String(s)), a === "session" && sessionStorage.setItem(o, String(s));
-}, ve = (e) => {
+  let u = t;
+  u = u ?? void 0, n === "set" && (u = Ye(o, r) ?? "", u = u || t), o === "local" && localStorage.setItem(r, String(u)), o === "session" && sessionStorage.setItem(r, String(u));
+}, ie = (e) => {
   const { str: n, unit: t = "px" } = e;
   if (n != null && n !== "")
     return +n ? `${Number(n)}${t}` : String(n);
-}, Le = (e) => {
-  const n = window.innerWidth;
-  return typeof e == "string" && e.includes("%") ? Number(e.replace("%", "")) / 100 * n : typeof e == "string" ? Number(e.replace(/\D/g, "")) : e;
+}, je = (e) => {
+  const n = window.innerWidth, t = function(o) {
+    if (typeof o == "string") {
+      const r = /(\d+(\.\d+)?)(\s*([a-zA-Z]+))?/, d = o.match(r);
+      if (!d)
+        return o;
+      const m = parseFloat(d[1]), u = d[4];
+      if (!isNaN(m)) {
+        const s = Math.round(m);
+        return u ? `${s} ${u}` : `${s}`;
+      }
+      return o;
+    }
+    return typeof o == "number" ? Math.round(o) : o;
+  }(e);
+  return typeof e == "string" && e.includes("%") ? Number(e.replace("%", "")) / 100 * n : typeof t == "string" ? Number(t.replace(/\D/g, "")) : t;
 };
-function at(e) {
-  let n = function(i) {
-    const y = { AliceBlue: "#F0F8FF", AntiqueWhite: "#FAEBD7", Aqua: "#00FFFF", Aquamarine: "#7FFFD4", Azure: "#F0FFFF", Beige: "#F5F5DC", Bisque: "#FFE4C4", Black: "#000000", BlanchedAlmond: "#FFEBCD", Blue: "#0000FF", BlueViolet: "#8A2BE2", Brown: "#A52A2A", BurlyWood: "#DEB887", CadetBlue: "#5F9EA0", Chartreuse: "#7FFF00", Chocolate: "#D2691E", Coral: "#FF7F50", CornflowerBlue: "#6495ED", Cornsilk: "#FFF8DC", Crimson: "#DC143C", Cyan: "#00FFFF", DarkBlue: "#00008B", DarkCyan: "#008B8B", DarkGoldenRod: "#B8860B", DarkGray: "#A9A9A9", DarkGreen: "#006400", DarkGrey: "#A9A9A9", DarkKhaki: "#BDB76B", DarkMagenta: "#8B008B", DarkOliveGreen: "#556B2F", DarkOrange: "#FF8C00", DarkOrchid: "#9932CC", DarkRed: "#8B0000", DarkSalmon: "#E9967A", DarkSeaGreen: "#8FBC8F", DarkSlateBlue: "#483D8B", DarkSlateGray: "#2F4F4F", DarkSlateGrey: "#2F4F4F", DarkTurquoise: "#00CED1", DarkViolet: "#9400D3", DeepPink: "#FF1493", DeepSkyBlue: "#00BFFF", DimGray: "#696969", DimGrey: "#696969", DodgerBlue: "#1E90FF", FireBrick: "#B22222", FloralWhite: "#FFFAF0", ForestGreen: "#228B22", Fuchsia: "#FF00FF", Gainsboro: "#DCDCDC", GhostWhite: "#F8F8FF", Gold: "#FFD700", GoldenRod: "#DAA520", Gray: "#808080", Green: "#008000", GreenYellow: "#ADFF2F", Grey: "#808080", HoneyDew: "#F0FFF0", HotPink: "#FF69B4", IndianRed: "#CD5C5C", Indigo: "#4B0082", Ivory: "#FFFFF0", Khaki: "#F0E68C", Lavender: "#E6E6FA", LavenderBlush: "#FFF0F5", LawnGreen: "#7CFC00", LemonChiffon: "#FFFACD", LightBlue: "#ADD8E6", LightCoral: "#F08080", LightCyan: "#E0FFFF", LightGoldenRodYellow: "#FAFAD2", LightGray: "#D3D3D3", LightGreen: "#90EE90", LightGrey: "#D3D3D3", LightPink: "#FFB6C1", LightSalmon: "#FFA07A", LightSeaGreen: "#20B2AA", LightSkyBlue: "#87CEFA", LightSlateGray: "#778899", LightSlateGrey: "#778899", LightSteelBlue: "#B0C4DE", LightYellow: "#FFFFE0", Lime: "#00FF00", LimeGreen: "#32CD32", Linen: "#FAF0E6", Magenta: "#FF00FF", Maroon: "#800000", MediumAquaMarine: "#66CDAA", MediumBlue: "#0000CD", MediumOrchid: "#BA55D3", MediumPurple: "#9370DB", MediumSeaGreen: "#3CB371", MediumSlateBlue: "#7B68EE", MediumSpringGreen: "#00FA9A", MediumTurquoise: "#48D1CC", MediumVioletRed: "#C71585", MidnightBlue: "#191970", MintCream: "#F5FFFA", MistyRose: "#FFE4E1", Moccasin: "#FFE4B5", NavajoWhite: "#FFDEAD", Navy: "#000080", OldLace: "#FDF5E6", Olive: "#808000", OliveDrab: "#6B8E23", Orange: "#FFA500", OrangeRed: "#FF4500", Orchid: "#DA70D6", PaleGoldenRod: "#EEE8AA", PaleGreen: "#98FB98", PaleTurquoise: "#AFEEEE", PaleVioletRed: "#DB7093", PapayaWhip: "#FFEFD5", PeachPuff: "#FFDAB9", Peru: "#CD853F", Pink: "#FFC0CB", Plum: "#DDA0DD", PowderBlue: "#B0E0E6", Purple: "#800080", RebeccaPurple: "#663399", Red: "#FF0000", RosyBrown: "#BC8F8F", RoyalBlue: "#4169E1", SaddleBrown: "#8B4513", Salmon: "#FA8072", SandyBrown: "#F4A460", SeaGreen: "#2E8B57", SeaShell: "#FFF5EE", Sienna: "#A0522D", Silver: "#C0C0C0", SkyBlue: "#87CEEB", SlateBlue: "#6A5ACD", SlateGray: "#708090", SlateGrey: "#708090", Snow: "#FFFAFA", SpringGreen: "#00FF7F", SteelBlue: "#4682B4", Tan: "#D2B48C", Teal: "#008080", Thistle: "#D8BFD8", Tomato: "#FF6347", Turquoise: "#40E0D0", Violet: "#EE82EE", Wheat: "#F5DEB3", White: "#FFFFFF", WhiteSmoke: "#F5F5F5", Yellow: "#FFFF00", YellowGreen: "#9ACD32" };
-    let E = i;
-    return Object.entries(y).forEach(([f, F]) => {
-      i.toLowerCase() != f.toLowerCase() || (E = F);
-    }), E;
-  }(e), t = 0, a = 0, o = 0, v = 0, d = 0, s = 0;
+function St(e) {
+  let n = function(l) {
+    const f = { AliceBlue: "#F0F8FF", AntiqueWhite: "#FAEBD7", Aqua: "#00FFFF", Aquamarine: "#7FFFD4", Azure: "#F0FFFF", Beige: "#F5F5DC", Bisque: "#FFE4C4", Black: "#000000", BlanchedAlmond: "#FFEBCD", Blue: "#0000FF", BlueViolet: "#8A2BE2", Brown: "#A52A2A", BurlyWood: "#DEB887", CadetBlue: "#5F9EA0", Chartreuse: "#7FFF00", Chocolate: "#D2691E", Coral: "#FF7F50", CornflowerBlue: "#6495ED", Cornsilk: "#FFF8DC", Crimson: "#DC143C", Cyan: "#00FFFF", DarkBlue: "#00008B", DarkCyan: "#008B8B", DarkGoldenRod: "#B8860B", DarkGray: "#A9A9A9", DarkGreen: "#006400", DarkGrey: "#A9A9A9", DarkKhaki: "#BDB76B", DarkMagenta: "#8B008B", DarkOliveGreen: "#556B2F", DarkOrange: "#FF8C00", DarkOrchid: "#9932CC", DarkRed: "#8B0000", DarkSalmon: "#E9967A", DarkSeaGreen: "#8FBC8F", DarkSlateBlue: "#483D8B", DarkSlateGray: "#2F4F4F", DarkSlateGrey: "#2F4F4F", DarkTurquoise: "#00CED1", DarkViolet: "#9400D3", DeepPink: "#FF1493", DeepSkyBlue: "#00BFFF", DimGray: "#696969", DimGrey: "#696969", DodgerBlue: "#1E90FF", FireBrick: "#B22222", FloralWhite: "#FFFAF0", ForestGreen: "#228B22", Fuchsia: "#FF00FF", Gainsboro: "#DCDCDC", GhostWhite: "#F8F8FF", Gold: "#FFD700", GoldenRod: "#DAA520", Gray: "#808080", Green: "#008000", GreenYellow: "#ADFF2F", Grey: "#808080", HoneyDew: "#F0FFF0", HotPink: "#FF69B4", IndianRed: "#CD5C5C", Indigo: "#4B0082", Ivory: "#FFFFF0", Khaki: "#F0E68C", Lavender: "#E6E6FA", LavenderBlush: "#FFF0F5", LawnGreen: "#7CFC00", LemonChiffon: "#FFFACD", LightBlue: "#ADD8E6", LightCoral: "#F08080", LightCyan: "#E0FFFF", LightGoldenRodYellow: "#FAFAD2", LightGray: "#D3D3D3", LightGreen: "#90EE90", LightGrey: "#D3D3D3", LightPink: "#FFB6C1", LightSalmon: "#FFA07A", LightSeaGreen: "#20B2AA", LightSkyBlue: "#87CEFA", LightSlateGray: "#778899", LightSlateGrey: "#778899", LightSteelBlue: "#B0C4DE", LightYellow: "#FFFFE0", Lime: "#00FF00", LimeGreen: "#32CD32", Linen: "#FAF0E6", Magenta: "#FF00FF", Maroon: "#800000", MediumAquaMarine: "#66CDAA", MediumBlue: "#0000CD", MediumOrchid: "#BA55D3", MediumPurple: "#9370DB", MediumSeaGreen: "#3CB371", MediumSlateBlue: "#7B68EE", MediumSpringGreen: "#00FA9A", MediumTurquoise: "#48D1CC", MediumVioletRed: "#C71585", MidnightBlue: "#191970", MintCream: "#F5FFFA", MistyRose: "#FFE4E1", Moccasin: "#FFE4B5", NavajoWhite: "#FFDEAD", Navy: "#000080", OldLace: "#FDF5E6", Olive: "#808000", OliveDrab: "#6B8E23", Orange: "#FFA500", OrangeRed: "#FF4500", Orchid: "#DA70D6", PaleGoldenRod: "#EEE8AA", PaleGreen: "#98FB98", PaleTurquoise: "#AFEEEE", PaleVioletRed: "#DB7093", PapayaWhip: "#FFEFD5", PeachPuff: "#FFDAB9", Peru: "#CD853F", Pink: "#FFC0CB", Plum: "#DDA0DD", PowderBlue: "#B0E0E6", Purple: "#800080", RebeccaPurple: "#663399", Red: "#FF0000", RosyBrown: "#BC8F8F", RoyalBlue: "#4169E1", SaddleBrown: "#8B4513", Salmon: "#FA8072", SandyBrown: "#F4A460", SeaGreen: "#2E8B57", SeaShell: "#FFF5EE", Sienna: "#A0522D", Silver: "#C0C0C0", SkyBlue: "#87CEEB", SlateBlue: "#6A5ACD", SlateGray: "#708090", SlateGrey: "#708090", Snow: "#FFFAFA", SpringGreen: "#00FF7F", SteelBlue: "#4682B4", Tan: "#D2B48C", Teal: "#008080", Thistle: "#D8BFD8", Tomato: "#FF6347", Turquoise: "#40E0D0", Violet: "#EE82EE", Wheat: "#F5DEB3", White: "#FFFFFF", WhiteSmoke: "#F5F5F5", Yellow: "#FFFF00", YellowGreen: "#9ACD32" };
+    let k = l;
+    return Object.entries(f).forEach(([S, B]) => {
+      l.toLowerCase() != S.toLowerCase() || (k = B);
+    }), k;
+  }(e), t = 0, o = 0, r = 0, d = 0, m = 0, u = 0;
   if (n.substring(0, 1) === "#")
-    n = function(i) {
-      let y = i.replace("#", "");
-      y.length === 3 && (y = y.split("").map((N) => N + N).join(""));
-      const E = parseInt(y.substring(0, 2), 16), f = parseInt(y.substring(2, 4), 16), F = parseInt(y.substring(4, 6), 16);
-      return [E, f, F];
+    n = function(l) {
+      let f = l.replace("#", "");
+      f.length === 3 && (f = f.split("").map((z) => z + z).join(""));
+      const k = parseInt(f.substring(0, 2), 16), S = parseInt(f.substring(2, 4), 16), B = parseInt(f.substring(4, 6), 16);
+      return [k, S, B];
     }(n);
   else if (n.includes("rgb"))
     n = [...n.matchAll(/\d+/g)].map(Number);
   else if (n.includes("hsl"))
-    return n = [...n.matchAll(/\d+/g)].map(Number), t = n[0], a = n[1], o = n[2], `${t} ${a}% ${o}%`;
-  [v, d, s] = n, v /= 255, d /= 255, s /= 255;
-  const l = Math.max(v, d, s), h = Math.min(v, d, s);
-  if (l === null || !h === null || isNaN(l) || isNaN(h)) {
-    const i = "0 0% 100% / 12%";
-    return console.warn(`[VResizeDrawer]: The "color" prop value using "${n}" doesn't exist. Using the value "hsl(${i})" in it's place.`), i;
+    return n = [...n.matchAll(/\d+/g)].map(Number), t = n[0], o = n[1], r = n[2], `${t} ${o}% ${r}%`;
+  [d, m, u] = n, d /= 255, m /= 255, u /= 255;
+  const s = Math.max(d, m, u), g = Math.min(d, m, u);
+  if (s === null || !g === null || isNaN(s) || isNaN(g)) {
+    const l = "0 0% 100% / 12%";
+    return console.warn(`[VResizeDrawer]: The "color" prop value using "${n}" doesn't exist. Using the value "hsl(${l})" in it's place.`), l;
   }
-  if (t = (l + h) / 2, a = (l + h) / 2, o = (l + h) / 2, l == h)
-    t = a = 0;
+  if (t = (s + g) / 2, o = (s + g) / 2, r = (s + g) / 2, s == g)
+    t = o = 0;
   else {
-    const i = l - h;
-    switch (a = o > 0.5 ? i / (2 - l - h) : i / (l + h), l) {
-      case v:
-        t = (d - s) / i + (d < s ? 6 : 0);
-        break;
+    const l = s - g;
+    switch (o = r > 0.5 ? l / (2 - s - g) : l / (s + g), s) {
       case d:
-        t = (s - v) / i + 2;
+        t = (m - u) / l + (m < u ? 6 : 0);
         break;
-      case s:
-        t = (v - d) / i + 4;
+      case m:
+        t = (u - d) / l + 2;
+        break;
+      case u:
+        t = (d - m) / l + 4;
     }
     t /= 6;
   }
-  return t = Math.round(360 * t), a = Math.round(100 * a), o = Math.round(100 * o), `${t} ${a}% ${o}%`;
+  return t = Math.round(360 * t), o = Math.round(100 * o), r = Math.round(100 * r), `${t} ${o}% ${r}%`;
 }
-const rt = (e, n) => {
-  if (function(a) {
-    return a === "transparent" || a === "none" || a === "inherit" || a === "currentColor" || a === "initial" || a === "unset";
+const Ct = (e, n) => {
+  if (function(o) {
+    return o === "transparent" || o === "none" || o === "inherit" || o === "currentColor" || o === "initial" || o === "unset";
   }(e))
     return e;
-  if (function(a) {
-    return a.includes("--v-theme");
+  if (function(o) {
+    return o.includes("--v-theme");
   }(e))
     return `rgb(var(${e}))`;
-  const t = function(a, o) {
-    const v = o.global.current.value.colors;
-    return Object.entries(v).find(([d]) => d === a);
+  const t = function(o, r) {
+    const d = r.global.current.value.colors;
+    return Object.entries(d).find(([m]) => m === o);
   }(e, n);
-  return t ? `hsl(${at(t[1])})` : `hsl(${at(e)})`;
-}, hn = { default: "1.5em", large: "1.75em", small: "1.25em", "x-large": "2em", "x-small": "1em" }, pn = { fa: { bottom: "fas fa-grip", center: "fas fa-angles-right", top: "fas fa-grip" }, mdi: { bottom: "mdi:mdi-dots-grid", center: "mdi:mdi-chevron-double-right", top: "mdi:mdi-dots-grid" } }, gn = { key: 0, class: "v-resize-drawer--handle-slot" }, it = ut({ __name: "VResizeDrawer", props: Ot({ absolute: {}, expandOnHover: {}, floating: {}, handleBorderWidth: {}, handleColor: {}, handleIcon: {}, handleIconSize: {}, handlePosition: {}, height: {}, location: {}, maxWidth: {}, minWidth: {}, modelValue: {}, name: {}, rail: {}, railWidth: {}, resizable: { type: Boolean }, saveWidth: { type: Boolean }, storageName: {}, storageType: {}, tag: {}, temporary: {}, theme: {}, width: {}, widthSnapBack: { type: Boolean } }, { handleBorderWidth: 8, handleColor: "primary", handleIcon: void 0, handleIconSize: "x-small", handlePosition: "center", height: void 0, location: "start", maxWidth: "100%", minWidth: 56, modelValue: !0, name: _, rail: !1, railWidth: 8, resizable: !0, saveWidth: !0, storageName: `${_}-width`, storageType: "local", tag: "nav", theme: "light", width: 256, widthSnapBack: !0 }), emits: ["handle:click", "handle:dblclick", "handle:drag", "handle:mousedown", "handle:mouseup"], setup(e, { emit: n }) {
-  const t = e, a = g(() => t), o = re(Symbol.for("vuetify:icons")), v = Q(256), d = { mouseDown: !1, mouseUp: !0 }, s = Q(!1), l = Q(!1), h = Q(), i = Q(256), y = Rt(), E = _t();
-  Be(() => {
+  return t ? `hsl(${St(t[1])})` : `hsl(${St(e)})`;
+}, Gn = { default: "1.5em", large: "1.75em", small: "1.25em", "x-large": "2em", "x-small": "1em" }, jn = { fa: { bottom: "fas fa-grip", center: "fas fa-angles-right", top: "fas fa-grip" }, mdi: { bottom: "mdi:mdi-dots-grid", center: "mdi:mdi-chevron-double-right", top: "mdi:mdi-dots-grid" } }, _n = { key: 0, class: "v-resize-drawer--handle-slot" }, Dt = kt({ __name: "VResizeDrawer", props: nn({ absolute: {}, expandOnHover: {}, floating: {}, handleBorderWidth: {}, handleColor: {}, handleIcon: {}, handleIconSize: {}, handlePosition: {}, height: {}, location: {}, maxWidth: {}, minWidth: {}, modelValue: {}, name: {}, rail: {}, railWidth: {}, resizable: { type: Boolean }, saveWidth: { type: Boolean }, storageName: {}, storageType: {}, tag: {}, temporary: {}, touchless: { type: Boolean }, theme: {}, width: {}, widthSnapBack: { type: Boolean } }, { ...Rn }), emits: ["close", "drawer:mouseenter", "drawer:mouseleave", "handle:click", "handle:dblclick", "handle:drag", "handle:mousedown", "handle:mouseup", "handle:touchend", "handle:touchmove", "handle:touchstart", "update:modelValue"], setup(e, { emit: n }) {
+  const t = e, o = y(() => t), r = J(Symbol.for("vuetify:icons")), d = _(256), m = { mouseDown: !1, mouseUp: !0 }, u = _(!1), s = _(!1), g = _(), l = _(256), f = on(), k = ln(), S = sn();
+  Ae(() => {
     if (t.location !== "start" && t.location !== "end" && t.location !== "left" && t.location !== "right")
       throw new Error("VResizeDrawer: 'top' and 'bottom' locations are not supported.");
     (function() {
       if (t.rail)
-        return i.value = t.railWidth || void 0, !1;
-      const c = Pe(t.storageType, t.storageName), p = ve({ str: t.width });
-      i.value = p, v.value = i.value, t.saveWidth && c && !t.rail && (i.value = Pe(t.storageType, t.storageName)), function() {
-        const D = h.value;
-        if (D) {
-          const b = D.$el;
-          b.addEventListener("mouseenter", G, !1), b.addEventListener("mouseleave", se, !1);
-        }
-      }(), ze({ action: "update", rail: t.rail, resizedWidth: i.value, saveWidth: t.saveWidth, storageName: t.storageName, storageType: t.storageType });
+        return l.value = t.railWidth || void 0, !1;
+      const a = Ye(t.storageType, t.storageName), c = ie({ str: t.width });
+      l.value = c, d.value = l.value, t.saveWidth && a && !t.rail && (l.value = Ye(t.storageType, t.storageName)), Ge({ action: "update", rail: t.rail, resizedWidth: l.value, saveWidth: t.saveWidth, storageName: t.storageName, storageType: t.storageType });
     })();
-  }), Tt(() => {
-    (function() {
-      const c = h.value;
-      if (c) {
-        const p = c.$el;
-        p.addEventListener("mouseenter", G, !1), p.addEventListener("mouseleave", se, !1);
-      }
-      document.removeEventListener("mouseup", ue, !1), document.removeEventListener("mousemove", X, !1);
-    })();
+  }), an(() => {
+    document.removeEventListener("mouseup", v, !1), document.removeEventListener("mousemove", te, !1), document.removeEventListener("touchend", h, !1), document.removeEventListener("touchstart", de, !1);
+  }), U(() => t.modelValue, (a) => {
+    n("update:modelValue", a), a || n("close");
   });
-  const f = g(() => ((c) => {
-    const { absolute: p = !1, expandOnHover: D, floating: b, isMouseover: O, location: P, rail: I, railWidth: r, temporary: u } = c;
-    return { [`${_}`]: !0, "v-navigation-drawer--absolute": p ?? !1, "v-navigation-drawer--custom-rail": Number(r) !== 56, "v-navigation-drawer--fixed": !p, "v-navigation-drawer--floating": b, "v-navigation-drawer--is-mouseover": W(O), "v-navigation-drawer--left": P === "left" || P === "start" || P === void 0, "v-navigation-drawer--open-on-hover": D, "v-navigation-drawer--rail": I ?? !1, "v-navigation-drawer--right": P === "right" || P === "end", "v-navigation-drawer--temporary": u };
-  })({ absolute: t.absolute, expandOnHover: t.expandOnHover, floating: t.floating, isMouseover: s, location: t.location, rail: t.rail, railWidth: t.railWidth, temporary: t.temporary })), F = g(() => ((c) => {
-    const { isMouseDown: p, maxWidth: D, minWidth: b, rail: O, railWidth: P, resizedWidth: I, widthSnapBack: r } = c;
-    if (O)
-      return {};
-    let u = O ? P : W(I);
-    return r || (parseInt(u) >= parseInt(D) && (u = D), parseInt(u) <= parseInt(b) && (u = b)), { transitionDuration: W(p) ? "0s" : ".2s", width: ve({ str: u }) };
-  })({ isMouseDown: l, maxWidth: t.maxWidth, minWidth: t.minWidth, rail: t.rail, railWidth: t.railWidth, resizedWidth: i, widthSnapBack: t.widthSnapBack })), N = g(() => {
-    if (!t.rail)
-      return ve({ str: i.value });
-  }), j = g(() => ((c) => {
-    const { drawerLocation: p, handlePosition: D } = c;
-    return { [`${_}--handle-container`]: !0, [`${_}--handle-container-position-${D}`]: !0, [`${_}--handle-container-parent-${p}`]: !0 };
-  })({ drawerLocation: t.location, handlePosition: t.handlePosition })), q = g(() => ((c) => {
-    const { borderWidth: p, handleColor: D, iconSize: b, position: O, theme: P } = c;
-    if (O === "border")
-      return { backgroundColor: rt(D, P), height: "100%", width: ve({ str: p }) };
-    const I = hn[b];
-    return { backgroundColor: "transparent", height: I, width: I };
-  })({ borderWidth: t.handleBorderWidth, handleColor: t.handleColor, iconSize: t.handleIconSize, position: t.handlePosition, theme: E })), te = g(() => ((c) => {
-    const { color: p, theme: D } = c;
-    return { color: rt(p, D) };
-  })({ color: t.handleColor, theme: E })), pe = g(() => ((c) => {
-    const { drawerLocation: p, handlePosition: D, iconOptions: b, isUserIcon: O } = c;
-    return { [`${_}--handle-container-icon`]: !0, [`${_}--handle-container-icon-${D}-${p}`]: !0, [`${_}--handle-container-icon-user-icon`]: O, [`${_}--handle-container-icon-fa`]: (b == null ? void 0 : b.defaultSet) === "fa", [`${_}--handle-container-icon-fa-${D}`]: (b == null ? void 0 : b.defaultSet) === "fa" };
-  })({ drawerLocation: t.location, handlePosition: t.handlePosition, iconOptions: o, isUserIcon: t.handleIcon !== void 0 && t.handleIcon !== null })), le = g(() => ((p) => {
-    const { icon: D, iconOptions: b, position: O } = p;
+  const B = y(() => ((a) => {
+    const { absolute: c = !1, expandOnHover: i, floating: p, isMouseover: D, location: F, rail: E, railWidth: b, temporary: C } = a;
+    return { [`${P}`]: !0, "v-navigation-drawer--absolute": c ?? !1, "v-navigation-drawer--custom-rail": Number(b) !== 56, "v-navigation-drawer--fixed": !c, "v-navigation-drawer--floating": p, "v-navigation-drawer--is-mouseover": A(D), "v-navigation-drawer--left": F === "left" || F === "start" || F === void 0, "v-navigation-drawer--open-on-hover": i, "v-navigation-drawer--rail": E ?? !1, "v-navigation-drawer--right": F === "right" || F === "end", "v-navigation-drawer--temporary": C };
+  })({ absolute: t.absolute, expandOnHover: t.expandOnHover, floating: t.floating, isMouseover: u, location: t.location, rail: t.rail, railWidth: t.railWidth, temporary: t.temporary })), z = y(() => ((a) => {
+    const { isMouseDown: c, maxWidth: i, minWidth: p, rail: D, railWidth: F, resizedWidth: E, widthSnapBack: b } = a;
     if (D)
-      return D;
-    let I = (b == null ? void 0 : b.defaultSet).toLowerCase();
-    I = I === "fa" || I === "fasvg" ? "fa" : I;
-    const r = pn[I];
-    if (!r)
-      throw new Error(`VResizeDrawer: No default ${b == null ? void 0 : b.defaultSet} icon set found. Please set the icon prop.`);
-    const u = r[O];
-    if (!u)
+      return {};
+    let C = D ? F : A(E);
+    return b || (parseInt(C) >= parseInt(i) && (C = parseInt(i)), parseInt(C) <= parseInt(p) && (C = parseInt(p))), { transitionDuration: A(c) ? "0s" : ".2s", width: ie({ str: C }) };
+  })({ isMouseDown: s, maxWidth: ne.value, minWidth: H.value, rail: t.rail, railWidth: t.railWidth, resizedWidth: l, widthSnapBack: t.widthSnapBack })), V = y(() => {
+    if (!t.rail)
+      return ie({ str: l.value });
+  }), R = y(() => ((a) => {
+    const { drawerLocation: c, handlePosition: i } = a;
+    return { [`${P}--handle-container`]: !0, [`${P}--handle-container-position-${i}`]: !0, [`${P}--handle-container-parent-${c}`]: !0 };
+  })({ drawerLocation: t.location, handlePosition: t.handlePosition })), q = y(() => ((a) => {
+    const { borderWidth: c, handleColor: i, iconSize: p, position: D, theme: F } = a;
+    if (D === "border")
+      return { backgroundColor: Ct(i, F), height: "100%", width: ie({ str: c }) };
+    const E = Gn[p];
+    return { backgroundColor: "transparent", height: E, width: E };
+  })({ borderWidth: t.handleBorderWidth, handleColor: t.handleColor, iconSize: t.handleIconSize, position: t.handlePosition, theme: k })), ue = y(() => (!t.touchless || !S.mobile.value) && !(!t.resizable || t.rail)), ee = y(() => ((a) => {
+    const { color: c, theme: i } = a;
+    return { color: Ct(c, i) };
+  })({ color: t.handleColor, theme: k })), T = y(() => ((a) => {
+    const { drawerLocation: c, handlePosition: i, iconOptions: p, isUserIcon: D } = a;
+    return { [`${P}--handle-container-icon`]: !0, [`${P}--handle-container-icon-${i}-${c}`]: !0, [`${P}--handle-container-icon-user-icon`]: D, [`${P}--handle-container-icon-fa`]: (p == null ? void 0 : p.defaultSet) === "fa", [`${P}--handle-container-icon-fa-${i}`]: (p == null ? void 0 : p.defaultSet) === "fa" };
+  })({ drawerLocation: t.location, handlePosition: t.handlePosition, iconOptions: r, isUserIcon: t.handleIcon !== void 0 && t.handleIcon !== null })), ce = y(() => ((c) => {
+    const { icon: i, iconOptions: p, position: D } = c;
+    if (i)
+      return i;
+    let E = (p == null ? void 0 : p.defaultSet).toLowerCase();
+    E = E === "fa" || E === "fasvg" ? "fa" : E;
+    const b = jn[E];
+    if (!b)
+      throw new Error(`VResizeDrawer: No default ${p == null ? void 0 : p.defaultSet} icon set found. Please set the icon prop.`);
+    const C = b[D];
+    if (!C)
       throw new Error(`VResizeDrawer: No ${name} icon found. Please set the icon prop, or set the default icon set to 'mdi' or 'fa'`);
-    return u;
-  })({ icon: t.handleIcon, iconOptions: o, position: t.handlePosition }));
-  function G() {
-    s.value = !0;
+    return C;
+  })({ icon: t.handleIcon, iconOptions: r, position: t.handlePosition }));
+  function X() {
+    u.value = !0, n("drawer:mouseenter", u.value);
   }
-  function se() {
-    s.value = !1;
+  function ge() {
+    u.value = !1, n("drawer:mouseleave", u.value);
   }
-  function X(c) {
-    let p = c.clientX;
-    t.location !== "right" && t.location !== "end" || (p = document.body.scrollWidth - p), i.value = ve({ str: p }) || void 0, t.widthSnapBack || (i.value = ge(i.value)), document.body.style.cursor = "grabbing", J("handle:drag", c);
+  function fe(a, c) {
+    let i = c;
+    t.location !== "right" && t.location !== "end" || (i = document.body.scrollWidth - i), l.value = ie({ str: i }) || void 0, document.body.style.cursor = "grabbing", w("handle:touchmove", a), w("handle:drag", a);
   }
-  function ge(c) {
-    let p = Le(c);
-    const D = Le(t.maxWidth), b = Le(t.minWidth);
-    return p >= D && (p = D), b >= p && (p = b), p;
+  function ye(a) {
+    var c;
+    fe(a, ((c = a.touches[0]) == null ? void 0 : c.clientX) ?? 0);
   }
-  function We(c) {
-    J("handle:click", c);
+  function te(a) {
+    fe(a, a.clientX);
   }
-  function $e(c) {
-    i.value = v.value, ze({ rail: t.rail, resizedWidth: i.value, saveWidth: t.saveWidth, storageName: t.storageName, storageType: t.storageType }), J("handle:dblclick", c);
+  const ne = y(() => {
+    if (t.maxWidth === "100%")
+      return window.innerWidth;
+    if (String(t.maxWidth).includes("%")) {
+      const a = parseInt(String(t.maxWidth).replace("%", ""));
+      return window.innerWidth * a / 100;
+    }
+    return t.maxWidth;
+  }), H = y(() => {
+    if (t.minWidth === "100%")
+      return window.innerWidth;
+    if (String(t.minWidth).includes("%")) {
+      const a = parseInt(String(t.minWidth).replace("%", ""));
+      return window.innerWidth * a / 100;
+    }
+    return t.minWidth;
+  });
+  function we(a) {
+    let c = a;
+    parseInt(c) >= parseInt(ne.value) && (c = parseInt(ne.value)), parseInt(c) <= parseInt(H.value) && (c = parseInt(H.value)), typeof c == "number" && (c = Math.round(c));
+    let i = je(c);
+    const p = je(ne.value), D = je(H.value);
+    return i >= p && (i = p), D >= i && (i = D), i;
   }
-  function ye(c) {
-    c.preventDefault(), c.stopPropagation();
+  function Fe(a) {
+    w("handle:click", a);
+  }
+  function Pe(a) {
+    l.value = d.value, Ge({ rail: t.rail, resizedWidth: l.value, saveWidth: t.saveWidth, storageName: t.storageName, storageType: t.storageType }), w("handle:dblclick", a);
+  }
+  function be(a, c) {
+    a.preventDefault(), a.stopPropagation();
+    const i = a.type;
     let p = 25;
-    l.value = !0, t.handlePosition === "border" && (p = t.handleBorderWidth), d.mouseUp = !1, c.offsetX < p && document.addEventListener("mousemove", X, !1), d.mouseDown || (d.mouseDown = !0, document.addEventListener("mouseup", ue, !1), J("handle:mousedown", c));
+    s.value = !0, t.handlePosition === "border" && (p = t.handleBorderWidth), m.mouseUp = !1, c < p && (i === "touchstart" ? document.addEventListener("touchmove", ye, !1) : document.addEventListener("mousemove", te, !1)), m.mouseDown || (m.mouseDown = !0, i === "touchstart" ? (document.addEventListener("touchend", h, !1), w("handle:touchstart", a)) : (document.addEventListener("mouseup", v, !1), w("handle:mousedown", a)));
   }
-  function ue(c) {
-    c.preventDefault(), c.stopPropagation();
-    const p = h.value;
-    l.value = !1, d.mouseDown = !1, i.value = (p == null ? void 0 : p.width) ?? v.value, document.body.style.cursor = "", i.value = ge(i.value), i.value = ve({ str: i.value }) || void 0, ze({ rail: t.rail, resizedWidth: i.value, saveWidth: t.saveWidth, storageName: t.storageName, storageType: t.storageType }), d.mouseUp || (d.mouseUp = !0, document.removeEventListener("mouseup", ue, !1), document.removeEventListener("mousemove", X, !1), J("handle:mouseup", c));
+  function Ve(a) {
+    be(a, a.offsetX);
   }
-  function J(c, p) {
-    const D = { e: p, eventName: c, offsetWidth: i.value, resizedWidth: i.value, width: i.value };
-    n(c, D);
+  function de(a) {
+    var c;
+    be(a, ((c = a.touches[0]) == null ? void 0 : c.radiusX) ?? 0);
   }
-  return (c, p) => (Fe(), Ye(W(mn), Ee(W(a), { ref_key: "resizeDrawer", ref: h, class: W(f), location: t.location, "model-value": c.modelValue, name: t.name, style: W(F), tag: t.tag, theme: t.theme, width: W(N) }), { default: Gt(() => [t.resizable && !t.rail ? (Fe(), Ue("div", { key: 0, class: qe(W(j)), style: Xe(W(q)), onClick: We, onDblclick: $e, onMousedown: ye, onMouseup: ue }, [W(y).handle ? (Fe(), Ue("div", gn, [be(c.$slots, "handle")])) : c.handlePosition !== "border" ? (Fe(), Ye(rn, { key: 1, class: qe(["v-resize-drawer--handle-icon", W(pe)]), icon: W(le), size: c.handleIconSize, style: Xe(W(te)) }, null, 8, ["class", "icon", "size", "style"])) : Se("", !0)], 38)) : Se("", !0), W(y).prepend ? be(c.$slots, "prepend", { key: 1 }) : Se("", !0), be(c.$slots, "default"), W(y).append ? be(c.$slots, "append", { key: 2 }) : Se("", !0)]), _: 3 }, 16, ["class", "location", "model-value", "name", "style", "tag", "theme", "width"]));
+  function ve(a) {
+    a.preventDefault(), a.stopPropagation();
+    const c = a.type, i = g.value;
+    s.value = !1, m.mouseDown = !1, l.value = (i == null ? void 0 : i.width) ?? d.value, document.body.style.cursor = "", l.value.includes("-") && (l.value = H.value), l.value = we(l.value), l.value = ie({ str: l.value }) || void 0, Ge({ rail: t.rail, resizedWidth: l.value, saveWidth: t.saveWidth, storageName: t.storageName, storageType: t.storageType }), m.mouseUp || (m.mouseUp = !0, c === "touchend" ? (document.removeEventListener("touchend", h, !1), document.removeEventListener("touchmove", ye, !1), w("handle:touchend", a)) : (document.removeEventListener("mouseup", v, !1), document.removeEventListener("mousemove", te, !1), w("handle:mouseup", a)));
+  }
+  function v(a) {
+    ve(a);
+  }
+  function h(a) {
+    ve(a);
+  }
+  function w(a, c) {
+    const i = parseInt(we(l.value)) ?? 0, p = { e: c, eventName: a, offsetWidth: window.innerWidth - i + "px", resizedWidth: `${i}px`, width: `${i}px` };
+    n(a, p);
+  }
+  return (a, c) => (Ce(), Qe(A(On), Ie(A(o), { ref_key: "resizeDrawer", ref: g, class: A(B), location: t.location, "model-value": a.modelValue, name: t.name, style: A(z), tag: t.tag, theme: t.theme, width: A(V), onMouseenter: X, onMouseleave: ge }), { default: rn(() => [A(ue) ? (Ce(), et("div", { key: 0, class: tt(A(R)), style: nt(A(q)), onClick: Fe, onDblclick: Pe, onMousedown: Ve, onMouseup: v, onTouchend: h, onTouchstart: de }, [A(f).handle ? (Ce(), et("div", _n, [De(a.$slots, "handle")])) : a.handlePosition !== "border" ? (Ce(), Qe(In, { key: 1, class: tt(["v-resize-drawer--handle-icon", A(T)]), icon: A(ce), size: a.handleIconSize, style: nt(A(ee)) }, null, 8, ["class", "icon", "size", "style"])) : Be("", !0)], 38)) : Be("", !0), A(f).prepend ? De(a.$slots, "prepend", { key: 1 }) : Be("", !0), De(a.$slots, "default"), A(f).append ? De(a.$slots, "append", { key: 2 }) : Be("", !0)]), _: 3 }, 16, ["class", "location", "model-value", "name", "style", "tag", "theme", "width"]));
 } });
-it.install = (e) => {
-  e.component("VResizeDrawer", it);
+Dt.install = (e) => {
+  e.component("VResizeDrawer", Dt);
 };
 export {
-  it as default
+  Dt as default
 };
-(function(){"use strict";try{if(typeof document<"u"){var e=document.createElement("style");e.appendChild(document.createTextNode('.v-icon{--v-icon-size-multiplier: 1;align-items:center;display:inline-flex;font-feature-settings:"liga";height:1em;justify-content:center;letter-spacing:normal;line-height:1;position:relative;text-indent:0;user-select:none;vertical-align:middle;width:1em}.v-icon--clickable{cursor:pointer}.v-icon--size-x-small{font-size:calc(var(--v-icon-size-multiplier) * 1em)}.v-icon--size-small{font-size:calc(var(--v-icon-size-multiplier) * 1.25em)}.v-icon--size-default{font-size:calc(var(--v-icon-size-multiplier) * 1.5em)}.v-icon--size-large{font-size:calc(var(--v-icon-size-multiplier) * 1.75em)}.v-icon--size-x-large{font-size:calc(var(--v-icon-size-multiplier) * 2em)}.v-icon__svg{fill:currentColor;width:100%;height:100%}.v-icon--start{margin-inline-end:8px}.v-icon--end{margin-inline-start:8px}.v-navigation-drawer{-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;height:100%;max-width:100%;pointer-events:auto;transition-duration:.2s;transition-property:box-shadow,transform,visibility,width,height,left,right,top,bottom;transition-timing-function:cubic-bezier(.4,0,.2,1);will-change:transform;position:absolute;border-color:rgba(var(--v-border-color),var(--v-border-opacity));border-style:solid;border-width:0;box-shadow:0 0 0 0 var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, .2)),0 0 0 0 var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, .14)),0 0 0 0 var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, .12));background:rgb(var(--v-theme-surface));color:rgba(var(--v-theme-on-surface),var(--v-high-emphasis-opacity))}.v-navigation-drawer--border{border-width:thin;box-shadow:none}.v-navigation-drawer--rounded{border-radius:4px}.v-navigation-drawer--top{top:0;border-bottom-width:thin}.v-navigation-drawer--bottom{left:0;border-top-width:thin}.v-navigation-drawer--left{top:0;left:0;right:auto;border-right-width:thin}.v-navigation-drawer--right{top:0;left:auto;right:0;border-left-width:thin}.v-navigation-drawer--floating{border:none}.v-navigation-drawer--temporary{box-shadow:0 8px 10px -5px var(--v-shadow-key-umbra-opacity, rgba(0, 0, 0, .2)),0 16px 24px 2px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, .14)),0 6px 30px 5px var(--v-shadow-key-penumbra-opacity, rgba(0, 0, 0, .12))}.v-navigation-drawer--sticky{height:auto;transition:box-shadow,transform,visibility,width,height,left,right}.v-navigation-drawer .v-list{overflow:hidden}.v-navigation-drawer__content{flex:0 1 auto;height:100%;max-width:100%;overflow-x:hidden;overflow-y:auto}.v-navigation-drawer__img{height:100%;left:0;position:absolute;top:0;width:100%;z-index:-1}.v-navigation-drawer__img img{height:inherit;object-fit:cover;width:inherit}.v-navigation-drawer__scrim{position:absolute;top:0;left:0;width:100%;height:100%;background:black;opacity:.2;transition:opacity .2s cubic-bezier(.4,0,.2,1);z-index:1}.v-resize-drawer--handle-container{cursor:grab;align-items:center;display:flex;justify-content:center;position:absolute;z-index:1}.v-resize-drawer--handle-container-icon-parent-end,.v-resize-drawer--handle-container-icon-parent-right{left:initial;right:0}.v-resize-drawer--handle-container-icon-center-end,.v-resize-drawer--handle-container-icon-center-right{transform:rotate(180deg)}.v-resize-drawer--handle-container-icon-user-icon{transform:none}.v-resize-drawer--handle-container-icon-fa{font-size:.7rem!important}.v-resize-drawer--handle-container-parent-left,.v-resize-drawer--handle-container-parent-start,.v-resize-drawer--handle-container-parent-undefined{right:0}.v-resize-drawer--handle-container-parent-end,.v-resize-drawer--handle-container-parent-right{left:0}.v-resize-drawer--handle-container-position-top{top:0}.v-resize-drawer--handle-container-position-center{top:50%;transform:translateY(-50%)}.v-resize-drawer--handle-container-position-bottom{bottom:0}.v-resize-drawer--handle-container-position-border{cursor:col-resize;height:100%;top:0;width:8px}')),document.head.appendChild(e)}}catch(i){console.error("vite-plugin-css-injected-by-js",i)}})();
+(function(){"use strict";try{if(typeof document<"u"){var n=document.createElement("style");n.appendChild(document.createTextNode(".v-resize-drawer{container-type:inline-size;container-name:v-resize-drawer}.v-resize-drawer--handle-container{cursor:grab;align-items:center;display:flex;justify-content:center;position:absolute;z-index:1}.v-resize-drawer--handle-container-icon-parent-end,.v-resize-drawer--handle-container-icon-parent-right{left:initial;right:0}.v-resize-drawer--handle-container-icon-center-end,.v-resize-drawer--handle-container-icon-center-right{transform:rotate(180deg)}.v-resize-drawer--handle-container-icon-user-icon{transform:none}.v-resize-drawer--handle-container-icon-fa{font-size:.7rem!important}.v-resize-drawer--handle-container-parent-left,.v-resize-drawer--handle-container-parent-start,.v-resize-drawer--handle-container-parent-undefined{right:0}.v-resize-drawer--handle-container-parent-end,.v-resize-drawer--handle-container-parent-right{left:0}.v-resize-drawer--handle-container-position-top{top:0}.v-resize-drawer--handle-container-position-center{top:50%;transform:translateY(-50%)}.v-resize-drawer--handle-container-position-bottom{bottom:0}.v-resize-drawer--handle-container-position-border{cursor:col-resize;height:100%;top:0;width:8px}@container v-resize-drawer (width > 0) and (max-width: 599.98px){.v-col-xs-12{flex:0 0 100%!important;max-width:100%!important;flex-basis:0;flex-grow:1;max-width:100%}}@container v-resize-drawer (min-width: 600px){.v-col-sm-1{flex:0 0 8.3333333333%;max-width:8.3333333333%}.v-col-sm-2{flex:0 0 16.6666666667%;max-width:16.6666666667%}.v-col-sm-3{flex:0 0 25%;max-width:25%}.v-col-sm-4{flex:0 0 33.3333333333%;max-width:33.3333333333%}.v-col-sm-5{flex:0 0 41.6666666667%;max-width:41.6666666667%}.v-col-sm-6{flex:0 0 50%;max-width:50%}.v-col-sm-7{flex:0 0 58.3333333333%;max-width:58.3333333333%}.v-col-sm-8{flex:0 0 66.6666666667%;max-width:66.6666666667%}.v-col-sm-9{flex:0 0 75%;max-width:75%}.v-col-sm-10{flex:0 0 83.3333333333%;max-width:83.3333333333%}.v-col-sm-11{flex:0 0 91.6666666667%;max-width:91.6666666667%}.v-col-sm-12{flex:0 0 100%;max-width:100%}}@container v-resize-drawer (min-width: 960px){.v-col-md-1{flex:0 0 8.3333333333%;max-width:8.3333333333%}.v-col-md-2{flex:0 0 16.6666666667%;max-width:16.6666666667%}.v-col-md-3{flex:0 0 25%;max-width:25%}.v-col-md-4{flex:0 0 33.3333333333%;max-width:33.3333333333%}.v-col-md-5{flex:0 0 41.6666666667%;max-width:41.6666666667%}.v-col-md-6{flex:0 0 50%;max-width:50%}.v-col-md-7{flex:0 0 58.3333333333%;max-width:58.3333333333%}.v-col-md-8{flex:0 0 66.6666666667%;max-width:66.6666666667%}.v-col-md-9{flex:0 0 75%;max-width:75%}.v-col-md-10{flex:0 0 83.3333333333%;max-width:83.3333333333%}.v-col-md-11{flex:0 0 91.6666666667%;max-width:91.6666666667%}.v-col-md-12{flex:0 0 100%;max-width:100%}}@container v-resize-drawer (min-width: 1280px){.v-col-lg-1{flex:0 0 8.3333333333%;max-width:8.3333333333%}.v-col-lg-2{flex:0 0 16.6666666667%;max-width:16.6666666667%}.v-col-lg-3{flex:0 0 25%;max-width:25%}.v-col-lg-4{flex:0 0 33.3333333333%;max-width:33.3333333333%}.v-col-lg-5{flex:0 0 41.6666666667%;max-width:41.6666666667%}.v-col-lg-6{flex:0 0 50%;max-width:50%}.v-col-lg-7{flex:0 0 58.3333333333%;max-width:58.3333333333%}.v-col-lg-8{flex:0 0 66.6666666667%;max-width:66.6666666667%}.v-col-lg-9{flex:0 0 75%;max-width:75%}.v-col-lg-10{flex:0 0 83.3333333333%;max-width:83.3333333333%}.v-col-lg-11{flex:0 0 91.6666666667%;max-width:91.6666666667%}.v-col-lg-12{flex:0 0 100%;max-width:100%}}@container v-resize-drawer (min-width: 1920px){.v-col-xl-1{flex:0 0 8.3333333333%;max-width:8.3333333333%}.v-col-xl-2{flex:0 0 16.6666666667%;max-width:16.6666666667%}.v-col-xl-3{flex:0 0 25%;max-width:25%}.v-col-xl-4{flex:0 0 33.3333333333%;max-width:33.3333333333%}.v-col-xl-5{flex:0 0 41.6666666667%;max-width:41.6666666667%}.v-col-xl-6{flex:0 0 50%;max-width:50%}.v-col-xl-7{flex:0 0 58.3333333333%;max-width:58.3333333333%}.v-col-xl-8{flex:0 0 66.6666666667%;max-width:66.6666666667%}.v-col-xl-9{flex:0 0 75%;max-width:75%}.v-col-xl-10{flex:0 0 83.3333333333%;max-width:83.3333333333%}.v-col-xl-11{flex:0 0 91.6666666667%;max-width:91.6666666667%}.v-col-xl-12{flex:0 0 100%;max-width:100%}}@container v-resize-drawer (min-width: 2560px){.v-col-xxl-1{flex:0 0 8.3333333333%;max-width:8.3333333333%}.v-col-xxl-2{flex:0 0 16.6666666667%;max-width:16.6666666667%}.v-col-xxl-3{flex:0 0 25%;max-width:25%}.v-col-xxl-4{flex:0 0 33.3333333333%;max-width:33.3333333333%}.v-col-xxl-5{flex:0 0 41.6666666667%;max-width:41.6666666667%}.v-col-xxl-6{flex:0 0 50%;max-width:50%}.v-col-xxl-7{flex:0 0 58.3333333333%;max-width:58.3333333333%}.v-col-xxl-8{flex:0 0 66.6666666667%;max-width:66.6666666667%}.v-col-xxl-9{flex:0 0 75%;max-width:75%}.v-col-xxl-10{flex:0 0 83.3333333333%;max-width:83.3333333333%}.v-col-xxl-11{flex:0 0 91.6666666667%;max-width:91.6666666667%}.v-col-xxl-12{flex:0 0 100%;max-width:100%}}@container v-resize-drawer only print{.hidden-print-only{display:none!important}}@container v-resize-drawer only print{.d-print-only-none{display:none!important}.d-print-only-inline{display:inline!important}.d-print-only-inline-block{display:inline-block!important}.d-print-only-block{display:block!important}.d-print-only-table{display:table!important}.d-print-only-table-row{display:table-row!important}.d-print-only-table-cell{display:table-cell!important}.d-print-only-flex{display:flex!important}.d-print-only-inline-flex{display:inline-flex!important}}@container v-resize-drawer only screen{.hidden-screen-only{display:none!important}}@container v-resize-drawer only screen{.d-screen-only-none{display:none!important}.d-screen-only-inline{display:inline!important}.d-screen-only-inline-block{display:inline-block!important}.d-screen-only-block{display:block!important}.d-screen-only-table{display:table!important}.d-screen-only-table-row{display:table-row!important}.d-screen-only-table-cell{display:table-cell!important}.d-screen-only-flex{display:flex!important}.d-screen-only-inline-flex{display:inline-flex!important}}@container v-resize-drawer (max-width: 599.98px){.hidden-xs{display:none!important}}@container v-resize-drawer (max-width: 599.98px){.d-xs-none{display:none!important}.d-xs-inline{display:inline!important}.d-xs-inline-block{display:inline-block!important}.d-xs-block{display:block!important}.d-xs-table{display:table!important}.d-xs-table-row{display:table-row!important}.d-xs-table-cell{display:table-cell!important}.d-xs-flex{display:flex!important}.d-xs-inline-flex{display:inline-flex!important}}@container v-resize-drawer (min-width: 600px) and (max-width: 959.98px){.hidden-sm{display:none!important}}@container v-resize-drawer (min-width: 600px) and (max-width: 959.98px){.d-sm-none{display:none!important}.d-sm-inline{display:inline!important}.d-sm-inline-block{display:inline-block!important}.d-sm-block{display:block!important}.d-sm-table{display:table!important}.d-sm-table-row{display:table-row!important}.d-sm-table-cell{display:table-cell!important}.d-sm-flex{display:flex!important}.d-sm-inline-flex{display:inline-flex!important}}@container v-resize-drawer (min-width: 960px) and (max-width: 1279.98px){.hidden-md{display:none!important}}@container v-resize-drawer (min-width: 960px) and (max-width: 1279.98px){.d-md-none{display:none!important}.d-md-inline{display:inline!important}.d-md-inline-block{display:inline-block!important}.d-md-block{display:block!important}.d-md-table{display:table!important}.d-md-table-row{display:table-row!important}.d-md-table-cell{display:table-cell!important}.d-md-flex{display:flex!important}.d-md-inline-flex{display:inline-flex!important}}@container v-resize-drawer (min-width: 1280px) and (max-width: 1919.98px){.hidden-lg{display:none!important}}@container v-resize-drawer (min-width: 1280px) and (max-width: 1919.98px){.d-lg-none{display:none!important}.d-lg-inline{display:inline!important}.d-lg-inline-block{display:inline-block!important}.d-lg-block{display:block!important}.d-lg-table{display:table!important}.d-lg-table-row{display:table-row!important}.d-lg-table-cell{display:table-cell!important}.d-lg-flex{display:flex!important}.d-lg-inline-flex{display:inline-flex!important}}@container v-resize-drawer (min-width: 1920px) and (max-width: 2559.98px){.hidden-xl{display:none!important}}@container v-resize-drawer (min-width: 1920px) and (max-width: 2559.98px){.d-xl-none{display:none!important}.d-xl-inline{display:inline!important}.d-xl-inline-block{display:inline-block!important}.d-xl-block{display:block!important}.d-xl-table{display:table!important}.d-xl-table-row{display:table-row!important}.d-xl-table-cell{display:table-cell!important}.d-xl-flex{display:flex!important}.d-xl-inline-flex{display:inline-flex!important}}@container v-resize-drawer (min-width: 2560px){.hidden-xxl{display:none!important}}@container v-resize-drawer (min-width: 2560px){.d-xxl-none{display:none!important}.d-xxl-inline{display:inline!important}.d-xxl-inline-block{display:inline-block!important}.d-xxl-block{display:block!important}.d-xxl-table{display:table!important}.d-xxl-table-row{display:table-row!important}.d-xxl-table-cell{display:table-cell!important}.d-xxl-flex{display:flex!important}.d-xxl-inline-flex{display:inline-flex!important}}@container v-resize-drawer (min-width: 600px){.hidden-sm-and-up{display:none!important}}@container v-resize-drawer (min-width: 600px){.d-sm-and-up-none{display:none!important}.d-sm-and-up-inline{display:inline!important}.d-sm-and-up-inline-block{display:inline-block!important}.d-sm-and-up-block{display:block!important}.d-sm-and-up-table{display:table!important}.d-sm-and-up-table-row{display:table-row!important}.d-sm-and-up-table-cell{display:table-cell!important}.d-sm-and-up-flex{display:flex!important}.d-sm-and-up-inline-flex{display:inline-flex!important}}@container v-resize-drawer (min-width: 960px){.hidden-md-and-up{display:none!important}}@container v-resize-drawer (min-width: 960px){.d-md-and-up-none{display:none!important}.d-md-and-up-inline{display:inline!important}.d-md-and-up-inline-block{display:inline-block!important}.d-md-and-up-block{display:block!important}.d-md-and-up-table{display:table!important}.d-md-and-up-table-row{display:table-row!important}.d-md-and-up-table-cell{display:table-cell!important}.d-md-and-up-flex{display:flex!important}.d-md-and-up-inline-flex{display:inline-flex!important}}@container v-resize-drawer (min-width: 1280px){.hidden-lg-and-up{display:none!important}}@container v-resize-drawer (min-width: 1280px){.d-lg-and-up-none{display:none!important}.d-lg-and-up-inline{display:inline!important}.d-lg-and-up-inline-block{display:inline-block!important}.d-lg-and-up-block{display:block!important}.d-lg-and-up-table{display:table!important}.d-lg-and-up-table-row{display:table-row!important}.d-lg-and-up-table-cell{display:table-cell!important}.d-lg-and-up-flex{display:flex!important}.d-lg-and-up-inline-flex{display:inline-flex!important}}@container v-resize-drawer (min-width: 1920px){.hidden-xl-and-up{display:none!important}}@container v-resize-drawer (min-width: 1920px){.d-xl-and-up-none{display:none!important}.d-xl-and-up-inline{display:inline!important}.d-xl-and-up-inline-block{display:inline-block!important}.d-xl-and-up-block{display:block!important}.d-xl-and-up-table{display:table!important}.d-xl-and-up-table-row{display:table-row!important}.d-xl-and-up-table-cell{display:table-cell!important}.d-xl-and-up-flex{display:flex!important}.d-xl-and-up-inline-flex{display:inline-flex!important}}@container v-resize-drawer (max-width: 959.98px){.hidden-sm-and-down{display:none!important}}@container v-resize-drawer (max-width: 959.98px){.d-sm-and-down-none{display:none!important}.d-sm-and-down-inline{display:inline!important}.d-sm-and-down-inline-block{display:inline-block!important}.d-sm-and-down-block{display:block!important}.d-sm-and-down-table{display:table!important}.d-sm-and-down-table-row{display:table-row!important}.d-sm-and-down-table-cell{display:table-cell!important}.d-sm-and-down-flex{display:flex!important}.d-sm-and-down-inline-flex{display:inline-flex!important}}@container v-resize-drawer (max-width: 1279.98px){.hidden-md-and-down{display:none!important}}@container v-resize-drawer (max-width: 1279.98px){.d-md-and-down-none{display:none!important}.d-md-and-down-inline{display:inline!important}.d-md-and-down-inline-block{display:inline-block!important}.d-md-and-down-block{display:block!important}.d-md-and-down-table{display:table!important}.d-md-and-down-table-row{display:table-row!important}.d-md-and-down-table-cell{display:table-cell!important}.d-md-and-down-flex{display:flex!important}.d-md-and-down-inline-flex{display:inline-flex!important}}@container v-resize-drawer (max-width: 1919.98px){.hidden-lg-and-down{display:none!important}}@container v-resize-drawer (max-width: 1919.98px){.d-lg-and-down-none{display:none!important}.d-lg-and-down-inline{display:inline!important}.d-lg-and-down-inline-block{display:inline-block!important}.d-lg-and-down-block{display:block!important}.d-lg-and-down-table{display:table!important}.d-lg-and-down-table-row{display:table-row!important}.d-lg-and-down-table-cell{display:table-cell!important}.d-lg-and-down-flex{display:flex!important}.d-lg-and-down-inline-flex{display:inline-flex!important}}@container v-resize-drawer (max-width: 2559.98px){.hidden-xl-and-down{display:none!important}}@container v-resize-drawer (max-width: 2559.98px){.d-xl-and-down-none{display:none!important}.d-xl-and-down-inline{display:inline!important}.d-xl-and-down-inline-block{display:inline-block!important}.d-xl-and-down-block{display:block!important}.d-xl-and-down-table{display:table!important}.d-xl-and-down-table-row{display:table-row!important}.d-xl-and-down-table-cell{display:table-cell!important}.d-xl-and-down-flex{display:flex!important}.d-xl-and-down-inline-flex{display:inline-flex!important}}")),document.head.appendChild(n)}}catch(i){console.error("vite-plugin-css-injected-by-js",i)}})();

@@ -39,13 +39,17 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: globalThis.PropType<boolean>;
         default: boolean | undefined;
     };
+    touchless: {
+        type: globalThis.PropType<boolean>;
+        default: boolean | undefined;
+    };
     width: {
         type: globalThis.PropType<string | number>;
         default: string | number | undefined;
     };
     location: {
         type: globalThis.PropType<"end" | "start" | "left" | "right">;
-        default: import('../../src/types').DrawerLocations;
+        default: import('../types').DrawerLocations;
     };
     storageName: {
         type: globalThis.PropType<string>;
@@ -56,8 +60,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         default: boolean | undefined;
     };
     handlePosition: {
-        type: globalThis.PropType<import('../../src/types').HandlePositions>;
-        default: import('../../src/types').HandlePositions | undefined;
+        type: globalThis.PropType<import('../types').HandlePositions>;
+        default: import('../types').HandlePositions | undefined;
     };
     maxWidth: {
         type: globalThis.PropType<string | number>;
@@ -84,8 +88,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         default: string | undefined;
     };
     storageType: {
-        type: globalThis.PropType<import('../../src/types').StorageType>;
-        default: import('../../src/types').StorageType | undefined;
+        type: globalThis.PropType<import('../types').StorageType>;
+        default: import('../types').StorageType | undefined;
     };
     height: {
         type: globalThis.PropType<string | number>;
@@ -99,7 +103,20 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: globalThis.PropType<boolean>;
         default: boolean | undefined;
     };
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("handle:click" | "handle:dblclick" | "handle:drag" | "handle:mousedown" | "handle:mouseup")[], "handle:click" | "handle:dblclick" | "handle:drag" | "handle:mousedown" | "handle:mouseup", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
+    "handle:click": (...args: any[]) => void;
+    "handle:dblclick": (...args: any[]) => void;
+    "handle:drag": (...args: any[]) => void;
+    "handle:mousedown": (...args: any[]) => void;
+    "handle:mouseup": (...args: any[]) => void;
+    "handle:touchend": (...args: any[]) => void;
+    "handle:touchmove": (...args: any[]) => void;
+    "handle:touchstart": (...args: any[]) => void;
+    close: (...args: any[]) => void;
+    "drawer:mouseenter": (...args: any[]) => void;
+    "drawer:mouseleave": (...args: any[]) => void;
+    "update:modelValue": (...args: any[]) => void;
+}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     theme: {
         type: globalThis.PropType<string>;
         default: string | undefined;
@@ -140,13 +157,17 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: globalThis.PropType<boolean>;
         default: boolean | undefined;
     };
+    touchless: {
+        type: globalThis.PropType<boolean>;
+        default: boolean | undefined;
+    };
     width: {
         type: globalThis.PropType<string | number>;
         default: string | number | undefined;
     };
     location: {
         type: globalThis.PropType<"end" | "start" | "left" | "right">;
-        default: import('../../src/types').DrawerLocations;
+        default: import('../types').DrawerLocations;
     };
     storageName: {
         type: globalThis.PropType<string>;
@@ -157,8 +178,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         default: boolean | undefined;
     };
     handlePosition: {
-        type: globalThis.PropType<import('../../src/types').HandlePositions>;
-        default: import('../../src/types').HandlePositions | undefined;
+        type: globalThis.PropType<import('../types').HandlePositions>;
+        default: import('../types').HandlePositions | undefined;
     };
     maxWidth: {
         type: globalThis.PropType<string | number>;
@@ -185,8 +206,8 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         default: string | undefined;
     };
     storageType: {
-        type: globalThis.PropType<import('../../src/types').StorageType>;
-        default: import('../../src/types').StorageType | undefined;
+        type: globalThis.PropType<import('../types').StorageType>;
+        default: import('../types').StorageType | undefined;
     };
     height: {
         type: globalThis.PropType<string | number>;
@@ -206,6 +227,13 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
     "onHandle:drag"?: ((...args: any[]) => any) | undefined;
     "onHandle:mousedown"?: ((...args: any[]) => any) | undefined;
     "onHandle:mouseup"?: ((...args: any[]) => any) | undefined;
+    "onHandle:touchend"?: ((...args: any[]) => any) | undefined;
+    "onHandle:touchmove"?: ((...args: any[]) => any) | undefined;
+    "onHandle:touchstart"?: ((...args: any[]) => any) | undefined;
+    onClose?: ((...args: any[]) => any) | undefined;
+    "onDrawer:mouseenter"?: ((...args: any[]) => any) | undefined;
+    "onDrawer:mouseleave"?: ((...args: any[]) => any) | undefined;
+    "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
 }, {
     theme: string;
     tag: string;
@@ -217,18 +245,19 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
     rail: boolean | null;
     railWidth: string | number;
     temporary: boolean;
+    touchless: boolean;
     width: string | number;
     location: "end" | "start" | "left" | "right";
     storageName: string;
     saveWidth: boolean;
-    handlePosition: import('../../src/types').HandlePositions;
+    handlePosition: import('../types').HandlePositions;
     maxWidth: string | number;
     minWidth: string | number;
     widthSnapBack: boolean;
     handleBorderWidth: string | number;
     handleColor: string;
     handleIconSize: string;
-    storageType: import('../../src/types').StorageType;
+    storageType: import('../types').StorageType;
     height: string | number;
     handleIcon: string;
     resizable: boolean;

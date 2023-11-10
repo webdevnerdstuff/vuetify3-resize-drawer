@@ -59,13 +59,20 @@
 
 		<v-col cols="12">
 			<v-alert color="primary">
-				Alternatively you can test out the component on the
+				Alternatively you can test out the component on the Vuetify Playground
 				<v-btn
-					class="ms-1"
+					class="ms-1 me-1"
 					:href="links.vuetifyPlayground"
 					target="blank"
 					variant="outlined"
-				>Vuetify Playground</v-btn>
+				>Drawer Example</v-btn>
+
+				<v-btn
+					class="ms-1"
+					:href="links.vuetifyPlaygroundGrid"
+					target="blank"
+					variant="outlined"
+				>Grid System Example</v-btn>
 			</v-alert>
 		</v-col>
 	</v-row>
