@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to the "vuetify3-resize-drawer" plugin will be documented in this file.
 
+## v2.1.1
+10-02-2023
+[main] (@webdevnerdstuff)
+* Fix build config to exclude Vuetify styles from being included in the build
+
 ## v2.1.0
 08-24-2023
 [main] (@webdevnerdstuff)
