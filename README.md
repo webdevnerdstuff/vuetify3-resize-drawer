@@ -4,12 +4,12 @@
 </p>
 
 <p>
-  <h1 align="center">Vuetify 3 Resize Drawer</h1>
+  <h1 align="center">Vuetify 3 Resize Drawer (Depreciated)</h1>
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/vuetify3-resize-drawer">
-    <img src="https://img.shields.io/npm/v/vuetify3-resize-drawer?color=1867c0&logo=npm" alt="NPM Package">
+  <a href="https://www.npmjs.com/package/@wdns/vuetify-resize-drawer">
+    <img src="https://img.shields.io/npm/v/@wdns/vuetify-resize-drawer?color=1867c0&logo=npm" alt="NPM Package">
   </a>
   &nbsp;
   <a href="https://github.com/webdevnerdstuff/vuetify3-resize-drawer">
@@ -18,31 +18,20 @@
 </p>
 
 
+## Important Information
+
+This repository and npm package has been depreciated and moved to the WebDevNerdStuff org @wdns. 
+
+You can find the new repository here:  
+[https://github.com/webdevnerdstuff/vuetify-resize-drawer](https://github.com/webdevnerdstuff/vuetify-resize-drawer)  
+  
+You can find the new NPM package here:  
+[https://www.npmjs.com/package/@wdns/vuetify-resize-drawer](https://www.npmjs.com/package/@wdns/vuetify-resize-drawer)
+
+
 ## Description
 
-The `vuetify3-resize-drawer` component extends the functionality of the [v-navigation-drawer](https://vuetifyjs.com/en/components/navigation-drawers/) so that it is resizable by the user. Component is for Vuetify v3. Component for Vuetify v2 version can be found [here](https://github.com/webdevnerdstuff/vuetify-resize-drawer).
-
-
-## Installation
- 
-Using [pnpm](https://pnpm.io/):
-```
-pnpm add vuetify3-resize-drawer
-```
-
-Using npm:
-```
-npm i vuetify3-resize-drawer
-```
- 
-## Documentation
- 
-[Documentation & Demo](https://webdevnerdstuff.github.io/vuetify3-resize-drawer/)
-
-## Dependencies
- 
-[Vuetify v3](https://vuetifyjs.com/)  
-[Vue 3](https://vuejs.org/)
+The `vuetify-resize-drawer` component extends the functionality of the [v-navigation-drawer](https://vuetifyjs.com/en/components/navigation-drawers/) so that it is resizable by the user.
 
 
 ## Change Log
